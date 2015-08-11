@@ -51,7 +51,7 @@
                         </div>
                         <div class="mail-box">
                             <div class="mail-body">
-                                <form id="compose_message_form" action="/index.php/messages/send" class="form-horizontal"
+                                <form id="compose_message_form" action="/CAD/index.php/messages/send" class="form-horizontal"
                                       method="POST">
                                     <div class="form-group"><label class="col-sm-2 control-label">To:</label>
 
