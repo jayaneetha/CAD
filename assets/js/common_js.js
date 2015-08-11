@@ -10,7 +10,7 @@ var check_mail = function () {
     $.ajax({
         type: "GET",
         dataType: 'html',
-        url: "/messages/get_inbox_count/",
+        url: "/index.php/messages/get_inbox_count/",
         success: function (data) {
             if(data=='error'){
                 $('#inbox-count').replaceWith("");
@@ -22,7 +22,7 @@ var check_mail = function () {
     $.ajax({
         type: "GET",
         dataType: 'html',
-        url: "/messages/notification/",
+        url: "/index.php/messages/notification/",
         success: function (data) {
             $('#mail-notification').replaceWith(data);
         }
