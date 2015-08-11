@@ -36,6 +36,7 @@ class messages extends CI_Controller
             $body = $this->input->post('body');
 
             foreach ($to as $receiver) {
+                echo $receiver;
                 $this->send_individual_message($from, $receiver, $subject, $body);
             }
 
