@@ -35,7 +35,7 @@
             </div>
         <?php endif; ?>
 
-        <form id="login_form" class="m-t" role="form" action="/users/login" method="POST">
+        <form id="login_form" class="m-t" role="form" action="<?php echo base_url(); ?>users/login" method="POST">
             <div class="form-group">
                 <input name="username" type="text" class="form-control" placeholder="Username">
             </div>
