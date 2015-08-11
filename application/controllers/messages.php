@@ -62,7 +62,7 @@ class messages extends CI_Controller
         $this->email->to($to);
 
         $this->email->subject($subject);
-        $this->email->message($body);
+        $this->email->message($this->load->view('email_templates/action','',true));
 
         echo $this->email->send();
 
