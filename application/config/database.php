@@ -47,12 +47,13 @@
 
 $active_group = 'default';
 $active_record = TRUE;
+//mysql://ba3c63fdc5533f:a24da439@us-cdbr-iron-east-02.cleardb.net/heroku_859a8699216795c?reconnect=true
 
-$db['default']['hostname'] = 'ec2-54-197-230-210.compute-1.amazonaws.com';
-$db['default']['username'] = 'hwarbktyjhfnwh';
-$db['default']['password'] = 'sueV0trijMHUNm7bSnZ3dE6its';
-$db['default']['database'] = 'd8ti9hip76phro';
-$db['default']['dbdriver'] = 'postgre';
+$db['default']['hostname'] = 'us-cdbr-iron-east-02.cleardb.net';
+$db['default']['username'] = 'ba3c63fdc5533f';
+$db['default']['password'] = 'a24da439';
+$db['default']['database'] = 'heroku_859a8699216795c';
+$db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = 'cad_';
 $db['default']['pconnect'] = TRUE;
 $db['default']['db_debug'] = TRUE;
