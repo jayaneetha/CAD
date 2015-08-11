@@ -48,11 +48,11 @@
 $active_group = 'default';
 $active_record = TRUE;
 
-$db['default']['hostname'] = '127.0.0.1:3306';
-$db['default']['username'] = 'root';
-$db['default']['password'] = 'root';
-$db['default']['database'] = 'IMCD_CAD';
-$db['default']['dbdriver'] = 'mysql';
+$db['default']['hostname'] = 'localhost';
+$db['default']['username'] = 'brightron_test';
+$db['default']['password'] = '7p9aAUSSRE';
+$db['default']['database'] = 'brightron_testing';
+$db['default']['dbdriver'] = 'mysqli';
 $db['default']['dbprefix'] = 'cad_';
 $db['default']['pconnect'] = TRUE;
 $db['default']['db_debug'] = TRUE;
