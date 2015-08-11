@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://testing.brightron.net/CAD/';
+$config['base_url']	= '';
 
 /*
 |--------------------------------------------------------------------------
