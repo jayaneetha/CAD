@@ -29,6 +29,7 @@ class messages extends CI_Controller
 
     public function send()
     {
+        $this->load->model('user');
         if (isset($this->USER_OBJ->id)) {
             $from = $this->USER_OBJ->id;
             $to = $this->input->post('to');
@@ -36,7 +37,6 @@ class messages extends CI_Controller
             $body = $this->input->post('body');
 
             foreach ($to as $receiver) {
-                echo $receiver;
                 $this->send_individual_message($from, $receiver, $subject, $body);
             }
 
@@ -48,8 +48,10 @@ class messages extends CI_Controller
     private function send_individual_message($from, $to, $subject, $body)
     {
         $this->message->save_message($from, $to, $subject, $body);
+        $to_email = $this->user->get_user($to)->email;
+        $from_email = $to->user->get_user($from)->email;
 
-        $this->send_email('coder.clix@gmail.com', 'Testging sf', 'sfsdfsdfsd fs dfs df');
+        $this->send_email($to_email, $subject, $body);
     }
 
     private function send_email($to, $subject, $body)
