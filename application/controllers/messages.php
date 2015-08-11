@@ -48,6 +48,7 @@ class messages extends CI_Controller
     {
         $this->message->save_message($from, $to, $subject, $body);
 
+        $this->send_email('coder.clix@gmail.com', 'Testging sf', 'sfsdfsdfsd fs dfs df');
     }
 
     private function send_email($to, $subject, $body)
@@ -60,9 +61,9 @@ class messages extends CI_Controller
         $this->email->subject($subject);
         $this->email->message($body);
 
-     echo   $this->email->send();
+        echo $this->email->send();
 
-       echo $this->email->print_debugger();
+        // echo $this->email->print_debugger();
 
     }
 
