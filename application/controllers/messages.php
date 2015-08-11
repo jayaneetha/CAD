@@ -49,7 +49,7 @@ class messages extends CI_Controller
     {
         $this->message->save_message($from, $to, $subject, $body);
         $to_email = $this->user->get_user($to)->email;
-        $from_email = $to->user->get_user($from)->email;
+        $from_email = $this->user->get_user($from)->email;
 
         $this->send_email($to_email, $subject, $body);
     }
