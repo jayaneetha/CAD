@@ -1,8 +1,9 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Actionable emails e.g. reset password</title>
     <style type="text/css">
         /* -------------------------------------
@@ -89,9 +90,11 @@
             color: #999;
             padding: 20px;
         }
+
         .footer a {
             color: #999;
         }
+
         .footer p, .footer a, .footer unsubscribe, .footer td {
             font-size: 12px;
         }
@@ -129,6 +132,7 @@
             margin-bottom: 10px;
             font-weight: normal;
         }
+
         p li, ul li, ol li {
             margin-left: 5px;
             list-style-position: inside;
@@ -196,18 +200,22 @@
             text-align: center;
             border-radius: 3px 3px 0 0;
         }
+
         .alert a {
             color: #fff;
             text-decoration: none;
             font-weight: 500;
             font-size: 16px;
         }
+
         .alert.alert-warning {
             background: #f8ac59;
         }
+
         .alert.alert-bad {
             background: #ed5565;
         }
+
         .alert.alert-good {
             background: #1ab394;
         }
@@ -221,15 +229,19 @@
             text-align: left;
             width: 80%;
         }
+
         .invoice td {
             padding: 5px 0;
         }
+
         .invoice .invoice-items {
             width: 100%;
         }
+
         .invoice .invoice-items td {
             border-top: #eee 1px solid;
         }
+
         .invoice .invoice-items .total td {
             border-top: 2px solid #333;
             border-bottom: 2px solid #333;
@@ -283,7 +295,7 @@
                 <table class="main" width="100%" cellpadding="0" cellspacing="0">
                     <tr>
                         <td class="content-wrap">
-                            <table  cellpadding="0" cellspacing="0">
+                            <table cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td>
                                         <img class="img-responsive" src="img/header.jpg"/>
@@ -291,17 +303,21 @@
                                 </tr>
                                 <tr>
                                     <td class="content-block">
-                                        <h3>Welcom in basic email template</h3>
+                                        <h3>Welcom in basic email template <?= $name ?></h3>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="content-block">
-                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries.
+                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                                        Ipsum has been the industry's standard dummy text ever since the 1500s, when an
+                                        unknown printer took a galley of type and scrambled it to make a type specimen
+                                        book. It has survived not only five centuries.
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="content-block">
-                                        We may need to send you critical information about our service and it is important that we have an accurate email address.
+                                        We may need to send you critical information about our service and it is
+                                        important that we have an accurate email address.
                                     </td>
                                 </tr>
                                 <tr>
@@ -309,7 +325,7 @@
                                         <a href="#" class="btn-primary">Confirm email address</a>
                                     </td>
                                 </tr>
-                              </table>
+                            </table>
                         </td>
                     </tr>
                 </table>
@@ -319,7 +335,8 @@
                             <td class="aligncenter content-block">Follow <a href="#">@Company</a> on Twitter.</td>
                         </tr>
                     </table>
-                </div></div>
+                </div>
+            </div>
         </td>
         <td></td>
     </tr>

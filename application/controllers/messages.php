@@ -60,9 +60,8 @@ class messages extends CI_Controller
 
         $this->email->from('your@example.com', 'Colour A Dream Web Portal');
         $this->email->to('jayaneetha@brightron.net');
-        $subject = $this->load->view('email_templates/action', '', true);
         $this->email->subject($subject);
-        $this->email->message($this->load->view('email_templates/action', '', true));
+        $this->email->message($this->load->view('email_templates/action', array('name' => 'Saman'), true));
         $this->email->set_mailtype('html');
         echo $this->email->send();
 
