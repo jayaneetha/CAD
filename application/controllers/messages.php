@@ -59,7 +59,7 @@ class messages extends CI_Controller
         $this->load->library('email');
 
         $this->email->from('your@example.com', 'Colour A Dream Web Portal');
-        $this->email->to('coder.clix@gmail.com');
+        $this->email->to('jayaneetha@brightron.net');
         $subject = $this->load->view('email_templates/action', '', true);
         $this->email->subject($subject);
         $this->email->message($this->load->view('email_templates/action', '', true));
