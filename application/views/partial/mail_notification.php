@@ -19,7 +19,7 @@
     ?>
     <li>
         <div class="text-center link-block">
-            <a href="/index.php/compose">
+            <a href="/index.php/inbox">
                 <i class="fa fa-envelope"></i> <strong>Read All Messages</strong>
             </a>
         </div>

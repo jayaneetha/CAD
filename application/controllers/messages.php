@@ -62,7 +62,7 @@ class messages extends CI_Controller
         $this->email->to('coder.clix@gmail.com');
 
         $this->email->subject($subject);
-        $this->email->message($this->load->view('email_templates/action','',true));
+        $this->email->message($this->load->view('email_templates/action', '', true));
 
         echo $this->email->send();
 
@@ -153,7 +153,7 @@ class messages extends CI_Controller
     public function notification()
     {
         if (isset($this->USER_OBJ->id)) {
-            $inbox = $this->message->get_inbox($this->USER_OBJ->id);
+            $inbox = $this->message->get_inbox($this->USER_OBJ->id, 5);
             $this->load->view('partial/mail_notification', array('notifications' => $inbox));
         } else {
             $message_ = '<li>

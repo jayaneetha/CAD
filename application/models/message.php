@@ -7,12 +7,15 @@ class message extends CI_Model
         parent::__construct();
     }
 
-    public function get_inbox($to)
+    public function get_inbox($to, $limit = null)
     {
         $this->db->select('first_name, last_name, message.id, to, subject, timestamp, read');
         $this->db->from('message');
         $this->db->join('user', 'message.from=user.id', 'inner');
         $this->db->where('`to`', $to);
+        if ($limit!=null) {
+            $this->db->limit($limit);
+        }
 
         return $this->db->get()->result();
     }
@@ -72,7 +75,7 @@ class message extends CI_Model
 
     public function delete($id)
     {
-        $this->db->where('id',$id);
+        $this->db->where('id', $id);
         $this->db->delete('message');
     }
 }

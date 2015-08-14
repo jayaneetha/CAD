@@ -53,6 +53,13 @@ $db['default']['hostname'] = 'us-cdbr-iron-east-02.cleardb.net';
 $db['default']['username'] = 'ba3c63fdc5533f';
 $db['default']['password'] = 'a24da439';
 $db['default']['database'] = 'heroku_859a8699216795c';
+
+/*
+$db['default']['hostname'] = '127.0.0.1:3306';
+$db['default']['username'] = 'root';
+$db['default']['password'] = 'root';
+$db['default']['database'] = 'IMCD_CAD';*/
+
 $db['default']['dbdriver'] = 'mysqli';
 $db['default']['dbprefix'] = 'cad_';
 $db['default']['pconnect'] = TRUE;
