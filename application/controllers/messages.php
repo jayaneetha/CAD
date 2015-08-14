@@ -63,7 +63,7 @@ class messages extends CI_Controller
         $subject = $this->load->view('email_templates/action', '', true);
         $this->email->subject($subject);
         $this->email->message($this->load->view('email_templates/action', '', true));
-
+        $this->email->set_mailtype('html');
         echo $this->email->send();
 
         // echo $this->email->print_debugger();
