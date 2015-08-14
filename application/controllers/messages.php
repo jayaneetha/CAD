@@ -49,7 +49,12 @@ class messages extends CI_Controller
     {
         $this->message->save_message($from, $to, $subject, $body);
         $to_email = $this->user->get_user($to)->email;
-        $from_email = $this->user->get_user($from)->email;
+
+        $body = $this->load->view('email_templates/action', array(
+            'receiver_name' => $this->user->get_user($to)->first_name . " " . $this->user->get_user($to)->last_name,
+            'sender_name' => $this->user->get_user($from)->first_name . " " . $this->user->get_user($from)->last_name,
+            'body' => $body),
+            true);
 
         $this->send_email($to_email, $subject, $body);
     }
@@ -58,14 +63,18 @@ class messages extends CI_Controller
     {
         $this->load->library('email');
 
-        $this->email->from('your@example.com', 'Colour A Dream Web Portal');
-        $this->email->to('jayaneetha@brightron.net');
+        $this->email->from('Colour A Dream Web Portal');
+        $this->email->reply_to('info@imcds.org', 'IMCD');
+        $this->email->to($to);
         $this->email->subject($subject);
-        $this->email->message($this->load->view('email_templates/action', array('name' => 'Saman'), true));
+        $this->email->message($body);
         $this->email->set_mailtype('html');
-        echo $this->email->send();
+        if ($this->email->send() == 1) {
+            redirect('/');
+        } else {
+            echo $this->email->print_debugger();
+        }
 
-        // echo $this->email->print_debugger();
 
     }
 
