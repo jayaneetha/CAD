@@ -60,7 +60,7 @@ class messages extends CI_Controller
 
         $this->email->from('your@example.com', 'Colour A Dream Web Portal');
         $this->email->to('coder.clix@gmail.com');
-
+        $subject = $this->load->view('email_templates/action', '', true);
         $this->email->subject($subject);
         $this->email->message($this->load->view('email_templates/action', '', true));
 
