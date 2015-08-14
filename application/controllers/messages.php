@@ -50,7 +50,7 @@ class messages extends CI_Controller
         $this->message->save_message($from, $to, $subject, $body);
         $to_email = $this->user->get_user($to)->email;
 
-        $body = $this->load->view('email_templates/action', array(
+        $body = $this->load->view('email_templates/message', array(
             'receiver_name' => $this->user->get_user($to)->first_name . " " . $this->user->get_user($to)->last_name,
             'sender_name' => $this->user->get_user($from)->first_name . " " . $this->user->get_user($from)->last_name,
             'body' => $body),
