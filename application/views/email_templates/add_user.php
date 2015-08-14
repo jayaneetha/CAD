@@ -4,7 +4,7 @@
 <head>
     <meta name="viewport" content="width=device-width"/>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>New message in CAD</title>
+    <title>Your Login details in CAD Portal</title>
     <style type="text/css">
         /* -------------------------------------
     GLOBAL
@@ -298,13 +298,16 @@
                             <table cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td class="content-block">
-                                        <h3><?= $receiver_name ?>, you have a message from <?= $sender_name ?> in CAD
-                                            Portal.</h3>
+                                        <h3><?= $receiver_name ?>Your Login details in CAD Portal.</h3>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="content-block">
-                                        <?= $body ?>
+                                        IMCD has created a user account for you in the Colour A Dream Portal for you. Please use the following details to access your account.
+                                        <br>Keep in mind to change your login password once you login to the portal.
+                                        <br/>
+                                        Email: <?=$email?> <br>
+                                        Password: <?=$password?>
                                     </td>
                                 </tr>
                                 <tr>

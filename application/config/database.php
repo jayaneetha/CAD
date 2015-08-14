@@ -45,20 +45,20 @@
 | the active record class
 */
 
-$active_group = 'default';
+$active_group = 'heroku';
 $active_record = TRUE;
 //mysql://ba3c63fdc5533f:a24da439@us-cdbr-iron-east-02.cleardb.net/heroku_859a8699216795c?reconnect=true
 
+/*
 $db['default']['hostname'] = 'us-cdbr-iron-east-02.cleardb.net';
 $db['default']['username'] = 'ba3c63fdc5533f';
 $db['default']['password'] = 'a24da439';
 $db['default']['database'] = 'heroku_859a8699216795c';
 
-/*
 $db['default']['hostname'] = '127.0.0.1:3306';
 $db['default']['username'] = 'root';
 $db['default']['password'] = 'root';
-$db['default']['database'] = 'IMCD_CAD';*/
+$db['default']['database'] = 'IMCD_CAD';
 
 $db['default']['dbdriver'] = 'mysqli';
 $db['default']['dbprefix'] = 'cad_';
@@ -71,6 +71,41 @@ $db['default']['dbcollat'] = 'utf8_general_ci';
 $db['default']['swap_pre'] = '';
 $db['default']['autoinit'] = TRUE;
 $db['default']['stricton'] = FALSE;
+*/
+
+//Heroku testing Environment
+$db['heroku']['hostname'] = 'us-cdbr-iron-east-02.cleardb.net';
+$db['heroku']['username'] = 'ba3c63fdc5533f';
+$db['heroku']['password'] = 'a24da439';
+$db['heroku']['database'] = 'heroku_859a8699216795c';
+$db['heroku']['dbdriver'] = 'mysqli';
+$db['heroku']['dbprefix'] = 'cad_';
+$db['heroku']['pconnect'] = TRUE;
+$db['heroku']['db_debug'] = TRUE;
+$db['heroku']['cache_on'] = FALSE;
+$db['heroku']['cachedir'] = '';
+$db['heroku']['char_set'] = 'utf8';
+$db['heroku']['dbcollat'] = 'utf8_general_ci';
+$db['heroku']['swap_pre'] = '';
+$db['heroku']['autoinit'] = TRUE;
+$db['heroku']['stricton'] = FALSE;
+
+//Localhost testing Environment
+$db['local']['hostname'] = '127.0.0.1:3306';
+$db['local']['username'] = 'root';
+$db['local']['password'] = 'root';
+$db['local']['database'] = 'IMCD_CAD';
+$db['local']['dbdriver'] = 'mysqli';
+$db['local']['dbprefix'] = 'cad_';
+$db['local']['pconnect'] = TRUE;
+$db['local']['db_debug'] = TRUE;
+$db['local']['cache_on'] = FALSE;
+$db['local']['cachedir'] = '';
+$db['local']['char_set'] = 'utf8';
+$db['local']['dbcollat'] = 'utf8_general_ci';
+$db['local']['swap_pre'] = '';
+$db['local']['autoinit'] = TRUE;
+$db['local']['stricton'] = FALSE;
 
 
 /* End of file database.php */

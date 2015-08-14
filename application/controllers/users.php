@@ -112,6 +112,7 @@ class users extends CI_Controller
     public function register_CAD_user()
     {
         $this->load->config('cad');
+        $this->load->helper('string');
 
         $user_data = array(
             'first_name' => $this->input->post('first_name'),
@@ -119,13 +120,19 @@ class users extends CI_Controller
             'title' => $this->input->post('position'),
             'email' => $this->input->post('email'),
             'username' => $this->input->post('email'),
-            'password' => $this->config->item('default_password'),
+            'password' => random_string('alnum', $this->config->item('default_password_length')),
             'user_type' => 'cad',
         );
 
         $id = $this->user->register_CAD_user($user_data);
         if ($id != 0) {
-            echo "success";
+            $this->load->library('../controllers/messages');
+            $email_body = $this->load->view('email_templates/add_user', array(
+                'receiver_name' => $user_data['first_name'] . " " . $user_data['last_name'],
+                'email' => $user_data['email'],
+                'password' => $user_data['password']
+            ));
+            $this->messages->send_email($user_data['email'], 'Your Login details in CAD Portal', $email_body);
         } else {
             echo 'error : ' . $id;
         }

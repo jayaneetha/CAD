@@ -56,7 +56,11 @@ class messages extends CI_Controller
             'body' => $body),
             true);
 
-        $this->send_email($to_email, $subject, $body);
+        if ($this->send_email($to_email, $subject, $body)) {
+            redirect('/');
+        } else {
+            die();
+        }
     }
 
     private function send_email($to, $subject, $body)
@@ -70,7 +74,7 @@ class messages extends CI_Controller
         $this->email->message($body);
         $this->email->set_mailtype('html');
         if ($this->email->send() == 1) {
-            redirect('/');
+            return true;
         } else {
             echo $this->email->print_debugger();
         }
