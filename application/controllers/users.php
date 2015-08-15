@@ -131,7 +131,14 @@ class users extends CI_Controller
                 'email' => $user_data['email'],
                 'password' => $user_data['password']
             ),true);
-            $this->send_email($user_data['email'], 'Your Login details in CAD Portal', $email_body);
+            if($this->send_email($user_data['email'], 'Your Login details in CAD Portal', $email_body)){
+                $view_data = array(
+                    'user' => $this->USER_OBJ,
+                    'position' => 'Administrator',
+
+                );
+                $this->load->view('admin/admin_create_CAD_user');
+            }
         } else {
             echo 'error : ' . $id;
         }

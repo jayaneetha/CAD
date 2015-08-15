@@ -45,35 +45,45 @@
                             </div>
                         </div>
                         <div class="ibox-content">
-                            <form method="post" id="add_cad_user" class="form-horizontal" action="/users/register_CAD_user">
+                            <form method="post" id="add_cad_user" class="form-horizontal"
+                                  action="/users/register_CAD_user">
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">First Name</label>
+
                                     <div class="col-sm-10">
-                                        <input name="first_name" required="" type="text" class="form-control" placeholder="First Name">
+                                        <input name="first_name" required="" type="text" class="form-control"
+                                               placeholder="First Name">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">Last Name</label>
+
                                     <div class="col-sm-10">
-                                        <input name="last_name" required="" type="text" class="form-control" placeholder="Last Name">
+                                        <input name="last_name" required="" type="text" class="form-control"
+                                               placeholder="Last Name">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">CAD Member Position</label>
+
                                     <div class="col-sm-10">
-                                        <input name="position" required="" type="text" class="form-control" placeholder="Position">
+                                        <input name="position" required="" type="text" class="form-control"
+                                               placeholder="Position">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">E-Mail Address</label>
+
                                     <div class="col-sm-10">
-                                        <input name="email" required="" type="email" class="form-control" placeholder="E-Mail Address" >
+                                        <input name="email" required="" type="email" class="form-control"
+                                               placeholder="E-Mail Address">
                                     </div>
                                 </div>
                                 <div class="hr-line-dashed"></div>
                                 <div class="form-group">
                                     <div class="col-sm-4 col-sm-offset-2">
-                                        <button class="btn btn-primary" type="submit">Add <span class="fa fa-plus"></span> </button>
+                                        <button class="btn btn-primary" type="submit">Add <span
+                                                class="fa fa-plus"></span></button>
                                     </div>
                                 </div>
                             </form>
@@ -83,7 +93,7 @@
             </div>
         </div>
         <div class="footer">
-            <?php $this->load->view('partial/footer');?>
+            <?php $this->load->view('partial/footer'); ?>
         </div>
 
     </div>
@@ -103,14 +113,14 @@
 <script src="<?php echo base_url('assets'); ?>/js/plugins/validate/jquery.validate.min.js"></script>
 <script>
     $(document).ready(function () {
-        var success = <?php echo 'true';?>;
+        var success = <?php if(isset($success)){echo 'true'; }?>;
 
         toastr.options = {
             "closeButton": true,
             "progressBar": true
         }
 
-        if(success){
+        if (success) {
             toastr.success('User added successfully');
         }
 
