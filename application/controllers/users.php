@@ -130,7 +130,7 @@ class users extends CI_Controller
                 'receiver_name' => $user_data['first_name'] . " " . $user_data['last_name'],
                 'email' => $user_data['email'],
                 'password' => $user_data['password']
-            ));
+            ),true);
             $this->send_email($user_data['email'], 'Your Login details in CAD Portal', $email_body);
         } else {
             echo 'error : ' . $id;
