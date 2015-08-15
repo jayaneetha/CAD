@@ -65,9 +65,26 @@ class user extends CI_Model
 
     public function register_CAD_user($user_data)
     {
-        $this->db->insert('user',$user_data);
+        $this->db->insert('user', $user_data);
         return $this->db->insert_id();
     }
 
+    public function get_registration_requests()
+    {
+        $this->db->select('user.id, first_name, last_name, user_type, school.name AS title');
+        $this->db->from('student');
+        $this->db->join('user', 'student.id=user.id', 'inner');
+        $this->db->join('school', 'student.school_id=school.id', 'inner');
+        $this->db->where('student.accepted', 0);
+        $students = $this->db->get()->result();
+
+        $this->db->select('user.id, first_name, last_name, user_type, title');
+        $this->db->from('donor');
+        $this->db->join('user', 'donor.id=user.id', 'inner');
+        $this->db->where('donor.accepted', 0);
+        $donors = $this->db->get()->result();
+
+        return array_merge($students, $donors);
+    }
 
 }

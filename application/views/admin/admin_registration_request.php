@@ -9,7 +9,7 @@
 
 <div id="wrapper">
 
-    <?php $this->load->view('partial/admin_navigation'); ?>
+    <?php $this->load->view('partial/admin_navigation', array('user' => $user, 'position' => $position)); ?>
 
     <div id="page-wrapper" class="gray-bg">
         <div class="row border-bottom">
@@ -52,44 +52,66 @@
                                 <thead>
                                 <tr>
                                     <th>Name</th>
+                                    <th>School/Title</th>
                                     <th>Type</th>
-                                    <th>Date</th>
                                     <th style="width: 175px">Edit</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>A.P Nirmal</td>
-                                    <td>Student</td>
-                                    <td>17-03-2015</td>
-                                    <td class="text-center">
-                                        <div class="btn-group btn-group-sm">
-                                            <button class="btn btn-sm btn-primary" data-user-id="1">Accept</button>
-                                            <button class="btn btn-sm btn-danger" data-user-id="1">Reject</button>
-                                            <button class="btn btn-sm btn-default btn-outline view"
-                                                    data-user-id="1"
-                                                    data-user-type="student"
-                                                >View
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-<tr>
-                                    <td>K.P Jayathilaka</td>
-                                    <td>Donor</td>
-                                    <td>13-03-2015</td>
-                                    <td class="text-center">
-                                        <div class="btn-group btn-group-sm">
-                                            <button class="btn btn-sm btn-primary" data-user-id="1">Accept</button>
-                                            <button class="btn btn-sm btn-danger" data-user-id="1">Reject</button>
-                                            <button class="btn btn-sm btn-default btn-outline view"
-                                                    data-user-id="1"
-                                                    data-user-type="donor"
-                                                >View
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
+                                <?php foreach ($users as $user): ?>
+                                    <tr>
+                                        <td><?= $user->first_name . " " . $user->last_name ?></td>
+                                        <td><?= $user->title ?></td>
+                                        <td><?= $user->user_type ?></td>
+                                        <td class="text-center">
+                                            <div class="btn-group btn-group-sm">
+                                                <button class="btn btn-sm btn-primary" data-user-id="<?= $user->id ?>">
+                                                    Accept
+                                                </button>
+                                                <button class="btn btn-sm btn-danger" data-user-id="<?= $user->id ?>">
+                                                    Reject
+                                                </button>
+                                                <button class="btn btn-sm btn-default btn-outline view"
+                                                        data-user-id="<?= $user->id ?>"
+                                                        data-user-type="<?= $user->user_type ?>"
+                                                    >View
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                                <!--                                <tr>-->
+                                <!--                                    <td>A.P Nirmal</td>-->
+                                <!--                                    <td>Student</td>-->
+                                <!--                                    <td>17-03-2015</td>-->
+                                <!--                                <td class="text-center">-->
+                                <!--                                    <div class="btn-group btn-group-sm">-->
+                                <!--                                        <button class="btn btn-sm btn-primary" data-user-id="1">Accept</button>-->
+                                <!--                                        <button class="btn btn-sm btn-danger" data-user-id="1">Reject</button>-->
+                                <!--                                        <button class="btn btn-sm btn-default btn-outline view"-->
+                                <!--                                                data-user-id="1"-->
+                                <!--                                                data-user-type="student"-->
+                                <!--                                            >View-->
+                                <!--                                        </button>-->
+                                <!--                                    </div>-->
+                                <!--                                </td>-->
+                                <!--                                </tr>-->
+                                <!--                                <tr>-->
+                                <!--                                    <td>K.P Jayathilaka</td>-->
+                                <!--                                    <td>Donor</td>-->
+                                <!--                                    <td>13-03-2015</td>-->
+                                <!--                                    <td class="text-center">-->
+                                <!--                                        <div class="btn-group btn-group-sm">-->
+                                <!--                                            <button class="btn btn-sm btn-primary" data-user-id="1">Accept</button>-->
+                                <!--                                            <button class="btn btn-sm btn-danger" data-user-id="1">Reject</button>-->
+                                <!--                                            <button class="btn btn-sm btn-default btn-outline view"-->
+                                <!--                                                    data-user-id="1"-->
+                                <!--                                                    data-user-type="donor"-->
+                                <!--                                                >View-->
+                                <!--                                            </button>-->
+                                <!--                                        </div>-->
+                                <!--                                    </td>-->
+                                <!--                                </tr>-->
 
                                 </tbody>
                             </table>
@@ -113,8 +135,8 @@
                 <button type="button" class="close" data-dismiss="modal"><span
                         aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 <i class="fa fa-user modal-icon"></i>
-                <h4 class="modal-title">W.P Nirmal</h4>
-                <small>A/ Pothana M.V</small>
+                <h4 class="modal-title" id="modal-title-name"></h4>
+                <small id="model-title-small"></small>
             </div>
             <form>
                 <div class="modal-body">
@@ -122,28 +144,30 @@
                         <div class="col-md-6 col-lg-6 col-sm-12">
                             <div class="form-group">
                                 <label for="name">Name </label>
-                                <input type="text" class="form-control disabled" name="name" value="W.P Nirmal"
+                                <input id="user-name" type="text" class="form-control disabled" name="name"
+                                       value="W.P Nirmal"
                                        disabled/>
                             </div>
                             <div class="form-group">
                                 <label for="address">Address </label>
-                                <input type="text" name="address1" class="form-control disabled" disabled
+                                <input type="text" name="address1" id="address1" class="form-control disabled" disabled
                                        value="Ihala Magama Rd"/>
-                                <input type="text" name="address2" class="form-control disabled" disabled
+                                <input type="text" name="address2" id="address2" class="form-control disabled" disabled
                                        value="Nikawewa"/>
-                                <input type="text" name="city" class="form-control disabled" disabled
+                                <input type="text" name="city" id="city" class="form-control disabled" disabled
                                        value="Anuradhapura"/>
                             </div>
                         </div>
                         <div class="col-md-6 col-lg-6 col-sm-12">
                             <div class="form-group">
                                 <label for="name">Date of Birth </label>
-                                <input name="dob" disabled type="text" class="form-control disabled"
+                                <input name="dob" id="dob" disabled type="text" class="form-control disabled"
                                        value="15-04-2003"/>
                             </div>
                             <div class="form-group">
                                 <label for="name">Contact Number </label>
-                                <input name="contact_no" disabled type="text" class="form-control disabled"
+                                <input name="contact_no" id="contact_no" disabled type="text"
+                                       class="form-control disabled"
                                        value="071-4232885"/>
                             </div>
                         </div>
@@ -239,61 +263,62 @@
             var userType = $(this).data('user-type');
             alert(userType);
             //console.log(school);
-            /*$.ajax({
-             type: "POST",
-             dataType: 'json',
-             url: "
-            <?php //echo base_url('administrator/get_single_classroom/'); ?>",
-             data: {classroom_id: classroom},
-             success: function (data) {
-             //console.log(data);
-             //console.log(data.total);
-             for (var i = 0; i < data.total.length; i++) {
-             var school_name = data.total[i].sch_id;
-             $("select option").filter(function () {
-             //may want to use $.trim in here
-             return $(this).val() == school_name;
-             }).attr('selected', true);
-             $('#classroom_name').val(data.total[i].classroom_name);
-             $('#class_teacher_name').val(data.total[i].teacher_name);
-             $('#classroom_id').val(data.total[i].classroom_id);
-             }
-             ;
+            $.ajax({
+                type: "POST",
+                dataType: 'json',
+                url: "<?php echo base_url('administrator/get_single_classroom/'); ?>",
+                data: {
+                    classroom_id: classroom
+                }, success: function (data) {
+                //console.log(data);
+                //console.log(data.total);
+                for (var i = 0; i < data.total.length; i++) {
+                    var school_name = data.total[i].sch_id;
+                    $("select option").filter(function () {
+                        //may want to use $.trim in here
+                        return $(this).val() == school_name;
+                    }).attr('selected', true);
+                    $('#classroom_name').val(data.total[i].classroom_name);
+                    $('#class_teacher_name').val(data.total[i].teacher_name);
+                    $('#classroom_id').val(data.total[i].classroom_id);
+                }
+                ;
 
-             }
-             });*/
-            switch(userType){
-                case 'student':
-                    $('#modelStudent').modal('show');
-                    break;
-                case 'donor':
-                    $('#modelDonor').modal('show');
-                    break;
-            }
-
-
-        });
-
-        $('.dataTables-example').dataTable({
-            responsive: true,
-            "dom": 'T<"clear">lfrtip',
-            "tableTools": {
-                "sSwfPath": "<?php echo base_url('assets'); ?>/js/plugins/dataTables/swf/copy_csv_xls_pdf.swf"
             }
         });
-
-        var success = <?php echo 'true';?>;
-
-        toastr.options = {
-            "closeButton": true,
-            "progressBar": true
+        switch (userType) {
+            case 'student':
+                $('#modelStudent').modal('show');
+                break;
+            case 'donor':
+                $('#modelDonor').modal('show');
+                break;
         }
 
-        if (success) {
-            toastr.success('Notification');
-        }
 
     });
+
+    $('.dataTables-example').dataTable({
+        responsive: true,
+        "dom": 'T<"clear">lfrtip',
+        "tableTools": {
+            "sSwfPath": "<?php echo base_url('assets'); ?>/js/plugins/dataTables/swf/copy_csv_xls_pdf.swf"
+        }
+    });
+
+    var success = <?php echo 'true';?>;
+
+    toastr.options = {
+        "closeButton": true,
+        "progressBar": true
+    }
+
+    if (success) {
+        toastr.success('Notification');
+    }
+
+    })
+    ;
 </script>
 
 </body>

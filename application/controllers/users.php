@@ -126,16 +126,50 @@ class users extends CI_Controller
 
         $id = $this->user->register_CAD_user($user_data);
         if ($id != 0) {
-            $this->load->library('../controllers/messages');
             $email_body = $this->load->view('email_templates/add_user', array(
                 'receiver_name' => $user_data['first_name'] . " " . $user_data['last_name'],
                 'email' => $user_data['email'],
                 'password' => $user_data['password']
             ));
-            $this->messages->send_email($user_data['email'], 'Your Login details in CAD Portal', $email_body);
+            $this->send_email($user_data['email'], 'Your Login details in CAD Portal', $email_body);
         } else {
             echo 'error : ' . $id;
         }
+
+    }
+
+
+    public function registration_request()
+    {
+        if (isset($this->USER_OBJ->id)) {
+            $view_data = array(
+                'user' => $this->USER_OBJ,
+                'position' => 'Administrator',
+                'users' => $this->user->get_registration_requests(),
+            );
+            $this->load->view('admin/admin_registration_request', $view_data);
+
+        } else {
+            redirect('/');
+        }
+    }
+
+    private function send_email($to, $subject, $body)
+    {
+        $this->load->library('email');
+
+        $this->email->from('Colour A Dream Web Portal');
+        $this->email->reply_to('info@imcds.org', 'IMCD');
+        $this->email->to($to);
+        $this->email->subject($subject);
+        $this->email->message($body);
+        $this->email->set_mailtype('html');
+        if ($this->email->send() == 1) {
+            return true;
+        } else {
+            echo $this->email->print_debugger();
+        }
+
 
     }
 
