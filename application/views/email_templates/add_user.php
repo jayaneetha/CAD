@@ -298,7 +298,7 @@
                             <table cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td class="content-block">
-                                        <h3><?= $receiver_name ?>Your Login details in CAD Portal.</h3>
+                                        <h3><?= $receiver_name ?>, Your Login details in CAD Portal.</h3>
                                     </td>
                                 </tr>
                                 <tr>

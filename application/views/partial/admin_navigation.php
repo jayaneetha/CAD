@@ -38,7 +38,7 @@
                 <ul class="nav nav-second-level">
                     <li><a href="/users/create_CAD_user">Add CAD User</a></li>
                     <li><a href="/users/registration_request">Registration Requests</a></li>
-                    <li><a href="admin_manage_users">Manage Users</a></li>
+                    <li><a href="/users/manage_users">Manage Users</a></li>
                 </ul>
             </li>
             <li>

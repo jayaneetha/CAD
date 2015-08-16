@@ -9,7 +9,7 @@
 
 <div id="wrapper">
 
-    <?php $this->load->view('partial/admin_navigation'); ?>
+    <?php $this->load->view('partial/admin_navigation', array('user' => $user, 'position' => $position)); ?>
 
     <div id="page-wrapper" class="gray-bg">
         <div class="row border-bottom">
@@ -57,36 +57,23 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>K.P Jinadasa</td>
-                                    <td>Donor</td>
-                                    <td class="text-center">
-                                        <div class="btn-group btn-group-sm">
-                                            <button class="btn btn-sm btn-default btn-outline view" data-user-id="1" data-user-type="donor">View</button>
-                                            <button class="btn btn-sm btn-danger delete" data-user-id="1">Delete</button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>A.M.W Nirmal</td>
-                                    <td>Student</td>
-                                    <td class="text-center">
-                                        <div class="btn-group btn-group-sm">
-                                            <button class="btn btn-sm btn-default btn-outline view" data-user-id="1" data-user-type="student">View</button>
-                                            <button class="btn btn-sm btn-danger delete" data-user-id="1">Delete</button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Marino Joseph</td>
-                                    <td>CAD</td>
-                                    <td class="text-center">
-                                        <div class="btn-group btn-group-sm">
-                                            <button class="btn btn-sm btn-default btn-outline view" data-user-id="1" data-user-type="cad">View</button>
-                                            <button class="btn btn-sm btn-danger delete" data-user-id="1" >Delete</button>
-                                        </div>
-                                    </td>
-                                </tr>
+                                <?php foreach ($users as $user): ?>
+                                    <tr>
+                                        <td><?= $user->first_name . " " . $user->last_name ?></td>
+                                        <td><?= ucfirst($user->user_type) ?></td>
+                                        <td class="text-center">
+                                            <div class="btn-group btn-group-sm">
+                                                <button class="btn btn-sm btn-default btn-outline view"
+                                                        data-user-id="<?= $user->id ?>"
+                                                        data-user-type="<?= $user->user_type ?>">View
+                                                </button>
+                                                <button class="btn btn-sm btn-danger delete"
+                                                        data-user-id="<?= $user->id ?>">Delete
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
                                 </tbody>
                             </table>
                         </div>
@@ -102,159 +89,48 @@
 </div>
 
 <!-- Model Student -->
-<div class="modal inmodal" id="modelStudent" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content animated fadeIn">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span
-                        aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <i class="fa fa-user modal-icon"></i>
-                <h4 class="modal-title">W.P Nirmal</h4>
-                <small>A/ Pothana M.V</small>
-            </div>
-            <form>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-6 col-lg-6 col-sm-12">
-                            <div class="form-group">
-                                <label for="name">Name </label>
-                                <input type="text" class="form-control disabled" name="name" value="W.P Nirmal"
-                                       disabled/>
-                            </div>
-                            <div class="form-group">
-                                <label for="address">Address </label>
-                                <input type="text" name="address1" class="form-control disabled" disabled
-                                       value="Ihala Magama Rd"/>
-                                <input type="text" name="address2" class="form-control disabled" disabled
-                                       value="Nikawewa"/>
-                                <input type="text" name="city" class="form-control disabled" disabled
-                                       value="Anuradhapura"/>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-6 col-sm-12">
-                            <div class="form-group">
-                                <label for="name">Date of Birth </label>
-                                <input name="dob" disabled type="text" class="form-control disabled"
-                                       value="15-04-2003"/>
-                            </div>
-                            <div class="form-group">
-                                <label for="name">Contact Number </label>
-                                <input name="contact_no" disabled type="text" class="form-control disabled"
-                                       value="071-4232885"/>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
+<?php
+$this->load->view('partial/modals/student');
+?>
 
 <!-- Model Donor -->
-<div class="modal inmodal" id="modelDonor" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content animated fadeIn">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span
-                        aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <i class="fa fa-user modal-icon"></i>
-                <h4 class="modal-title">K.P Jayathilaka</h4>
-                <small>HR Manager</small>
-            </div>
-            <form>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-6 col-lg-6 col-sm-12">
-                            <div class="form-group">
-                                <label for="name">Name </label>
-                                <input type="text" class="form-control disabled" name="name" value="K.P Jayathilaka"
-                                       disabled/>
-                            </div>
-                            <div class="form-group">
-                                <label for="address">Address </label>
-                                <input type="text" name="address1" class="form-control disabled" disabled
-                                       value="No 993/32"/>
-                                <input type="text" name="address2" class="form-control disabled" disabled
-                                       value="Silvester Rd,"/>
-                                <input type="text" name="city" class="form-control disabled" disabled
-                                       value="Colombo"/>
-                                <input type="text" name="city" class="form-control disabled" disabled
-                                       value="Sri Lanka"/>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-6 col-sm-12">
-                            <div class="form-group">
-                                <label for="name">E-Mail Address </label>
-                                <input name="email" disabled type="text" class="form-control disabled"
-                                       value="kpjayathilaka93@gmail.com"/>
-                            </div>
-                            <div class="form-group">
-                                <label for="name">Contact Number </label>
-                                <input name="contact_no" disabled type="text" class="form-control disabled"
-                                       value="071-4232885"/>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
+<?php
+$this->load->view('partial/modals/donor');
+?>
 
 <!-- Model CAD -->
-<div class="modal inmodal" id="modelCAD" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content animated fadeIn">
+<?php
+$this->load->view('partial/modals/cad');
+?>
+
+<div class="modal inmodal" id="modelDelete" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content animated fadeIn tada">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span
                         aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <i class="fa fa-user modal-icon"></i>
-                <h4 class="modal-title">Marino Joseph</h4>
-                <small>Project Coordinator</small>
+                <i class="fa fa-user-times modal-icon"></i>
+                <h4 id="cad-modal-title" class="modal-title">Delete User</h4>
             </div>
-            <form action="#" method="POST">
+            <form action="<?php echo base_url('users/delete_user') ?>" method="POST">
+                <input type="text" id="delete-user-id" name="id" value="" hidden="hidden" class="hidden"/>
+
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-md-6 col-lg-6 col-sm-12">
+                        <div class="col-md-12 col-lg-12 col-sm-12">
+                            <p class="text-danger text-center">Do you really want to delete the user?<br/>This cannot be
+                                reversed.</p>
+
                             <div class="form-group">
-                                <label for="name">Name </label>
-                                <input type="text" class="form-control disabled" name="name" value="Marino Joseph"
-                                       disabled/>
-                            </div>
-                            <div class="form-group">
-                                <label for="name">E-Mail Address </label>
-                                <input name="email" disabled type="text" class="form-control disabled"
-                                       value="kpjayathilaka93@gmail.com"/>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-6 col-sm-12">
-                            <div class="form-group">
-                                <label for="contact_no">Contact Number </label>
-                                <input name="contact_no" disabled type="text" class="form-control disabled"
-                                       value="071-4232885"/>
-                            </div>
-                            <div class="form-group">
-                                <label for="position">Contact Number </label>
-                                <select name="position" id="position" class="form-control">
-                                    <option value="Project Manager">Project Manager</option>
-                                    <option value="Project Coordinator">Project Coordinator</option>
-                                    <option value="Team Member">Team Member</option>
-                                </select>
+                                <label class="text-center" for="password">Please enter your password to continue</label>
+                                <input id="delete-user-password" type="password" class="form-control" name="password"
+                                       value=""/>
                             </div>
                         </div>
                     </div>
-
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-success">Update</button>
+                    <button id="delete-user-delete" type="submit" class="btn btn-danger">Delete</button>
                     <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
                 </div>
             </form>
@@ -281,47 +157,26 @@
         $('.view').click(function (e) {
             e.preventDefault();
             var userId = $(this).data('user-id');
-            alert(userId);
             var userType = $(this).data('user-type');
-            alert(userType);
-            //console.log(school);
-            /*$.ajax({
-             type: "POST",
-             dataType: 'json',
-             url: "
-            <?php //echo base_url('administrator/get_single_classroom/'); ?>",
-             data: {classroom_id: classroom},
-             success: function (data) {
-             //console.log(data);
-             //console.log(data.total);
-             for (var i = 0; i < data.total.length; i++) {
-             var school_name = data.total[i].sch_id;
-             $("select option").filter(function () {
-             //may want to use $.trim in here
-             return $(this).val() == school_name;
-             }).attr('selected', true);
-             $('#classroom_name').val(data.total[i].classroom_name);
-             $('#class_teacher_name').val(data.total[i].teacher_name);
-             $('#classroom_id').val(data.total[i].classroom_id);
-             }
-             ;
-
-             }
-             });*/
-            switch(userType){
-                case 'student':
-                    $('#modelStudent').modal('show');
-                    break;
-                case 'donor':
-                    $('#modelDonor').modal('show');
-                    break;
-                case 'cad':
-                    $('#modelCAD').modal('show');
-                    break;
-            }
-
-
+            $.ajax({
+                type: "POST",
+                dataType: 'json',
+                url: "<?php echo base_url('users/get_single_user/'); ?>",
+                data: {
+                    user_id: userId,
+                    user_type: userType
+                }, success: function (data) {
+                    show_user_modal('manage_users', data, userType);
+                }
+            });
         });
+        $('.delete').click(function (e) {
+            e.preventDefault();
+            var userId = $(this).data('user-id');
+            $('#delete-user-id').val(userId);
+            $('#modelDelete').modal('show');
+        });
+
 
         $('.dataTables-example').dataTable({
             responsive: true,
@@ -331,15 +186,23 @@
             }
         });
 
-        var success = <?php echo 'true';?>;
+        var success = <?= $success?>;
 
         toastr.options = {
             "closeButton": true,
             "progressBar": true
         }
 
-        if (success) {
-            toastr.success('Notification');
+        switch (success) {
+            case 1:
+                toastr.success('Successfully Deleted');
+                break;
+            case 2:
+                toastr.error('Wrong Password.');
+                break;
+            case 3:
+                toastr.success('Successfully Updated');
+                break;
         }
 
     });

@@ -1,3 +1,3 @@
 <?php
-echo "It WorksQQQ";
+echo sha1('123');
 ?>

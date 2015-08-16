@@ -67,8 +67,11 @@
                                     <label class="col-sm-2 control-label">CAD Member Position</label>
 
                                     <div class="col-sm-10">
-                                        <input name="position" required="" type="text" class="form-control"
-                                               placeholder="Position">
+                                        <select name="position" id="position" class="form-control">
+                                            <option value="Project Manager">Project Manager</option>
+                                            <option value="Project Coordinator">Project Coordinator</option>
+                                            <option selected value="Team Member">Team Member</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="form-group">

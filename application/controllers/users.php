@@ -113,14 +113,14 @@ class users extends CI_Controller
     {
         $this->load->config('cad');
         $this->load->helper('string');
-
+        $temp_password = random_string('alnum', $this->config->item('default_password_length'));
         $user_data = array(
             'first_name' => $this->input->post('first_name'),
             'last_name' => $this->input->post('last_name'),
             'title' => $this->input->post('position'),
             'email' => $this->input->post('email'),
             'username' => $this->input->post('email'),
-            'password' => random_string('alnum', $this->config->item('default_password_length')),
+            'password' => sha1($temp_password),
             'user_type' => 'cad',
         );
 
@@ -129,7 +129,7 @@ class users extends CI_Controller
             $email_body = $this->load->view('email_templates/add_user', array(
                 'receiver_name' => $user_data['first_name'] . " " . $user_data['last_name'],
                 'email' => $user_data['email'],
-                'password' => $user_data['password']
+                'password' => $temp_password
             ), true);
             if ($this->send_email($user_data['email'], 'Your Login details in CAD Portal', $email_body)) {
                 $view_data = array(
@@ -145,8 +145,7 @@ class users extends CI_Controller
 
     }
 
-
-    public function registration_request()
+    public function registration_request($success = 0)
     {
         if (isset($this->USER_OBJ->id)) {
             $view_data = array(
@@ -154,8 +153,92 @@ class users extends CI_Controller
                 'position' => 'Administrator',
                 'users' => $this->user->get_registration_requests(),
             );
+            if ($success == 1) {
+                $view_data['success'] = 'true';
+            }
             $this->load->view('admin/admin_registration_request', $view_data);
 
+        } else {
+            redirect('/');
+        }
+    }
+
+    public function get_single_user()
+    {
+        $user_id = $this->input->post('user_id');
+        $user_type = $this->input->post('user_type');
+        $user = array();
+        switch ($user_type) {
+            case 'donor':
+                $user = $this->user->get_donor($user_id);
+                break;
+            case 'student':
+                $user = $this->user->get_student($user_id);
+                break;
+            case 'cad':
+                $user = $this->user->get_cad_user($user_id);
+                break;
+        }
+        echo json_encode($user);
+    }
+
+    public function accept_reject_request($id, $type)
+    {
+        switch ($type) {
+            case 'accept':
+                $this->user->accept_reject_request($id, $this->user->get_user($id)->user_type);
+                redirect('/users/registration_request/1');
+                break;
+            case 'reject':
+                $this->user->accept_reject_request($id, $this->user->get_user($id)->user_type, false);
+                redirect('/users/registration_request/1');
+                break;
+            default:
+                redirect('/users/registration_request/0');
+
+        }
+    }
+
+    public function manage_users($success = 0)
+    {
+        if (isset($this->USER_OBJ->id)) {
+            $view_data = array(
+                'user' => $this->USER_OBJ,
+                'position' => 'Administrator',
+                'users' => $this->user->get_active_user_list(),
+                'success' => $success,
+            );
+            $this->load->view('admin/admin_manage_users', $view_data);
+
+        } else {
+            redirect('/');
+        }
+    }
+
+    public function update_cad_user()
+    {
+        echo $id = $this->input->post('id');
+        $data = array('position' => $this->input->post('position'));
+        $this->user->update_user($id, $data, 'cadteam');
+        redirect('/users/manage_users/3');
+
+    }
+
+    public function delete_user()
+    {
+        $id = $this->input->post('id');
+        $password = $this->input->post('password');
+        if (isset($this->USER_OBJ->id)) {
+            if ($password == $this->USER_OBJ->password) {
+                if ($this->USER_OBJ->user_type == 'admin') {
+                    $this->user->delete_user($id);
+                    redirect('/users/manage_users/1');
+                } else {
+                    $this->load->view('401');
+                }
+            } else {
+                redirect('/users/manage_users/2');
+            }
         } else {
             redirect('/');
         }
@@ -176,9 +259,8 @@ class users extends CI_Controller
         } else {
             echo $this->email->print_debugger();
         }
-
-
     }
+
 
 }
 

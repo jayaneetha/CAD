@@ -19,7 +19,7 @@ class messages extends CI_Controller
             $compose_data = array(
                 'user' => $this->USER_OBJ,
                 'position' => 'Administrator',
-                'users' => $this->user->get_user_list(),
+                'users' => $this->user->get_active_user_list(),
             );
             $this->load->view('compose', $compose_data);
         } else {

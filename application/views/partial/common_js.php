@@ -6,6 +6,7 @@
 <script src="<?php echo base_url('assets'); ?>/js/common_js.js"></script>
 
 <script>
+    var BASE_URL = "<?php echo base_url(); ?>";
     $(document).ready(function () {
         check_mail();
     });
