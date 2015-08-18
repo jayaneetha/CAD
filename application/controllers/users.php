@@ -29,13 +29,11 @@ class users extends CI_Controller
     public function login()
     {
         $username = $this->input->post('username');
-        $password = $this->input->post('password');
-
+        $password = sha1($this->input->post('password'));
 
         //$remember = $this->input->post('remember');
         // Change the session timeout for the remember me option
         // Value return from the remember is "remember"
-
 
         $user_info = $this->user->get_user_login_info($username);
 
@@ -227,7 +225,7 @@ class users extends CI_Controller
     public function delete_user()
     {
         $id = $this->input->post('id');
-        $password = $this->input->post('password');
+        $password = sha1($this->input->post('password'));
         if (isset($this->USER_OBJ->id)) {
             if ($password == $this->USER_OBJ->password) {
                 if ($this->USER_OBJ->user_type == 'admin') {
@@ -260,8 +258,6 @@ class users extends CI_Controller
             echo $this->email->print_debugger();
         }
     }
-
-
 }
 
 /* End of file users.php */

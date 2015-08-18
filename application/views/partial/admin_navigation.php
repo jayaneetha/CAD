@@ -27,9 +27,9 @@
                 <a href="#"><i class="fa fa-envelope"></i> <span class="nav-label">Mailbox </span><span
                         class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
-                    <li><a href="compose">Compose</a></li>
-                    <li><a href="inbox">Inbox <span class="label label-default pull-right">16</span></a></li>
-                    <li><a href="sentbox">Sent</a></li>
+                    <li><a href="/compose">Compose</a></li>
+                    <li><a href="/inbox">Inbox <span class="label label-default pull-right">16</span></a></li>
+                    <li><a href="/sentbox">Sent</a></li>
                 </ul>
             </li>
             <li>

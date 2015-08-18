@@ -13,10 +13,10 @@ class message extends CI_Model
         $this->db->from('message');
         $this->db->join('user', 'message.from=user.id', 'inner');
         $this->db->where('`to`', $to);
-        if ($limit!=null) {
+        if ($limit != null) {
             $this->db->limit($limit);
         }
-
+        $this->db->order_by('timestamp', 'DESC');
         return $this->db->get()->result();
     }
 

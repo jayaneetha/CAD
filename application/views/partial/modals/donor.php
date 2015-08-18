@@ -15,22 +15,17 @@
                             <div class="form-group">
                                 <label for="name">Name </label>
                                 <input type="text" class="form-control disabled" name="name" id="donor-name"
-                                       value=""
-                                       disabled/>
+                                       value="" disabled/>
                             </div>
                             <div class="form-group">
                                 <label for="address">Address </label>
                                 <input type="text" name="address1" id="donor-address1" class="form-control disabled"
-                                       disabled
-                                       value=""/>
+                                       disabled/>
                                 <input type="text" name="address2" id="donor-address2" class="form-control disabled"
-                                       disabled
-                                       value=""/>
-                                <input type="text" name="city" id="donor-city" class="form-control disabled" disabled
-                                       value=""/>
+                                       disabled/>
+                                <input type="text" name="city" id="donor-city" class="form-control disabled" disabled/>
                                 <input type="text" name="country" id="donor-country" class="form-control disabled"
-                                       disabled
-                                       value=""/>
+                                       disabled/>
                             </div>
                         </div>
                         <div class="col-md-6 col-lg-6 col-sm-12">
