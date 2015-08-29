@@ -191,7 +191,7 @@ $this->load->view('partial/modals/cad');
         toastr.options = {
             "closeButton": true,
             "progressBar": true
-        }
+        };
 
         switch (success) {
             case 1:

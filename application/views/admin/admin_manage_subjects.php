@@ -9,7 +9,7 @@
 
 <div id="wrapper">
 
-    <?php $this->load->view('partial/admin_navigation'); ?>
+    <?php $this->load->view('partial/admin_navigation', array('user' => $user, 'position' => $position)); ?>
 
     <div id="page-wrapper" class="gray-bg">
         <div class="row border-bottom">
@@ -51,10 +51,10 @@
                             </div>
                         </div>
                         <div class="ibox-content">
-                            <form method="post" class="form-horizontal">
+                            <form id="add_subject_form" action="<?= base_url('/index.php/schools/add_subject')?>" method="post" class="form-horizontal">
                                 <div class="form-group"><label class="col-sm-2 control-label">Subject Name</label>
-
-                                    <div class="col-sm-10"><input type="text" class="form-control" name="name"> <span
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="name"> <span
                                             class="help-block m-b-none">A unique name for the subject should be given. <br/>E.g Mathematics</span>
                                     </div>
                                 </div>
@@ -73,6 +73,7 @@
                         <div class="ibox-title">
                             <h5>Manage Subjects
                             </h5>
+
                             <div class="ibox-tools">
                                 <a class="collapse-link">
                                     <i class="fa fa-chevron-up"></i>
@@ -91,73 +92,20 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>Sinhalese</td>
-                                    <td>
-                                        <div class="btn-group-sm">
-                                            <button class="btn btn-sm btn-default edit" data-school-id="1"
-                                                    data-toggle="modal"
-                                                    data-target="#modelSubject">Edit
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Mathematics</td>
-                                    <td>
-                                        <div class="btn-group-sm">
-                                            <button class="btn btn-sm btn-default edit" data-school-id="1"
-                                                    data-toggle="modal"
-                                                    data-target="#modelSubject">Edit
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Science & Technology</td>
-                                    <td>
-                                        <div class="btn-group-sm">
-                                            <button class="btn btn-sm btn-default edit" data-school-id="1"
-                                                    data-toggle="modal"
-                                                    data-target="#modelSubject">Edit
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Religion</td>
-                                    <td>
-                                        <div class="btn-group-sm">
-                                            <button class="btn btn-sm btn-default edit" data-school-id="1"
-                                                    data-toggle="modal"
-                                                    data-target="#modelSubject">Edit
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Aesthetic</td>
-                                    <td>
-                                        <div class="btn-group-sm">
-                                            <button class="btn btn-sm btn-default edit" data-school-id="1"
-                                                    data-toggle="modal"
-                                                    data-target="#modelSubject">Edit
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Social Studies</td>
-                                    <td>
-                                        <div class="btn-group-sm">
-                                            <button class="btn btn-sm btn-default edit" data-school-id="1"
-                                                    data-toggle="modal"
-                                                    data-target="#modelSubject">Edit
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-
+                                <?php foreach ($subjects as $subject): ?>
+                                    <tr>
+                                        <td><?= $subject->subject_name ?></td>
+                                        <td>
+                                            <div class="btn-group-sm">
+                                                <button class="btn btn-sm btn-default edit"
+                                                        data-subject-id="<?= $subject->id ?>"
+                                                        data-toggle="modal"
+                                                        data-target="#modelSubject">Edit
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
                                 </tbody>
                             </table>
                         </div>
@@ -172,40 +120,44 @@
     </div>
 </div>
 
-<!-- Model -->
-<div class="modal inmodal" id="modelSubject" tabindex="-1" role="dialog" aria-hidden="true">
+<!--Subject Modal -->
+<?php $this->load->view('partial/modals/subject'); ?>
+
+<!-- Delete modal -->
+<div class="modal inmodal" id="modelDelete" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content animated fadeIn">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span
                         aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 <i class="fa fa-pencil modal-icon"></i>
-                <h4 class="modal-title">Mathematics</h4>
+                <h4 id="cad-modal-title" class="modal-title">Delete Subject</h4>
             </div>
-            <form action="/" method="post">
-                <input type="text" class="hidden" hidden="hidden" id="subject_id" name="subject_id"/>
+            <form action="<?php echo base_url('index.php/schools/delete_subject') ?>" method="POST">
+                <input type="text" id="delete-subject-id" name="id" value="" hidden="hidden" class="hidden"/>
 
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-12 col-lg-12 col-sm-12">
+                            <p class="text-danger text-center">Do you really want to delete the Subject?<br/>This cannot
+                                be reversed.</p>
+
                             <div class="form-group">
-                                <label for="name">Subject Name </label>
-                                <input name="principal" required="" type="text" class="form-control"
-                                       value="Mathematics"/>
+                                <label class="text-center" for="password">Please enter your password to continue</label>
+                                <input id="delete-class-password" type="password" class="form-control" name="password"
+                                       value=""/>
                             </div>
                         </div>
                     </div>
-
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger m-r-xs">Delete</button>
-                    <button type="submit" class="btn btn-primary" >Save changes</button>
+                    <button id="delete-class-delete" type="submit" class="btn btn-danger">Delete</button>
+                    <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
-
 
 <!-- Mainly scripts -->
 <?php $this->load->view('partial/common_js'); ?>
@@ -220,9 +172,43 @@
 <script src="<?php echo base_url('assets'); ?>/js/plugins/dataTables/dataTables.tableTools.min.js"></script>
 
 <!-- iCheck -->
-<script src="js/plugins/iCheck/icheck.min.js"></script>
+<script src="<?php echo base_url('assets'); ?>/js/plugins/iCheck/icheck.min.js"></script>
+
+<!-- Jquery Validate -->
+<script src="<?php echo base_url('assets'); ?>/js/plugins/validate/jquery.validate.min.js"></script>
 <script>
     $(document).ready(function () {
+
+        var success = <?= $success ?>;
+
+        toastr.options = {
+            "closeButton": true,
+            "progressBar": true
+        };
+
+        switch (success) {
+            case 0:
+                break;
+            case 1:
+                toastr.success('Successfully Added');
+                break;
+            case 2:
+                toastr.error('Failed to add the subject');
+                break;
+            case 3:
+                toastr.success('Successfully updated the subject');
+                break;
+            case 4:
+                toastr.success('Successfully deleted the subject');
+                break;
+            case 5:
+                toastr.error('Failed to delete the subject');
+                break;
+            default:
+                toastr.error('Something went wrong');
+        }
+
+
         $('.dataTables-classes').dataTable({
             responsive: true,
         });
@@ -231,6 +217,40 @@
             checkboxClass: 'icheckbox_square-green',
             radioClass: 'iradio_square-green',
         });
+
+
+        $('.edit').click(function (e) {
+            e.preventDefault();
+            var subjectID = $(this).data('subject-id');
+            $.ajax({
+                type: "POST",
+                dataType: 'json',
+                url: "<?php echo base_url('schools/get_single_subject/'); ?>",
+                data: {
+                    subject_id: subjectID
+                }, success: function (data) {
+                    show_subject_modal('admin_manage_subjects', data);
+                }
+            });
+        });
+
+        $('#subject-delete').click(function (e) {
+            e.preventDefault();
+            var subjectID = $(this).data('subject-id');
+            $('#delete-subject-id').val(subjectID);
+            $('#modelDelete').modal('show');
+        });
+
+        $("#add_subject_form").validate({
+
+            rules: {
+                name: {
+                    required: true,
+                    minlength: 3
+                }
+            }
+        });
+
     });
 </script>
 </body>

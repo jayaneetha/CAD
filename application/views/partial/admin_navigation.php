@@ -21,43 +21,43 @@
                 </div>
             </li>
             <li>
-                <a href="dashboard"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span></a>
+                <a href="/index.php/dashboard"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span></a>
             </li>
             <li>
                 <a href="#"><i class="fa fa-envelope"></i> <span class="nav-label">Mailbox </span><span
                         class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
-                    <li><a href="/compose">Compose</a></li>
-                    <li><a href="/inbox">Inbox <span class="label label-default pull-right">16</span></a></li>
-                    <li><a href="/sentbox">Sent</a></li>
+                    <li><a href="/index.php/compose">Compose</a></li>
+                    <li><a href="/index.php/inbox">Inbox <span class="label label-default pull-right">16</span></a></li>
+                    <li><a href="/index.php/sentbox">Sent</a></li>
                 </ul>
             </li>
             <li>
                 <a href="#"><i class="fa fa-user"></i> <span class="nav-label">Users</span><span
                         class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
-                    <li><a href="/users/create_CAD_user">Add CAD User</a></li>
-                    <li><a href="/users/registration_request">Registration Requests</a></li>
-                    <li><a href="/users/manage_users">Manage Users</a></li>
+                    <li><a href="/index.php/users/create_CAD_user">Add CAD User</a></li>
+                    <li><a href="/index.php/users/registration_request">Registration Requests</a></li>
+                    <li><a href="/index.php/users/manage_users">Manage Users</a></li>
                 </ul>
             </li>
             <li>
                 <a href="#"><i class="fa fa-bank"></i> <span class="nav-label">School</span><span
                         class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
-                    <li><a href="admin_add_school">Add School</a></li>
-                    <li><a href="admin_registered_schools">Registered Schools</a></li>
-                    <li><a href="admin_manage_classes">Manage Classes</a></li>
-                    <li><a href="admin_manage_subjects">Manage Subject</a></li>
-                    <li><a href="admin_class_subject">Add Subjects to Class</a></li>
+                    <li><a href="/index.php/schools/add_school">Add School</a></li>
+                    <li><a href="/index.php/schools/registered_schools">Registered Schools</a></li>
+                    <li><a href="/index.php/schools/manage_classes">Manage Classes</a></li>
+                    <li><a href="/index.php/schools/manage_subjects">Manage Subject</a></li>
+                    <li><a href="/index.php/schools/manage_class_subjects">Add Subjects to Class</a></li>
                 </ul>
             </li>
             <li>
                 <a href="#"><i class="fa fa-dollar"></i> <span class="nav-label">Funds </span><span
                         class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
-                    <li><a href="admin_accept_funds">Accept Funds</a></li>
-                    <li><a href="admin_transferred_funds">Transferred Funds</a></li>
+                    <li><a href="/index.php/funds/accept_funds">Accept Funds</a></li>
+                    <li><a href="/index.php/funds/accepted_funds">Accepted Funds</a></li>
                 </ul>
             </li>
             <li>

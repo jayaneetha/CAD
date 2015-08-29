@@ -28,26 +28,30 @@ class users extends CI_Controller
 
     public function login()
     {
-        $username = $this->input->post('username');
-        $password = sha1($this->input->post('password'));
+        if (isset($_POST['username'])) {
+            $username = $this->input->post('username');
+            $password = sha1($this->input->post('password'));
 
-        //$remember = $this->input->post('remember');
-        // Change the session timeout for the remember me option
-        // Value return from the remember is "remember"
+            //$remember = $this->input->post('remember');
+            // Change the session timeout for the remember me option
+            // Value return from the remember is "remember"
 
-        $user_info = $this->user->get_user_login_info($username);
+            $user_info = $this->user->get_user_login_info($username);
 
-        if ($user_info == null) {
-            //user DNE
-            $this->load->view('login', array('login_fail' => true));
-        } elseif ($password == $user_info['password']) {
-            //Login Success
-            $user_obj = $this->user->get_user($user_info['id']);
-            $this->session->set_userdata('user', $user_obj);
-            redirect('/dashboard');
+            if ($user_info == null) {
+                //user DNE
+                $this->load->view('login', array('login_fail' => true));
+            } elseif ($password == $user_info['password']) {
+                //Login Success
+                $user_obj = $this->user->get_user($user_info['id']);
+                $this->session->set_userdata('user', $user_obj);
+                redirect('/dashboard');
+            } else {
+                //Login Fail
+                $this->load->view('login', array('login_fail' => true));
+            }
         } else {
-            //Login Fail
-            $this->load->view('login', array('login_fail' => true));
+            $this->load->view('login');
         }
 
     }
@@ -56,7 +60,6 @@ class users extends CI_Controller
     {
         $this->session->sess_destroy();
         redirect('/');
-
     }
 
     public function dashboard()
@@ -177,7 +180,7 @@ class users extends CI_Controller
                 $user = $this->user->get_cad_user($user_id);
                 break;
         }
-        echo json_encode($user);
+        $this->load->view('json', array('data' => $user));
     }
 
     public function accept_reject_request($id, $type)

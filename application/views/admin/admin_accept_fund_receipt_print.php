@@ -3,7 +3,11 @@
 
 <body class="white-bg">
 <div class="wrapper wrapper-content p-xl">
-    <?php $this->load->view('admin/admin_accept_fund_payment_receipt_data'); ?>
+    <?php $this->load->view('admin/admin_accept_fund_payment_receipt_data', array(
+        'receipt' => $receipt,
+        'receiver' => $receiver,
+        'transaction' => $transaction
+    )); ?>
 
 </div>
 

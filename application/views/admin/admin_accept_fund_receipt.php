@@ -5,7 +5,7 @@
 
 <div id="wrapper">
 
-    <?php $this->load->view('partial/admin_navigation'); ?>
+    <?php $this->load->view('partial/admin_navigation', array('user' => $user, 'position' => $position)); ?>
 
     <div id="page-wrapper" class="gray-bg">
         <div class="row border-bottom">
@@ -26,15 +26,20 @@
             </div>
             <div class="col-lg-4">
                 <div class="title-action">
-                    <a href="/admin_accept_fund_receipt_print" target="_blank" class="btn btn-primary btn-outline"><i
-                            class="fa fa-print"></i> Print Receipt </a>
+                    <a href="<?= base_url('/index.php/receipts/print_receipt/fund_accept/' . $receipt->id) ?>"
+                       target="_blank" class="btn btn-primary btn-outline">
+                        <i class="fa fa-print"></i> Print Receipt </a>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-12">
                 <div class="wrapper wrapper-content animated bounceIn">
-                    <?php $this->load->view('admin_accept_fund_payment_receipt_data'); ?>
+                    <?php $this->load->view('admin/admin_accept_fund_payment_receipt_data', array(
+                        'receipt' => $receipt,
+                        'receiver' => $receiver,
+                        'transaction' => $transaction
+                    )); ?>
                 </div>
             </div>
         </div>

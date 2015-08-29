@@ -9,7 +9,7 @@
 
 <div id="wrapper">
 
-    <?php $this->load->view('partial/admin_navigation'); ?>
+    <?php $this->load->view('partial/admin_navigation', array('user' => $user, 'position' => $position)); ?>
 
     <div id="page-wrapper" class="gray-bg">
         <div class="row border-bottom">
@@ -55,21 +55,33 @@
                                     <th>Date</th>
                                     <th>Transaction No.</th>
                                     <th>Transferred</th>
+                                    <th>Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <?php foreach ($transferes as $item): ?>
-
+                                <?php foreach ($funds as $fund):
+                                    if ($fund->transferred == 1) {
+                                        $colour = 'success';
+                                        $status = 'Transferred';
+                                    } else {
+                                        $colour = 'danger';
+                                        $status = 'Not Transferred';
+                                    }
+                                    ?>
                                     <tr>
-                                        <td><?= $item->donor_name ?></td>
-                                        <td><?= $item->amount ?></td>
-                                        <td><?= $item->date ?></td>
-                                        <td><?= $item->transaction_no ?></td>
+                                        <td><?= $fund->first_name . " " . $fund->last_name ?></td>
+                                        <td>Rs.<?= $fund->amount ?></td>
+                                        <td><?= substr($fund->timestamp, 0, 10) ?></td>
+                                        <td><?= $fund->transaction_no ?></td>
                                         <td class="text-center"><label
-                                                class="label label-<?= $item->transaction_color ?>"><?= $item->transaction_status ?></label>
+                                                class="label label-<?= $colour ?>"><?= $status ?></label>
+                                        </td>
+                                        <td class="text-center">
+                                            <a href="<?= base_url('/index.php/receipts/print_receipt/fund_accept/f' . $fund->id) ?>"
+                                               target="_blank" class="btn btn-default btn-outline btn-sm"><i
+                                                    class="fa fa-print"></i></a>
                                         </td>
                                     </tr>
-
                                 <?php endforeach; ?>
                                 </tbody>
                             </table>

@@ -89,3 +89,53 @@ var show_user_modal = function (parent_view, data, userType) {
             toastr.error('Something went wrong!');
     }
 };
+
+var show_school_modal = function (parent_view, data) {
+    $('#school-modal-title').html(data.name);
+    $('#school-modal-title-small').text(data.city);
+    $('#school-name').val(data.name);
+    $('#school-id').val(data.id);
+    $('#school-address-1').val(data.address_1);
+    $('#school-address-2').val(data.address_2);
+    $('#school-city').val(data.city);
+    $('#school-principal').val(data.principal);
+    $('#school-contact-no').val(data.contact_no);
+    if (parent_view == 'registered_schools') {
+        $('#school-delete').show();
+    } else {
+        $('#school-delete').hide();
+    }
+};
+var show_class_modal = function (parent_view, data) {
+    $('#class-modal-title').html(data.class_name);
+    $('#class-name').val(data.class_name);
+    $('#class-id').val(data.id);
+    $('#class-delete').data('class-id', data.id);
+
+
+    if (parent_view == 'admin_manage_classes') {
+        $('#class-delete').show();
+        $('#class-submit').show();
+    } else {
+        $('#class-name').prop('disabled', true);
+        $('#class-delete').hide();
+        $('#class-submit').hide();
+    }
+};
+
+var show_subject_modal = function (parent_view, data) {
+    $('#subject-modal-title').html(data.subject_name);
+    $('#subject-name').val(data.subject_name);
+    $('#subject-id').val(data.id);
+    $('#subject-delete').data('subject-id', data.id);
+
+
+    if (parent_view == 'admin_manage_subjects') {
+        $('#subject-delete').show();
+        $('#subject-submit').show();
+    } else {
+        $('#subject-name').prop('disabled', true);
+        $('#subject-delete').hide();
+        $('#subject-submit').hide();
+    }
+};

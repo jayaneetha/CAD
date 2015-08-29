@@ -9,7 +9,7 @@
 
 <div id="wrapper">
 
-    <?php $this->load->view('partial/admin_navigation'); ?>
+    <?php $this->load->view('partial/admin_navigation', array('user' => $user, 'position' => $position)); ?>
 
     <div id="page-wrapper" class="gray-bg">
         <div class="row border-bottom">
@@ -58,75 +58,27 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>D.M Perera</td>
-                                    <td>Rs. 2500.00</td>
-                                    <td>2015-04-23</td>
-                                    <td>33918200282-287292</td>
-                                    <td>
-                                        <div class="btn-group btn-group-sm">
-                                            <button class="btn btn-sm btn-default edit" data-fund-id="1"
-                                                    data-toggle="modal"
-                                                    data-target="#edit-model">View
-                                            </button>
-                                            <button type="button" class="btn btn-sm btn-danger reject" data-fund-id="2"
-                                                    data-toggle="modal" data-target="#reject_fund">Reject
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>D.M Perera</td>
-                                    <td>Rs. 2500.00</td>
-                                    <td>2015-04-23</td>
-                                    <td>33918200282-287292</td>
-                                    <td>
-                                        <div class="btn-group btn-group-sm">
-                                            <button class="btn btn-sm btn-default edit" data-fund-id="1"
-                                                    data-toggle="modal"
-                                                    data-target="#edit-model">View
-                                            </button>
-                                            <button type="button" class="btn btn-sm btn-danger reject" data-fund-id="2"
-                                                    data-toggle="modal" data-target="#reject_fund">Reject
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>D.M Perera</td>
-                                    <td>Rs. 2500.00</td>
-                                    <td>2015-04-23</td>
-                                    <td>33918200282-287292</td>
-                                    <td>
-                                        <div class="btn-group btn-group-sm">
-                                            <button class="btn btn-sm btn-default edit" data-fund-id="1"
-                                                    data-toggle="modal"
-                                                    data-target="#edit-model">View
-                                            </button>
-                                            <button type="button" class="btn btn-sm btn-danger reject" data-fund-id="2"
-                                                    data-toggle="modal" data-target="#reject_fund">Reject
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>D.M Perera</td>
-                                    <td>Rs. 2500.00</td>
-                                    <td>2015-04-23</td>
-                                    <td>33918200282-287292</td>
-                                    <td>
-                                        <div class="btn-group btn-group-sm">
-                                            <button class="btn btn-sm btn-default edit" data-fund-id="1"
-                                                    data-toggle="modal"
-                                                    data-target="#edit-model">View
-                                            </button>
-                                            <button type="button" class="btn btn-sm btn-danger reject" data-fund-id="2"
-                                                    data-toggle="modal" data-target="#reject_fund">Reject
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-
+                                <?php foreach ($funds as $fund): ?>
+                                    <tr>
+                                        <td><?= $fund->first_name . " " . $fund->last_name ?></td>
+                                        <td>Rs. <?= $fund->amount ?></td>
+                                        <td><?= substr($fund->timestamp, 0, 10) ?> </td>
+                                        <td><?= $fund->transaction_no ?></td>
+                                        <td>
+                                            <div class="btn-group btn-group-sm">
+                                                <button class="btn btn-sm btn-default view"
+                                                        data-fund-id="<?= $fund->id ?>"
+                                                        data-toggle="modal"
+                                                        data-target="#modalAcceptFund">View
+                                                </button>
+                                                <button type="button" class="btn btn-sm btn-danger reject"
+                                                        data-fund-id="<?= $fund->id ?>"
+                                                        data-toggle="modal" data-target="#modalReject">Reject
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
                                 </tbody>
                             </table>
                         </div>
@@ -141,8 +93,8 @@
     </div>
 </div>
 
-<!-- Model -->
-<div class="modal inmodal" id="edit-model" tabindex="-1" role="dialog" aria-hidden="true">
+<!-- Accept Fund Modal -->
+<div class="modal inmodal" id="modalAcceptFund" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content animated fadeIn">
             <div class="modal-header">
@@ -151,8 +103,8 @@
                 <i class="fa fa-dollar modal-icon"></i>
                 <h4 class="modal-title">Accept Fund</h4>
             </div>
-            <form action="/admin_accept_fund_receipt" method="post">
-                <input type="text" class="hidden" hidden="hidden" id="fund_id" name="fund_id"/>
+            <form action="<?= base_url('/index.php/funds/accept_fund') ?>" method="post">
+                <input type="text" class="hidden" hidden="hidden" id="fund-id" name="fund_id"/>
 
                 <div class="modal-body">
                     <div class="row">
@@ -160,32 +112,33 @@
                             <div class="form-group">
                                 <label for="name">Name </label>
                                 <input type="text" class="form-control disabled" disabled name="name" id="name"
-                                       value="D.M Perera"/>
+                                       value=""/>
                             </div>
                             <div class="form-group">
-                                <label for="address">Amount </label>
+                                <label for="amount">Amount </label>
                                 <input type="text" name="amount" class="form-control disabled" disabled id="amount"
-                                       value="Rs. 2500.00"/>
+                                       value=""/>
                             </div>
                         </div>
                         <div class="col-md-6 col-lg-6 col-sm-12">
                             <div class="form-group">
                                 <label for="transaction_no">Transaction No. </label>
-                                <input type="text" name="transaction_no" id="transaction_no"
+                                <input type="text" name="transaction_no" id="transaction-no"
                                        class="form-control disabled" disabled
-                                       value="33918200282-287292"/>
+                                       value=""/>
                             </div>
                             <div class="form-group">
-                                <label for="address">Date/Time </label>
-                                <input type="text" name="date_time" id="date_time" class="form-control disabled"
+                                <label for="date_time">Date/Time </label>
+                                <input type="text" name="date_time" id="date-time" class="form-control disabled"
                                        disabled
-                                       value="2015-07-23 07:34 PM"/>
+                                       value=""/>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
-                            <textarea disabled class="form-control disabled" name="description" id="description" cols="30" rows="4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae, dolorum labore. Culpa delectus deserunt doloremque eveniet, iure libero molestiae mollitia praesentium, quaerat sapiente unde velit. </textarea>
+                            <textarea disabled class="form-control disabled" name="description" id="description"
+                                      cols="30" rows="4"></textarea>
                         </div>
                     </div>
                 </div>
@@ -199,7 +152,7 @@
 </div>
 
 
-<div class="modal inmodal fade" id="reject_fund" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal inmodal fade" id="modalReject" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
@@ -208,13 +161,17 @@
                 <i class="fa fa-dollar modal-icon"></i>
                 <h4 class="modal-title">Reject Fund</h4>
             </div>
-            <div class="modal-body">
-                <h4 class="text-center text-danger">Do you really want to reject the Fund? </h4>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
-                <a href="#" class="btn btn-danger">Reject Fund</a>
-            </div>
+            <form action="<?= base_url('/index.php/funds/reject_fund') ?>" method="post">
+                <input type="text" class="hidden" hidden="hidden" name="fund_id" id="reject-fund-id"/>
+
+                <div class="modal-body">
+                    <h4 class="text-center text-danger">Do you really want to reject the Fund? </h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger">Reject Fund</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -234,67 +191,34 @@
 
 <script>
     $(document).ready(function () {
-        $('.edit').click(function (e) {
+        $('.view').click(function (e) {
             e.preventDefault();
-            var fund = $(this).data('fund-id');
-            alert(fund);
-            //console.log(school);
-            /*$.ajax({
-             type: "POST",
-             dataType: 'json',
-             url: "
-            <?php //echo base_url('administrator/get_single_classroom/'); ?>",
-             data: {classroom_id: classroom},
-             success: function (data) {
-             //console.log(data);
-             //console.log(data.total);
-             for (var i = 0; i < data.total.length; i++) {
-             var school_name = data.total[i].sch_id;
-             $("select option").filter(function () {
-             //may want to use $.trim in here
-             return $(this).val() == school_name;
-             }).attr('selected', true);
-             $('#classroom_name').val(data.total[i].classroom_name);
-             $('#class_teacher_name').val(data.total[i].teacher_name);
-             $('#classroom_id').val(data.total[i].classroom_id);
-             }
-             ;
-
-             }
-             });*/
-
+            var fundID = $(this).data('fund-id');
+            $('input').val("");
+            $('textarea').val("");
+            $.ajax({
+                type: "POST",
+                dataType: 'json',
+                url: "<?php echo base_url('funds/get_single_fund/'); ?>",
+                data: {
+                    fund_id: fundID
+                }, success: function (data) {
+                    $('#fund-id').val(data.id);
+                    $('#name').val(data.first_name + " " + data.last_name);
+                    $('#amount').val(data.amount);
+                    $('#transaction-no').val(data.transaction_no);
+                    $('#date-time').val(data.timestamp);
+                    $('#description').val(data.description);
+                }
+            });
 
         });
+
         $('.reject').click(function (e) {
             e.preventDefault();
-            var fund = $(this).data('fund-id');
-            alert(fund);
-            //console.log(school);
-            /*$.ajax({
-             type: "POST",
-             dataType: 'json',
-             url: "
-            <?php //echo base_url('administrator/get_single_classroom/'); ?>",
-             data: {classroom_id: classroom},
-             success: function (data) {
-             //console.log(data);
-             //console.log(data.total);
-             for (var i = 0; i < data.total.length; i++) {
-             var school_name = data.total[i].sch_id;
-             $("select option").filter(function () {
-             //may want to use $.trim in here
-             return $(this).val() == school_name;
-             }).attr('selected', true);
-             $('#classroom_name').val(data.total[i].classroom_name);
-             $('#class_teacher_name').val(data.total[i].teacher_name);
-             $('#classroom_id').val(data.total[i].classroom_id);
-             }
-             ;
-
-             }
-             });*/
-
-
+            var fundID = $(this).data('fund-id');
+            $('input').val("");
+            $('#reject-fund-id').val(fundID);
         });
 
         $('.dataTables-example').dataTable({
@@ -305,18 +229,25 @@
             }
         });
 
-        var success = <?php echo 'true';?>;
+        var success = <?= $success ?>;
 
         toastr.options = {
             "closeButton": true,
             "progressBar": true
+        };
+
+        switch (success) {
+            case 0:
+                break;
+            case 2:
+                toastr.success("Successfully rejected");
+                break;
+            default:
+                toastr.error("Something wrong happened");
         }
 
-        if (success) {
-            toastr.success('Notification');
-        }
-
-    });
+    })
+    ;
 </script>
 
 </body>

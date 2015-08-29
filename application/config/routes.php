@@ -39,7 +39,7 @@
 */
 
 $route['default_controller'] = "users";
-$route['404_override'] = '';
+$route['404_override'] = 'test/test2/404';
 
 //$route['test/(:any)'] = 'test/test2/$1';
 
@@ -48,10 +48,9 @@ $route['inbox'] = "messages/inbox";
 $route['sentbox'] = "messages/sentbox";
 $route['compose'] = "messages/compose";
 
-
-$route['email/(:any)'] = 'email/$1';
-$route['admin_(:any)'] = 'test/admin/admin_$1';
-$route['donor_(:any)'] = 'test/donor/donor_$1';
+//$route['email/(:any)'] = 'email/$1';
+//$route['admin_(:any)'] = 'test/admin/admin_$1';
+//$route['donor_(:any)'] = 'test/donor/donor_$1';
 //$route['(:any)'] = 'test/test2/$1';
 
 

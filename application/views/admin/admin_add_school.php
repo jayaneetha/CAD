@@ -7,7 +7,7 @@
 
 <div id="wrapper">
 
-    <?php $this->load->view('partial/admin_navigation'); ?>
+    <?php $this->load->view('partial/admin_navigation', array('user' => $user, 'position' => $position)); ?>
 
     <div id="page-wrapper" class="gray-bg">
         <div class="row border-bottom">
@@ -47,7 +47,8 @@
                             </div>
                         </div>
                         <div class="ibox-content">
-                            <form id="add_school_form" method="post" class="form-horizontal" action="#">
+                            <form id="add_school_form" method="post" class="form-horizontal"
+                                  action="<?= base_url('index.php/schools/add') ?>">
                                 <div class="form-group tooltip-demo">
                                     <label class="col-sm-2 control-label">Name</label>
 
@@ -119,12 +120,12 @@
 
 <script>
     $(document).ready(function () {
-        var success = <?php echo 'true';?>;
+        var success = <?php if(isset($success)){echo $success; } ?>;
 
         toastr.options = {
             "closeButton": true,
             "progressBar": true
-        }
+        };
 
         if (success) {
             toastr.success('School updated successfully');

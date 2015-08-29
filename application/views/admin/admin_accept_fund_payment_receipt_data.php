@@ -12,16 +12,16 @@
 
         <div class="col-sm-6 text-right">
             <h4>Receipt No.</h4>
-            <h4 class="text-navy">INV-0000-00</h4>
+            <h4 class="text-navy"><?= $receipt->receipt_type . "-" . $receipt->id ?></h4>
             <span>To:</span>
             <address>
-                <strong>Mr. Janaka Silva</strong><br>
-                112 Street Avenu, 1080<br>
-                Miami, CT 445611<br>
-                <abbr title="Phone">P:</abbr> (120) 9000-4321
+                <strong><?= $receiver->first_name . " " . $receiver->last_name ?></strong><br>
+                <?= $receiver->address_1 . " " . $receiver->address_2 ?><br>
+                <?= $receiver->city . " " . $receiver->country ?><br>
+                <abbr title="Phone">P:</abbr> <?= $receiver->contact_no ?>
             </address>
             <p>
-                <span><strong>Receipt Date:</strong> March 18, 2015</span><br/>
+                <span><strong>Receipt Date:</strong> <?= substr($receipt->date, 0, 10) ?></span><br/>
             </p>
         </div>
     </div>
@@ -38,10 +38,9 @@
             <tr>
                 <td>
                     <div><strong>Donor Payment</strong></div>
-                    <small>Donation Payment for the month(s) Jan-2015,Feb-2015,Mar-2015
-                    </small>
+                    <small><?= $transaction->description ?></small>
                 </td>
-                <td>Rs.6000.00</td>
+                <td>Rs.<?= $transaction->amount ?></td>
             </tr>
             </tbody>
         </table>
@@ -52,11 +51,11 @@
         <tbody>
         <tr>
             <td><strong>Sub Total :</strong></td>
-            <td>Rs.6000.00</td>
+            <td>Rs.<?= $receipt->total ?> </td>
         </tr>
         <tr>
             <td><strong>TOTAL :</strong></td>
-            <td>Rs.6000.00</td>
+            <td>Rs.<?= $receipt->total ?></td>
         </tr>
         </tbody>
     </table>

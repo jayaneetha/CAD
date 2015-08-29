@@ -9,7 +9,7 @@
 
 <div id="wrapper">
 
-    <?php $this->load->view('partial/admin_navigation'); ?>
+    <?php $this->load->view('partial/admin_navigation', array('user' => $user, 'position' => $position)); ?>
 
     <div id="page-wrapper" class="gray-bg">
         <div class="row border-bottom">
@@ -51,24 +51,24 @@
                             </div>
                         </div>
                         <div class="ibox-content">
-                            <form method="post" class="form-horizontal">
+                            <form action="<?= base_url('/index.php/schools/add_class_subjects') ?>" method="post" class="form-horizontal">
                                 <div class="form-group"><label class="col-sm-2 control-label">Class</label>
+
                                     <div class="col-sm-10">
                                         <select class="form-control" name="class_id" id="class_id">
-                                            <option value="1">Grade 1</option>
-                                            <option value="2">Grade 2</option>
-                                            <option value="3">Grade 3</option>
-                                            <option value="4">Grade 4</option>
-                                            <option value="5">Grade 5</option>
-                                            <option value="6">Grade 6</option>
+                                            <?php foreach ($classes as $class) : ?>
+                                                <option value="<?= $class->id ?>"><?= $class->class_name ?></option>
+                                            <?php endforeach; ?>
                                         </select>
                                     </div>
                                 </div>
-                               <div class="form-group"><label class="col-sm-2 control-label">Subject</label>
+                                <div class="form-group"><label class="col-sm-2 control-label">Subject</label>
+
                                     <div class="col-sm-10">
                                         <select class="form-control" name="subject_id" id="subject_id">
-                                            <option value="1">Sinhalese</option>
-                                            <option value="2">Mathematics</option>
+                                            <?php foreach ($subjects as $subject) : ?>
+                                                <option value="<?= $subject->id ?>"><?= $subject->subject_name ?></option>
+                                            <?php endforeach; ?>
                                         </select>
                                     </div>
                                 </div>
@@ -87,6 +87,7 @@
                         <div class="ibox-title">
                             <h5>Manage Subject-Class Relation
                             </h5>
+
                             <div class="ibox-tools">
                                 <a class="collapse-link">
                                     <i class="fa fa-chevron-up"></i>
@@ -106,51 +107,20 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>Class 1</td>
-                                    <td>Sinhalese</td>
-                                    <td>
-                                        <div class="btn-group-sm">
-                                            <button class="btn btn-sm btn-danger edit" data-class-id="1" data-subject-id="1" >Delete</button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Class 1</td>
-                                    <td>Sinhalese</td>
-                                    <td>
-                                        <div class="btn-group-sm">
-                                            <button class="btn btn-sm btn-danger edit" data-class-id="1" data-subject-id="1" >Delete</button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Class 1</td>
-                                    <td>Sinhalese</td>
-                                    <td>
-                                        <div class="btn-group-sm">
-                                            <button class="btn btn-sm btn-danger edit" data-class-id="1" data-subject-id="1" >Delete</button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Class 1</td>
-                                    <td>Sinhalese</td>
-                                    <td>
-                                        <div class="btn-group-sm">
-                                            <button class="btn btn-sm btn-danger edit" data-class-id="1" data-subject-id="1" >Delete</button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Class 1</td>
-                                    <td>Sinhalese</td>
-                                    <td>
-                                        <div class="btn-group-sm">
-                                            <button class="btn btn-sm btn-danger edit" data-class-id="1" data-subject-id="1" >Delete</button>
-                                        </div>
-                                    </td>
-                                </tr>
+                                <?php foreach ($class_subjects as $item) : ?>
+                                    <tr>
+                                        <td><?= $item->class_name ?></td>
+                                        <td><?= $item->subject_name ?></td>
+                                        <td>
+                                            <div class="btn-group-sm">
+                                                <button class="btn btn-sm btn-danger delete"
+                                                        data-class-id="<?= $item->class_id ?>"
+                                                        data-subject-id="<?= $item->subject_id ?>">Delete
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
 
                                 </tbody>
                             </table>
@@ -166,34 +136,37 @@
     </div>
 </div>
 
-<!-- Model -->
-<div class="modal inmodal" id="modelSubject" tabindex="-1" role="dialog" aria-hidden="true">
+<!-- Delete modal -->
+<div class="modal inmodal" id="modelDelete" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content animated fadeIn">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span
                         aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 <i class="fa fa-pencil modal-icon"></i>
-                <h4 class="modal-title">Mathematics</h4>
+                <h4 id="cad-modal-title" class="modal-title">Delete Class Subject</h4>
             </div>
-            <form action="/" method="post">
-                <input type="text" class="hidden" hidden="hidden" id="subject_id" name="subject_id"/>
+            <form action="<?php echo base_url('index.php/schools/delete_class_subject') ?>" method="POST">
+                <input type="text" id="delete-subject-id" name="subject_id" value="" hidden="hidden" class="hidden"/>
+                <input type="text" id="delete-class-id" name="class_id" value="" hidden="hidden" class="hidden"/>
 
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-12 col-lg-12 col-sm-12">
+                            <p class="text-danger text-center">Do you really want to delete the Class Subject Relation?<br/>This cannot
+                                be reversed.</p>
+
                             <div class="form-group">
-                                <label for="name">Subject Name </label>
-                                <input name="principal" required="" type="text" class="form-control"
-                                       value="Mathematics"/>
+                                <label class="text-center" for="password">Please enter your password to continue</label>
+                                <input id="delete-class-password" type="password" class="form-control" name="password"
+                                       value=""/>
                             </div>
                         </div>
                     </div>
-
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger m-r-xs">Delete</button>
-                    <button type="submit" class="btn btn-primary" >Save changes</button>
+                    <button id="delete-class-delete" type="submit" class="btn btn-danger">Delete</button>
+                    <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
                 </div>
             </form>
         </div>
@@ -214,9 +187,49 @@
 <script src="<?php echo base_url('assets'); ?>/js/plugins/dataTables/dataTables.tableTools.min.js"></script>
 
 <!-- iCheck -->
-<script src="js/plugins/iCheck/icheck.min.js"></script>
+<script src="<?php echo base_url('assets'); ?>/js/plugins/iCheck/icheck.min.js"></script>
 <script>
     $(document).ready(function () {
+
+        var success = <?= $success ?>;
+
+        toastr.options = {
+            "closeButton": true,
+            "progressBar": true
+        };
+
+        switch (success) {
+            case 0:
+                break;
+            case 1:
+                toastr.success('Successfully Added');
+                break;
+            case 2:
+                toastr.error('Failed to add the subject');
+                break;
+            case 3:
+                toastr.success('Successfully deleted');
+                break;
+            case 4:
+                toastr.error('Failed to delete');
+                break;
+            case 5:
+                toastr.error('Failed to Add. Duplicate entry');
+                break;
+            default:
+                toastr.error('Something went wrong');
+        }
+
+        $('.delete').click(function (e) {
+            e.preventDefault();
+            var subjectID = $(this).data('subject-id');
+            var classID = $(this).data('class-id');
+            $('#delete-subject-id').val(subjectID);
+            $('#delete-class-id').val(classID);
+            $('#modelDelete').modal('show');
+        });
+
+
         $('.dataTables-classes').dataTable({
             responsive: true,
         });
