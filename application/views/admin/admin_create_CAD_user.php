@@ -1,13 +1,11 @@
 <?php $this->load->view('partial/header'); ?>
-<link href="css/plugins/iCheck/custom.css" rel="stylesheet">
-
 </head>
 
 <body>
 
 <div id="wrapper">
 
-    <?php $this->load->view('partial/admin_navigation', array('user' => $user, 'position' => $position)); ?>
+    <?php $this->load->view('partial/navigation'); ?>
     <div id="page-wrapper" class="gray-bg">
         <div class="row border-bottom">
 
@@ -108,9 +106,6 @@
 <!-- Custom and plugin javascript -->
 <script src="<?php echo base_url('assets'); ?>/js/inspinia.js"></script>
 <script src="<?php echo base_url('assets'); ?>/js/plugins/pace/pace.min.js"></script>
-
-<!-- iCheck -->
-<script src="js/plugins/iCheck/icheck.min.js"></script>
 
 <!-- Jquery Validate -->
 <script src="<?php echo base_url('assets'); ?>/js/plugins/validate/jquery.validate.min.js"></script>

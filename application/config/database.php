@@ -45,7 +45,7 @@
 | the active record class
 */
 
-$active_group = 'azure';
+$active_group = 'local';
 $active_record = TRUE;
 //mysql://ba3c63fdc5533f:a24da439@us-cdbr-iron-east-02.cleardb.net/heroku_859a8699216795c?reconnect=true
 
@@ -95,7 +95,7 @@ $db['local']['hostname'] = '127.0.0.1:3306';
 $db['local']['username'] = 'root';
 $db['local']['password'] = 'root';
 $db['local']['database'] = 'IMCD_CAD';
-$db['local']['dbdriver'] = 'mysqli';
+$db['local']['dbdriver'] = 'mysql';
 $db['local']['dbprefix'] = 'cad_';
 $db['local']['pconnect'] = TRUE;
 $db['local']['db_debug'] = TRUE;
@@ -109,21 +109,21 @@ $db['local']['stricton'] = FALSE;
 
 
 //Azure
-$db['azure']['hostname'] = 'ap-cdbr-azure-southeast-a.cloudapp.net';
-$db['azure']['username'] = 'b8be1a799075e0';
-$db['azure']['password'] = 'd1dd44a3';
-$db['azure']['database'] = 'imcdcadAQANcvgMK';
-$db['azure']['dbdriver'] = 'mysqli';
-$db['azure']['dbprefix'] = 'cad_';
-$db['azure']['pconnect'] = TRUE;
-$db['azure']['db_debug'] = TRUE;
-$db['azure']['cache_on'] = FALSE;
-$db['azure']['cachedir'] = '';
-$db['azure']['char_set'] = 'utf8';
-$db['azure']['dbcollat'] = 'utf8_general_ci';
-$db['azure']['swap_pre'] = '';
-$db['azure']['autoinit'] = TRUE;
-$db['azure']['stricton'] = FALSE;
+//$db['azure']['hostname'] = 'ap-cdbr-azure-southeast-a.cloudapp.net';
+//$db['azure']['username'] = 'b8be1a799075e0';
+//$db['azure']['password'] = 'd1dd44a3';
+//$db['azure']['database'] = 'imcdcadAQANcvgMK';
+//$db['azure']['dbdriver'] = 'mysqli';
+//$db['azure']['dbprefix'] = 'cad_';
+//$db['azure']['pconnect'] = TRUE;
+//$db['azure']['db_debug'] = TRUE;
+//$db['azure']['cache_on'] = FALSE;
+//$db['azure']['cachedir'] = '';
+//$db['azure']['char_set'] = 'utf8';
+//$db['azure']['dbcollat'] = 'utf8_general_ci';
+//$db['azure']['swap_pre'] = '';
+//$db['azure']['autoinit'] = TRUE;
+//$db['azure']['stricton'] = FALSE;
 
 
 /* End of file database.php */

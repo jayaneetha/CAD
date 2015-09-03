@@ -17,7 +17,7 @@
 
 <div id="wrapper">
 
-    <?php $this->load->view('partial/admin_navigation', array('user' => $user, 'position' => $position)); ?>
+    <?php $this->load->view('partial/navigation'); ?>
 
     <div id="page-wrapper" class="gray-bg">
         <div class="row border-bottom">
@@ -51,7 +51,8 @@
                         </div>
                         <div class="mail-box">
                             <div class="mail-body">
-                                <form id="compose_message_form" action="/index.php/messages/send" class="form-horizontal"
+                                <form id="compose_message_form" action="/index.php/messages/send"
+                                      class="form-horizontal"
                                       method="POST">
                                     <div class="form-group"><label class="col-sm-2 control-label">To:</label>
 

@@ -10,7 +10,8 @@ class Fund extends CI_Model
 
     public function add($transaction)
     {
-        return $this->db->insert('funds', $transaction);
+        $this->db->insert('funds', $transaction);
+        return $this->db->insert_id();
     }
 
     public function pending_transaction_count()
@@ -21,12 +22,15 @@ class Fund extends CI_Model
         return $this->db->count_all_results();
     }
 
-    public function get_pending_funds()
+    public function get_pending_funds($donor = null)
     {
         $this->db->select('first_name, last_name, funds.id, amount, description, timestamp, transaction_no');
         $this->db->from('funds');
         $this->db->join('user', 'funds.donor=user.id', 'inner');
         $this->db->where('accepted', 0);
+        if ($donor != null) {
+            $this->db->where('funds.donor', $donor);
+        }
         return $this->db->get()->result();
     }
 
@@ -64,12 +68,15 @@ class Fund extends CI_Model
         return $this->db->get()->result()[0];
     }
 
-    public function get_accepted_funds()
+    public function get_accepted_funds($donor = null)
     {
-        $this->db->select('first_name, last_name, funds.id, donor, amount, description, timestamp, transaction_no, transferred');
+        $this->db->select('first_name, last_name, funds.id, donor, amount, description, timestamp, transaction_no, transferred, transfer_timestamp');
         $this->db->from('funds');
         $this->db->join('user', 'funds.donor=user.id', 'inner');
         $this->db->where('accepted', 1);
+        if ($donor != null) {
+            $this->db->where('funds.donor', $donor);
+        }
         return $this->db->get()->result();
     }
 
@@ -84,6 +91,11 @@ class Fund extends CI_Model
         } else {
             return null;
         }
+    }
+
+    public function get_transaction_status($donor)
+    {
+
     }
 
 }

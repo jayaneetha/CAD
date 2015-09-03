@@ -10,7 +10,7 @@
 
 <div id="wrapper">
 
-    <?php $this->load->view('partial/admin_navigation'); ?>
+    <?php $this->load->view('partial/navigation'); ?>
 
     <div id="page-wrapper" class="gray-bg">
         <div class="row border-bottom">
@@ -49,7 +49,8 @@
                             </div>
                         </div>
                         <div class="ibox-content">
-                            <form method="post" class="form-horizontal" action="/test.php">
+                            <form method="post" class="form-horizontal"
+                                  action="<?= base_url('/index.php/articles/create_article') ?>">
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">Title</label>
 
@@ -112,7 +113,6 @@
 
 <script>
     $(document).ready(function () {
-        var success = <?php echo 'true';?>;
 
         $('#body').summernote(
             {
@@ -125,15 +125,25 @@
             }
         );
 
+        var success = <?= $success ?>;
+
         toastr.options = {
             "closeButton": true,
             "progressBar": true
-        }
+        };
 
-        if (success) {
-            toastr.success('added successfully');
+        switch (success) {
+            case 0:
+                break;
+            case 1:
+                toastr.success("Article added successfully");
+                break;
+            case 2:
+                toastr.error("Error in adding article");
+                break;
+            default:
+                toastr.error("Something wrong happened");
         }
-
     });
 </script>
 

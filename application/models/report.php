@@ -17,6 +17,31 @@ class report extends CI_Model
         return $this->db->get()->results();
     }
 
+    public function get_fund_summary($from, $to, $donor, $accepted = null, $transferred = null)
+    {
+        $this->db->from('funds');
+        $this->db->where('donor', $donor);
+        $this->db->where("timestamp BETWEEN '$from' AND '$to'");
+
+        if ($accepted != null) {
+            if ($accepted == true) {
+                $this->db->where('accepted', 1);
+            } else {
+                $this->db->where('accepted', 0);
+            }
+        }
+
+        if ($transferred != null) {
+            if ($transferred == true) {
+                $this->db->where('transferred', 1);
+            } else {
+                $transferred->db->where('transferred', 0);
+            }
+        }
+
+        return $this->db->get()->result();
+
+    }
 
 }
 

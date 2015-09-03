@@ -46,8 +46,6 @@
 
                 </div>
                 <div class="modal-footer">
-                    <a id="student-accept" href="#" class="btn btn-primary">Accept</a>
-                    <a id="student-reject" href="#" class="btn btn-danger">Reject</a>
                     <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
                 </div>
             </form>

@@ -14,17 +14,14 @@ class messages extends CI_Controller
 
     public function compose()
     {
-        if (isset($this->USER_OBJ->id)) {
-            $this->load->model('user');
-            $compose_data = array(
-                'user' => $this->USER_OBJ,
-                'position' => 'Administrator',
-                'users' => $this->user->get_active_user_list(),
-            );
-            $this->load->view('compose', $compose_data);
-        } else {
-            redirect('/');
-        }
+        $user_type = $this->ua->check_login();
+        $this->load->model('user');
+        $compose_data = array(
+            'user' => $this->USER_OBJ,
+            'position' => $user_type,
+            'users' => $this->user->get_active_user_list(),
+        );
+        $this->load->view('compose', $compose_data);
     }
 
     public function send()
@@ -89,7 +86,7 @@ class messages extends CI_Controller
             $inbox_messages = $this->message->get_inbox($this->USER_OBJ->id);
             $inbox_data = array(
                 'user' => $this->USER_OBJ,
-                'position' => 'Administrator',
+                'position' => $this->USER_OBJ->user_type,
                 'inbox_messages' => $inbox_messages
             );
             $this->load->view('inbox', $inbox_data);
@@ -130,7 +127,7 @@ class messages extends CI_Controller
             $sentbox_messages = $this->message->get_sentbox($this->USER_OBJ->id);
             $sentbox_data = array(
                 'user' => $this->USER_OBJ,
-                'position' => 'Administrator',
+                'position' => $this->USER_OBJ->user_type,
                 'sentbox_messages' => $sentbox_messages
             );
             $this->load->view('sentbox', $sentbox_data);

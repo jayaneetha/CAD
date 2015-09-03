@@ -47,6 +47,7 @@ $route['dashboard'] = 'users/dashboard';
 $route['inbox'] = "messages/inbox";
 $route['sentbox'] = "messages/sentbox";
 $route['compose'] = "messages/compose";
+$route['profile'] = "users/profile";
 
 //$route['email/(:any)'] = 'email/$1';
 //$route['admin_(:any)'] = 'test/admin/admin_$1';

@@ -3,17 +3,17 @@
         <ul class="nav" id="side-menu">
             <li class="nav-header">
                 <div class="dropdown profile-element"> <span>
-                            <img alt="image" class="img-circle" src="<?php echo base_url('assets'); ?>/img/a4.jpg" width="65px"/>
+                            <img alt="image" class="img-circle" src="<?php echo base_url('profile_pictures/' . $user->profile_pic); ?>" width="65px"/>
                              </span>
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold"><?= $user->first_name . " " . $user->last_name ?></strong>
                              </span> <span class="text-muted text-xs block"><?= $position ?> <b
                                         class="caret"></b></span> </span> </a>
                     <ul class="dropdown-menu animated fadeInUp m-t-xs">
-                        <li><a href="profile.html">Profile</a></li>
-                        <li><a href="mailbox.html">Mailbox</a></li>
+                        <li><a href="/index.php/profile">Profile</a></li>
+                        <li><a href="/index.php/inbox">Mailbox</a></li>
                         <li class="divider"></li>
-                        <li><a href="login.html">Logout</a></li>
+                        <li><a href="/index.php/users/logout">Logout</a></li>
                     </ul>
                 </div>
                 <div class="logo-element">
@@ -64,8 +64,8 @@
                 <a href="#"><i class="fa fa-quote-left"></i> <span class="nav-label">Articles</span><span
                         class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
-                    <li><a href="admin_add_article">Add Article</a></li>
-                    <li><a href="admin_manage_articles">Manage Articles</a></li>
+                    <li><a href="/index.php/articles/add_article">Add Article</a></li>
+                    <li><a href="/index.php/articles/manage_articles">Manage Articles</a></li>
                 </ul>
             </li>
             <li>
@@ -81,7 +81,7 @@
                 </ul>
             </li>
             <li>
-                <a href="#"><i class="fa fa-cloud-download"></i> <span class="nav-label">Backup </span></a>
+                <a href="/index.php/backups"><i class="fa fa-cloud-download"></i> <span class="nav-label">Backup </span></a>
             </li>
         </ul>
 

@@ -9,7 +9,7 @@
 
 <div id="wrapper">
 
-    <?php $this->load->view('partial/donor_navigation'); ?>
+    <?php $this->load->view('partial/navigation'); ?>
 
     <div id="page-wrapper" class="gray-bg">
         <div class="row border-bottom">
@@ -58,30 +58,27 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>2015-04-23</td>
-                                    <td>Rs. 2500.00</td>
-                                    <td>33918200282-287292</td>
-                                    <td class="text-center"><label class="label label-danger">Not Transferred</label>
-                                    </td>
-                                    <td class="text-center"> -</td>
-                                </tr>
-                                <tr>
-                                    <td>2015-04-23</td>
-                                    <td>Rs. 2500.00</td>
-                                    <td>33918200282-287292</td>
-                                    <td class="text-center"><label class="label label-danger">Not Transferred</label>
-                                    </td>
-                                    <td class="text-center"> -</td>
-                                </tr>
-                                <tr>
-                                    <td>2015-04-23</td>
-                                    <td>Rs. 2500.00</td>
-                                    <td>33918200282-287292</td>
-                                    <td class="text-center"><label class="label label-success">Transferred</label>
-                                    </td>
-                                    <td class="text-center"> 2015-05-23</td>
-                                </tr>
+                                <?php foreach ($accepted as $fund):
+                                    if ($fund->transferred == 1) {
+                                        $transferred = 'Transferred';
+                                        $transferred_colour = 'primary';
+                                        $transferred_date = $fund->transfer_timestamp;
+                                    } else {
+                                        $transferred = 'Not Transferred';
+                                        $transferred_colour = 'danger';
+                                        $transferred_date = "-";
+                                    }
+                                    ?>
+                                    <tr>
+                                        <td><?= substr($fund->timestamp, 0, 10) ?></td>
+                                        <td>Rs. <?= $fund->amount ?></td>
+                                        <td><?= $fund->transaction_no ?></td>
+                                        <td class="text-center"><label
+                                                class="label label-<?= $transferred_colour ?>"><?= $transferred ?></label>
+                                        </td>
+                                        <td class="text-center"> <?= $transferred_date ?></td>
+                                    </tr>
+                                <?php endforeach; ?>
 
                                 </tbody>
                             </table>
@@ -116,12 +113,14 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>2015-04-23</td>
-                                    <td>Rs. 2500.00</td>
-                                    <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</td>
-                                    <td>33918200282-287292</td>
-                                </tr>
+                                <?php foreach ($pending as $fund): ?>
+                                    <tr>
+                                        <td><?= substr($fund->timestamp, 0, 10) ?></td>
+                                        <td>Rs. <?= $fund->amount ?></td>
+                                        <td><?= $fund->description ?></td>
+                                        <td><?= $fund->transaction_no ?></td>
+                                    </tr>
+                                <?php endforeach; ?>
                                 </tbody>
                             </table>
                         </div>
@@ -136,78 +135,6 @@
     </div>
 </div>
 
-<!-- Model -->
-<div class="modal inmodal" id="edit-model" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content animated fadeIn">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span
-                        aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <i class="fa fa-dollar modal-icon"></i>
-                <h4 class="modal-title">Accept Fund</h4>
-            </div>
-            <form action="/" method="post">
-                <input type="text" class="hidden" hidden="hidden" id="fund_id" name="fund_id"/>
-
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-6 col-lg-6 col-sm-12">
-                            <div class="form-group">
-                                <label for="name">Name </label>
-                                <input type="text" class="form-control disabled" disabled name="name" id="name"
-                                       value="D.M Perera"/>
-                            </div>
-                            <div class="form-group">
-                                <label for="address">Amount </label>
-                                <input type="text" name="amount" class="form-control disabled" disabled id="amount"
-                                       value="Rs. 2500.00"/>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-6 col-sm-12">
-                            <div class="form-group">
-                                <label for="transaction_no">Transaction No. </label>
-                                <input type="text" name="transaction_no" id="transaction_no"
-                                       class="form-control disabled" disabled
-                                       value="33918200282-287292"/>
-                            </div>
-                            <div class="form-group">
-                                <label for="address">Date/Time </label>
-                                <input type="text" name="date_time" id="date_time" class="form-control disabled"
-                                       disabled
-                                       value="2015-07-23 07:34 PM"/>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Accept Fund</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-
-<div class="modal inmodal fade" id="reject_fund" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span
-                        aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <i class="fa fa-dollar modal-icon"></i>
-                <h4 class="modal-title">Reject Fund</h4>
-            </div>
-            <div class="modal-body">
-                <h4 class="text-center text-danger">Do you really want to reject the Fund? </h4>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
-                <a href="#" class="btn btn-danger">Reject Fund</a>
-            </div>
-        </div>
-    </div>
-</div>
 
 <!-- Mainly scripts -->
 <?php $this->load->view('partial/common_js'); ?>

@@ -12,7 +12,7 @@
 
 <div id="wrapper">
 
-    <?php $this->load->view('partial/admin_navigation'); ?>
+    <?php $this->load->view('partial/navigation'); ?>
 
     <div id="page-wrapper" class="gray-bg">
         <div class="row border-bottom">
@@ -55,70 +55,46 @@
                                 <thead>
                                 <tr>
                                     <th>Title</th>
-                                    <th>Content</th>
                                     <th>Date</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>The CAD</td>
-                                    <td>There are a lot of under privilege children throughout the ...</td>
-                                    <td>28-02-2015</td>
-                                    <td class="text-center"><span class="badge badge-primary"> Published </span></td>
-                                    <td class="text-center">
-                                        <div class="btn-group-sm">
-                                            <button class="btn btn-sm btn-default btn-outline view" data-article-id="1"
-                                                    data-toggle="modal"
-                                                    data-target="#modelArticle">View
-                                            </button>
-                                            <button class="btn btn-sm btn-danger btn-outline view" data-article-id="1"
-                                                    data-toggle="modal"
-                                                    data-target="#modelArticle">Unpublish
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>What We Do</td>
-                                    <td>Being an exemplary social service organization, IMCD ...</td>
-                                    <td>28-02-2015</td>
-                                    <td class="text-center"><span class="badge badge-danger"> Unpublished </span></td>
-                                    <td class="text-center">
-                                        <div class="btn-group-sm">
-                                            <button class="btn btn-sm btn-default btn-outline view" data-article-id="1"
-                                                    data-toggle="modal"
-                                                    data-target="#modelArticle">View
-                                            </button>
-                                            <button class="btn btn-sm btn-primary
-                                             btn-outline view" data-article-id="1"
-                                                    data-toggle="modal"
-                                                    data-target="#modelArticle">Publish
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>The IMCD Family</td>
-                                    <td>nternational Movement for Community Development (IMCD) is a ...</td>
-                                    <td>28-02-2015</td>
-                                    <td class="text-center"><span class="badge badge-primary"> Published </span></td>
-                                    <td class="text-center">
-                                        <div class="btn-group btn-group-sm">
-                                            <button class="btn btn-sm btn-default btn-outline view" data-article-id="1"
-                                                    data-toggle="modal"
-                                                    data-target="#modelArticle">View
-                                            </button>
-                                            <button class="btn btn-sm btn-danger btn-outline view" data-article-id="1"
-                                                    data-toggle="modal"
-                                                    data-target="#modelArticle">Unpublish
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-
-
+                                <?php foreach ($articles as $article) :
+                                    if ($article->published == 1) {
+                                        $published = 'Published';
+                                        $badge = "primary";
+                                        $action = 'Unpublish';
+                                        $action_colour = 'danger';
+                                        $action_url = '/index.php/articles/unpublish/' . $article->id;
+                                    } else {
+                                        $published = 'Unpublished';
+                                        $badge = "danger";
+                                        $action = 'Publish';
+                                        $action_colour = 'primary';
+                                        $action_url = '/index.php/articles/publish/' . $article->id;
+                                    }
+                                    ?>
+                                    <tr>
+                                        <td><?= $article->title ?></td>
+                                        <td><?= substr($article->timestamp, 0, 10) ?></td>
+                                        <td class="text-center"><span
+                                                class="badge badge-<?= $badge ?>"> <?= $published ?> </span>
+                                        </td>
+                                        <td class="text-center">
+                                            <div class="btn-group-sm">
+                                                <button class="btn btn-sm btn-default btn-outline view"
+                                                        data-article-id="<?= $article->id ?>"
+                                                        data-toggle="modal"
+                                                        data-target="#modelArticle">View
+                                                </button>
+                                                <a href="<?= base_url($action_url) ?>"
+                                                   class="btn btn-sm btn-<?= $action_colour ?> btn-outline"><?= $action ?></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
                                 </tbody>
                             </table>
                         </div>
@@ -141,24 +117,24 @@
                 <button type="button" class="close" data-dismiss="modal"><span
                         aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 <i class="fa fa-quote-left modal-icon"></i>
-                <h4 class="modal-title">The IMCD Family</h4>
-                <small>28-02-2015</small>
+                <h4 id="article-modal-title" class="modal-title"></h4>
+                <small id="article-modal-title-small"></small>
             </div>
-            <form action="/" method="post">
-                <input type="text" class="hidden" hidden="hidden" id="article_id" name="article_id"/>
+            <form action="<?= base_url('/index.php/articles/update_article') ?>" method="post">
+                <input type="text" class="hidden" hidden="hidden" id="article-id" name="article_id"/>
 
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label for="title">Title </label>
-                                <input type="text" class="form-control" name="title"
-                                       value="The IMCD Family"/>
+                                <input id="article-title" type="text" class="form-control" name="title"
+                                       value=""/>
                             </div>
                             <div class="form-group">
                                 <label for="body">Content </label>
-                               <textarea class="form-control" name="body" id="body" cols="30"
-                                         rows="10">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid asperiores, aut dolor eligendi harum id maiores modi, nam non perferendis quam quas quo quos ratione, reprehenderit sint totam unde voluptatem!</textarea>
+                               <textarea class="form-control" name="body" id="article-body" cols="30"
+                                         rows="10"></textarea>
                             </div>
                         </div>
                     </div>
@@ -190,39 +166,26 @@
 
 <script>
     $(document).ready(function () {
-        $('.edit').click(function (e) {
+        $('.view').click(function (e) {
             e.preventDefault();
-            var article = $(this).data('article-id');
-            alert(article);
-            //console.log(school);
-            /*$.ajax({
-             type: "POST",
-             dataType: 'json',
-             url: "
-            <?php //echo base_url('administrator/get_single_classroom/'); ?>",
-             data: {classroom_id: classroom},
-             success: function (data) {
-             //console.log(data);
-             //console.log(data.total);
-             for (var i = 0; i < data.total.length; i++) {
-             var school_name = data.total[i].sch_id;
-             $("select option").filter(function () {
-             //may want to use $.trim in here
-             return $(this).val() == school_name;
-             }).attr('selected', true);
-             $('#classroom_name').val(data.total[i].classroom_name);
-             $('#class_teacher_name').val(data.total[i].teacher_name);
-             $('#classroom_id').val(data.total[i].classroom_id);
-             }
-             ;
-
-             }
-             });*/
-
-
+            var articleID = $(this).data('article-id');
+            $.ajax({
+                type: "POST",
+                dataType: 'json',
+                url: "<?php echo base_url('/index.php/articles/get_single_article/'); ?>",
+                data: {
+                    article_id: articleID
+                }, success: function (data) {
+                    $('#article-modal-title').text(data.title);
+                    $('#article-modal-title-small').text(data.timestamp.substring(0, 10));
+                    $('#article-title').val(data.title);
+                    $('#article-body').code(data.body);
+                    $('#article-id').val(data.id);
+                }
+            });
         });
 
-        $('#body').summernote(
+        $('#article-body').summernote(
             {
                 height: 250,                 // set editor height
 
@@ -239,15 +202,28 @@
             }
         });
 
-        var success = <?php echo 'true';?>;
+        var success = <?= $success ?>;
 
         toastr.options = {
             "closeButton": true,
             "progressBar": true
-        }
+        };
 
-        if (success) {
-            toastr.success('Notification');
+        switch (success) {
+            case 0:
+                break;
+            case 1:
+                toastr.success("Article added successfully");
+                break;
+            case 2:
+                toastr.success("Article updated successfully");
+                break;
+            case 3:
+                toastr.error("Article update unsuccessfull");
+                break;
+
+            default:
+                toastr.error("Something wrong happened");
         }
 
     });

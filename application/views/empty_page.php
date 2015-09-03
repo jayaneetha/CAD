@@ -1,5 +1,4 @@
 <?php $this->load->view('partial/header'); ?>
-<link href="css/plugins/iCheck/custom.css" rel="stylesheet">
 
 </head>
 

@@ -14,7 +14,7 @@ class Funds extends CI_Controller
 
     public function index()
     {
-        redirect('/funds/accept_funds');
+        redirect('/');
     }
 
     public function accept_funds($success = 0)
@@ -23,7 +23,7 @@ class Funds extends CI_Controller
 
             $view_data = array(
                 'user' => $this->USER_OBJ,
-                'position' => 'Administrator',
+                'position' => $this->USER_OBJ->user_type,
                 'funds' => $this->fund->get_pending_funds()
             );
             $view_data['success'] = $success;
@@ -66,7 +66,7 @@ class Funds extends CI_Controller
 
             $view_data = array(
                 'user' => $this->USER_OBJ,
-                'position' => 'Administrator',
+                'position' => $this->USER_OBJ->user_type,
                 'receipt' => $receipt,
                 'receiver' => $this->user->get_donor($receipt->receiver),
                 'transaction' => $this->fund->get_single_fund($receipt->transaction_id)
@@ -81,17 +81,51 @@ class Funds extends CI_Controller
 
     public function add_fund()
     {
-        $transaction = array(
-            'donor' => $this->session->userdata('user')->user_id,
-            'amount' => $this->input->post('amount'),
-            'description' => $this->input->post('description'),
-            'transaction_no' => $this->input->post('transaction_no')
-        );
-        $result = $this->fund->add($transaction);
-        if ($result != 0) {
-            $this->load->view('add_fund', array('success' => false));
+        if ($this->ua->check_login() == 'donor') {
+            $transaction = array(
+                'donor' => $this->USER_OBJ->id,
+                'amount' => $this->input->post('amount'),
+                'description' => $this->input->post('description'),
+                'transaction_no' => $this->input->post('transaction_no')
+            );
+            $result = $this->fund->add($transaction);
+            if ($result > 0) {
+                //success
+                redirect('/funds/status/1');
+            } else {
+                redirect('/funds/status/2');
+            }
         } else {
-            $this->load->view('add_fund', array('success' => true));
+            $this->load->view('401');
+        }
+    }
+
+    public function add()
+    {
+        if ($this->ua->check_login() == 'donor') {
+            $view_data = array(
+                'user' => $this->USER_OBJ,
+                'position' => $this->USER_OBJ->user_type,
+            );
+            $this->load->view('donor/donor_add_fund', $view_data);
+        } else {
+            $this->load->view('401');
+        }
+    }
+
+    public function status($success = 0)
+    {
+        if ($this->ua->check_login() == 'donor') {
+            $view_data = array(
+                'user' => $this->USER_OBJ,
+                'position' => $this->USER_OBJ->user_type,
+                'success' => $success,
+                'accepted' => $this->fund->get_accepted_funds($this->USER_OBJ->id),
+                'pending' => $this->fund->get_pending_funds($this->USER_OBJ->id),
+            );
+            $this->load->view('donor/donor_fund_status', $view_data);
+        } else {
+            $this->load->view('401');
         }
     }
 
@@ -109,7 +143,7 @@ class Funds extends CI_Controller
 
             $view_data = array(
                 'user' => $this->USER_OBJ,
-                'position' => 'Administrator',
+                'position' => $this->USER_OBJ->user_type,
                 'funds' => $this->fund->get_accepted_funds()
             );
             $view_data['success'] = $success;

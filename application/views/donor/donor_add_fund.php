@@ -7,7 +7,7 @@
 
 <div id="wrapper">
 
-    <?php $this->load->view('partial/donor_navigation'); ?>
+    <?php $this->load->view('partial/navigation'); ?>
 
     <div id="page-wrapper" class="gray-bg">
         <div class="row border-bottom">
@@ -46,19 +46,19 @@
                             </div>
                         </div>
                         <div class="ibox-content">
-                            <form id="add_school_form" method="post" class="form-horizontal" action="#">
+                            <form id="add_fund_form" method="post" class="form-horizontal" action="<?=base_url('/index.php/funds/add_fund') ?>">
                                 <div class="form-group tooltip-demo">
                                     <label class="col-sm-2 control-label">Amount</label>
 
                                     <div class="col-sm-10">
-                                        <input name="amount" required="" type="text" class="form-control">
+                                        <input name="amount" required="" type="text" class="form-control" placeholder="Amount donated">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">Transaction No.</label>
 
                                     <div class="col-sm-10">
-                                        <input name="transaction_no" required="" type="text" class="form-control">
+                                        <input name="transaction_no" required="" type="text" class="form-control" placeholder="Transaction number appeared at the bottom of the slip">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -103,19 +103,8 @@
 
 <script>
     $(document).ready(function () {
-        var success = <?php echo 'true';?>;
 
-        toastr.options = {
-            "closeButton": true,
-            "progressBar": true
-        }
-
-        if (success) {
-            toastr.success('Fund added successfully');
-        }
-
-        $("#add_school_form").validate({
-
+        $("#add_fund_form").validate({
             rules: {
                 amount: {
                     required: true,

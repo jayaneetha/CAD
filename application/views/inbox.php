@@ -9,7 +9,7 @@
 
 <div id="wrapper">
 
-    <?php $this->load->view('partial/admin_navigation', array('user' => $user, 'position' => $position)); ?>
+    <?php $this->load->view('partial/navigation'); ?>
 
     <div id="page-wrapper" class="gray-bg">
         <div class="row border-bottom">
@@ -20,7 +20,7 @@
         <div class="wrapper wrapper-content">
             <div class="row">
                 <div class="col-lg-12 animated fadeInRight">
-                    <?php $this->load->view('inbox-data', array('inbox_messages' => $inbox_messages)) ?>
+                    <?php $this->load->view('inbox-data') ?>
                 </div>
 
             </div>

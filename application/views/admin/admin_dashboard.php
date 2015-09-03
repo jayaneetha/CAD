@@ -5,7 +5,7 @@
 
 <div id="wrapper">
 
-    <?php $this->load->view('partial/admin_navigation', array('user' => $user,'position'=>$position)); ?>
+    <?php $this->load->view('partial/navigation', array('user' => $user,'position'=>$position)); ?>
 
 
     <div id="page-wrapper" class="gray-bg">
@@ -17,14 +17,14 @@
         <div class="wrapper wrapper-content animated fadeInRight">
             <div class="row">
                 <div class="col-lg-4">
-                    <div class="widget-head-color-box navy-bg p-md text-center">
+                    <div class="widget navy-bg p-md text-center">
                         <div class="m-b-md">
                             <h2 class="font-bold no-margins">
                                 <?= $user->first_name . " " . $user->last_name ?>
                             </h2>
                             <small><?= $position ?></small>
                         </div>
-                        <img src="<?php echo base_url('assets'); ?>/img/a4.jpg"
+                        <img src="<?php echo base_url('profile_pictures/' . $user->profile_pic); ?>"
                              class="img-circle circle-border m-b-md"
                              alt="profile">
                     </div>

@@ -1,3 +1,3 @@
 <?php
-echo sha1('123');
+echo md5('123');
 ?>

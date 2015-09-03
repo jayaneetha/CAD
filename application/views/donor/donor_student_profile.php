@@ -6,7 +6,7 @@
 <body>
 <div id="wrapper">
 
-    <?php $this->load->view('partial/donor_navigation'); ?>
+    <?php $this->load->view('partial/navigation'); ?>
 
     <div id="page-wrapper" class="gray-bg">
         <div class="row border-bottom">
@@ -37,20 +37,17 @@
                         </div>
                         <div>
                             <div class="ibox-content profile-content">
-                                <h3><strong>Monica Smith</strong></h3>
+                                <h3><strong><?= $student->first_name . " " . $student->last_name ?></strong></h3>
 
-                                <p><i class="fa fa-map-marker"></i> Riviera State 32/106</p>
+                                <p><i class="fa fa-map-marker"></i> <?= $student->address_1 . "<br/>"
+                                    . $student->address_2 . "<br/>"
+                                    . $student->city ?></p>
 
-                                <p><i class="fa fa-institution"></i> A/ Kuda wewa M.V</p>
-                                <h5>
-                                    About me
-                                </h5>
+                                <p><i class="fa fa-birthday-cake"></i> <?= $student->DOB ?></p>
 
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                    exercitat.
-                                </p>
+                                <p><i class="fa fa-institution"></i> <?= $student->name ?></p>
+
+                                <p><i class="fa fa-users"></i> <?= $student->class_name ?></p>
 
                                 <div class="row m-t-lg">
                                     <div class="col-md-6">

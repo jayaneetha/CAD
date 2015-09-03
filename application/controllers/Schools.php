@@ -16,7 +16,7 @@ class schools extends CI_Controller
         if ($this->ua->check_login() == 'admin') {
             $view_data = array(
                 'user' => $this->USER_OBJ,
-                'position' => 'Administrator',
+                'position' => $this->USER_OBJ->user_type,
             );
             if ($success != null) {
                 $view_data['success'] = $success;
@@ -88,7 +88,7 @@ class schools extends CI_Controller
         if ($this->ua->check_login() == 'admin') {
             $view_data = array(
                 'user' => $this->USER_OBJ,
-                'position' => 'Administrator',
+                'position' => $this->USER_OBJ->user_type,
                 'schools' => $this->school->get_schools(),
             );
             if ($success != null) {
@@ -117,7 +117,7 @@ class schools extends CI_Controller
         if ($this->ua->check_login() == 'admin') {
             $view_data = array(
                 'user' => $this->USER_OBJ,
-                'position' => 'Administrator',
+                'position' => $this->USER_OBJ->user_type,
                 'classes' => $this->school->get_classes(),
             );
             $view_data['success'] = $success;
@@ -224,7 +224,7 @@ class schools extends CI_Controller
         if ($this->ua->check_login() == 'admin') {
             $view_data = array(
                 'user' => $this->USER_OBJ,
-                'position' => 'Administrator',
+                'position' => $this->USER_OBJ->user_type,
                 'subjects' => $this->school->get_subjects(),
             );
             $view_data['success'] = $success;
@@ -332,7 +332,7 @@ class schools extends CI_Controller
         if ($this->ua->check_login() == 'admin') {
             $view_data = array(
                 'user' => $this->USER_OBJ,
-                'position' => 'Administrator',
+                'position' => $this->USER_OBJ->user_type,
                 'classes' => $this->school->get_classes(),
                 'subjects' => $this->school->get_subjects(),
                 'class_subjects' => $this->school->get_class_subjects(),
