@@ -1,17 +1,25 @@
 <script type="text/javascript">
     $(function () {
         var lineData = {
-            labels: ["January", "February", "March", "April", "May", "June", "July"],
+            labels: [
+                <?php foreach($funds as $fund): ?>
+                "<?=substr($fund->timestamp,0,10)?>",
+                <?php endforeach; ?>
+            ],
             datasets: [
                 {
                     label: "Total",
-                    fillColor: "rgba(220,220,220,0.5)",
-                    strokeColor: "rgba(220,220,220,1)",
-                    pointColor: "rgba(220,220,220,1)",
+                    fillColor: "rgba(26,179,148,0.5)",
+                    strokeColor: "rgba(26,179,148,0.7)",
+                    pointColor: "rgba(26,179,148,1)",
                     pointStrokeColor: "#fff",
                     pointHighlightFill: "#fff",
-                    pointHighlightStroke: "rgba(220,220,220,1)",
-                    data: [65, 59, 80, 81, 56, 55, 40]
+                    pointHighlightStroke: "rgba(26,179,148,1)",
+                    data: [
+                        <?php foreach($funds as $fund): ?>
+                        <?=$fund->amount?>,
+                        <?php endforeach; ?>
+                    ]
                 },
                 {
                     label: "Accepted",
@@ -21,7 +29,7 @@
                     pointStrokeColor: "#fff",
                     pointHighlightFill: "#fff",
                     pointHighlightStroke: "rgba(26,179,148,1)",
-                    data: [28, 48, 40, 19, 86, 27, 90]
+                    data: [28, 48, 40, 19, 86, 27, 90,]
                 }
             ]
         };

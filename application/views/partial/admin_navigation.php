@@ -73,8 +73,8 @@
                         class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li><a href="/index.php/reports/transaction/detailed">Transaction Detailed</a></li>
-                    <li><a href="admin_transaction_summary">Transaction Summary</a></li>
-                    <li><a href="admin_transaction_history">Transaction History</a></li>
+                    <li><a href="/index.php/reports/transaction/#">Transaction Summary</a></li>
+                    <li><a href="/index.php/reports/transaction/history">Transaction History</a></li>
                     <li><a href="admin_donor_birthday_list">Donors Birthday List</a></li>
 
                 </ul>

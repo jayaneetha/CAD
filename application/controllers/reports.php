@@ -145,19 +145,18 @@ class Reports extends CI_Controller
                 $show = null;
             }
 
-            $funds_all = $this->report->get_fund_detailed($start, $end, null, $show);
-            $sum_accepted = $this->report->get_fund_sum($start, $end, null, true);
-            $sum_transferred = $this->report->get_fund_sum($start, $end, null, true, true);
-
             $view_data = array(
                 'user' => $this->USER_OBJ,
                 'position' => $this->USER_OBJ->user_type,
                 'now' => unix_to_human(time()),
                 'start' => $start,
                 'end' => $end,
-                'funds' => $funds_all,
-                'sum_accepted' => $sum_accepted,
-                'sum_transferred' => $sum_transferred,
+                'funds' =>  $this->report->get_fund_detailed($start, $end, null, $show),
+                'accepted' => $this->report->get_fund_detailed($start, $end, null, true),
+                'transferred' => $this->report->get_fund_detailed($start, $end, null, true, true),
+                'sum_all' => $this->report->get_fund_sum($start, $end),
+                'sum_accepted' => $this->report->get_fund_sum($start, $end, null, true),
+                'sum_transferred' => $this->report->get_fund_sum($start, $end, null, true, true),
                 'show' => $show,
             );
 
@@ -167,6 +166,13 @@ class Reports extends CI_Controller
                         $this->load->view('admin/admin_transaction_detailed_print', $view_data);
                     } else {
                         $this->load->view('admin/admin_transaction_detailed', $view_data);
+                    }
+                    break;
+                case 'history':
+                    if ($print) {
+                        $this->load->view('admin/admin_transaction_history_print', $view_data);
+                    } else {
+                        $this->load->view('admin/admin_transaction_history', $view_data);
                     }
                     break;
                 default:
