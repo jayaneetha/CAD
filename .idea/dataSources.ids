@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="IMCD-CAD MySQL - @localhost" uuid="7d75f01f-9261-4de8-ba3d-2bdac2d94a7e">
+    <database-info product="MySQL" version="5.5.38" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="mixed" quoted-identifiers="upper"/>
+    <schema name="" catalog="IMCD_CAD"/>
+    <table name="cad_article" schema="" catalog="IMCD_CAD" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="title" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <column name="body" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
+      <column name="timestamp" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
+      <column name="published" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MQ=="/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="cad_backups" schema="" catalog="IMCD_CAD" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="filename" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <column name="created_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="cad_cadteam" schema="" catalog="IMCD_CAD" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="position" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="cad_team_user" columns="id" ref-table="cad_user" ref-schema="" ref-catalog="IMCD_CAD" ref-columns="id" update-rule="0" delete-rule="0" deferrability="2"/>
+    </table>
+    <table name="cad_class" schema="" catalog="IMCD_CAD" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="class_name" sqlType="VARCHAR" precision="15" scale="0" nullable="false" jdbcType="12"/>
+      <column name="deleted" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MA=="/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="class_subjects_class" table="cad_class_subjects" schema="" catalog="IMCD_CAD" columns="class_id"/>
+      <exported-key name="student_class" table="cad_student" schema="" catalog="IMCD_CAD" columns="class_id"/>
+      <exported-key name="class_id_FK" table="cad_student_test_class" schema="" catalog="IMCD_CAD" columns="class_id"/>
+    </table>
+    <table name="cad_class_subjects" schema="" catalog="IMCD_CAD" type="TABLE">
+      <column name="class_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="subject_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="class_id,subject_id"/>
+      <foreign-key name="class_subjects_class" columns="class_id" ref-table="cad_class" ref-schema="" ref-catalog="IMCD_CAD" ref-columns="id" update-rule="0" delete-rule="0" deferrability="2"/>
+      <foreign-key name="class_subjects_subject" columns="subject_id" ref-table="cad_subjects" ref-schema="" ref-catalog="IMCD_CAD" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+    <table name="cad_donor" schema="" catalog="IMCD_CAD" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="DOB" sqlType="DATE" precision="10" scale="0" nullable="false" jdbcType="91"/>
+      <column name="address_1" sqlType="VARCHAR" precision="25" scale="0" nullable="false" jdbcType="12"/>
+      <column name="address_2" sqlType="VARCHAR" precision="25" scale="0" nullable="true" jdbcType="12"/>
+      <column name="city" sqlType="VARCHAR" precision="25" scale="0" nullable="false" jdbcType="12"/>
+      <column name="country" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12"/>
+      <column name="accepted" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MA=="/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="donor_user" columns="id" ref-table="cad_user" ref-schema="" ref-catalog="IMCD_CAD" ref-columns="id" update-rule="0" delete-rule="0" deferrability="2"/>
+      <exported-key name="funds_donor" table="cad_funds" schema="" catalog="IMCD_CAD" columns="donor"/>
+    </table>
+    <table name="cad_funds" schema="" catalog="IMCD_CAD" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="donor" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="amount" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="description" sqlType="TINYTEXT" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="timestamp" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
+      <column name="transaction_no" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <column name="accepted" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MA=="/>
+      <column name="transferred" sqlType="TINYINT" precision="3" scale="0" nullable="true" jdbcType="-6"/>
+      <column name="transfer_timestamp" sqlType="TIMESTAMP" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="funds_donor" columns="donor" ref-table="cad_donor" ref-schema="" ref-catalog="IMCD_CAD" ref-columns="id" update-rule="0" delete-rule="3" deferrability="2"/>
+      <exported-key name="transaction_id" table="cad_receipt" schema="" catalog="IMCD_CAD" columns="transaction_id"/>
+    </table>
+    <table name="cad_message" schema="" catalog="IMCD_CAD" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="to" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="from" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="subject" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <column name="body" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
+      <column name="timestamp" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
+      <column name="read" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MA=="/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="message_from_user" columns="from" ref-table="cad_user" ref-schema="" ref-catalog="IMCD_CAD" ref-columns="id" update-rule="0" delete-rule="0" deferrability="2"/>
+      <foreign-key name="message_to_user" columns="to" ref-table="cad_user" ref-schema="" ref-catalog="IMCD_CAD" ref-columns="id" update-rule="0" delete-rule="0" deferrability="2"/>
+    </table>
+    <table name="cad_receipt" schema="" catalog="IMCD_CAD" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="receipt_type" sqlType="VARCHAR" precision="15" scale="0" nullable="false" jdbcType="12"/>
+      <column name="receiver" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="transaction_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="date" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
+      <column name="total" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="receiver_FK" columns="receiver" ref-table="cad_user" ref-schema="" ref-catalog="IMCD_CAD" ref-columns="id" update-rule="0" delete-rule="0" deferrability="2"/>
+      <foreign-key name="transaction_id" columns="transaction_id" ref-table="cad_funds" ref-schema="" ref-catalog="IMCD_CAD" ref-columns="id" update-rule="0" delete-rule="0" deferrability="2"/>
+    </table>
+    <table name="cad_school" schema="" catalog="IMCD_CAD" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="name" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <column name="address_1" sqlType="VARCHAR" precision="25" scale="0" nullable="false" jdbcType="12"/>
+      <column name="address_2" sqlType="VARCHAR" precision="25" scale="0" nullable="true" jdbcType="12"/>
+      <column name="city" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12"/>
+      <column name="principal" sqlType="VARCHAR" precision="25" scale="0" nullable="false" jdbcType="12"/>
+      <column name="contact_no" sqlType="VARCHAR" precision="12" scale="0" nullable="false" jdbcType="12"/>
+      <column name="deleted" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MA=="/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="student_school" table="cad_student" schema="" catalog="IMCD_CAD" columns="school_id"/>
+    </table>
+    <table name="cad_student" schema="" catalog="IMCD_CAD" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="DOB" sqlType="DATE" precision="10" scale="0" nullable="false" jdbcType="91"/>
+      <column name="address_1" sqlType="VARCHAR" precision="25" scale="0" nullable="false" jdbcType="12"/>
+      <column name="address_2" sqlType="VARCHAR" precision="25" scale="0" nullable="true" jdbcType="12"/>
+      <column name="city" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12"/>
+      <column name="school_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="class_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="assigned_teacher" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="teacher_contact" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="donor" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="accepted" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MA=="/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="student_class" columns="class_id" ref-table="cad_class" ref-schema="" ref-catalog="IMCD_CAD" ref-columns="id" update-rule="0" delete-rule="3" deferrability="2"/>
+      <foreign-key name="student_school" columns="school_id" ref-table="cad_school" ref-schema="" ref-catalog="IMCD_CAD" ref-columns="id" update-rule="0" delete-rule="3" deferrability="2"/>
+      <foreign-key name="student_user" columns="id" ref-table="cad_user" ref-schema="" ref-catalog="IMCD_CAD" ref-columns="id" update-rule="0" delete-rule="0" deferrability="2"/>
+      <index name="class_id_2" unique="false" columns="class_id"/>
+      <index name="class_id_3" unique="false" columns="class_id"/>
+      <index name="school_id_2" unique="false" columns="school_id"/>
+      <index name="school_id_3" unique="false" columns="school_id"/>
+    </table>
+    <table name="cad_student_marks" schema="" catalog="IMCD_CAD" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="stc_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="subject_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="mark" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="stc_id_FK" columns="stc_id" ref-table="cad_student_test_class" ref-schema="" ref-catalog="IMCD_CAD" ref-columns="id" update-rule="0" delete-rule="0" deferrability="2"/>
+      <foreign-key name="subject_id_FK" columns="subject_id" ref-table="cad_subjects" ref-schema="" ref-catalog="IMCD_CAD" ref-columns="id" update-rule="0" delete-rule="0" deferrability="2"/>
+    </table>
+    <table name="cad_student_test_class" schema="" catalog="IMCD_CAD" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="student_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="test_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="class_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="student_id_FK" columns="student_id" ref-table="cad_user" ref-schema="" ref-catalog="IMCD_CAD" ref-columns="id" update-rule="0" delete-rule="0" deferrability="2"/>
+      <foreign-key name="test_id_FK" columns="test_id" ref-table="cad_test" ref-schema="" ref-catalog="IMCD_CAD" ref-columns="id" update-rule="0" delete-rule="0" deferrability="2"/>
+      <foreign-key name="class_id_FK" columns="class_id" ref-table="cad_class" ref-schema="" ref-catalog="IMCD_CAD" ref-columns="id" update-rule="0" delete-rule="0" deferrability="2"/>
+      <exported-key name="stc_id_FK" table="cad_student_marks" schema="" catalog="IMCD_CAD" columns="stc_id"/>
+    </table>
+    <table name="cad_subjects" schema="" catalog="IMCD_CAD" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="subject_name" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="deleted" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MA=="/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="class_subjects_subject" table="cad_class_subjects" schema="" catalog="IMCD_CAD" columns="subject_id"/>
+      <exported-key name="subject_id_FK" table="cad_student_marks" schema="" catalog="IMCD_CAD" columns="subject_id"/>
+    </table>
+    <table name="cad_test" schema="" catalog="IMCD_CAD" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="year" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="term" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="month" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="test_id_FK" table="cad_student_test_class" schema="" catalog="IMCD_CAD" columns="test_id"/>
+    </table>
+    <table name="cad_user" schema="" catalog="IMCD_CAD" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="first_name" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <column name="last_name" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <column name="title" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="username" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12"/>
+      <column name="password" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <column name="email" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="contact_no" sqlType="VARCHAR" precision="12" scale="0" nullable="true" jdbcType="12"/>
+      <column name="user_type" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="deleted" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MA=="/>
+      <column name="profile_pic" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12" def="J2RlZmF1bHQucG5nJw=="/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="cad_team_user" table="cad_cadteam" schema="" catalog="IMCD_CAD" columns="id"/>
+      <exported-key name="donor_user" table="cad_donor" schema="" catalog="IMCD_CAD" columns="id"/>
+      <exported-key name="message_from_user" table="cad_message" schema="" catalog="IMCD_CAD" columns="from"/>
+      <exported-key name="message_to_user" table="cad_message" schema="" catalog="IMCD_CAD" columns="to"/>
+      <exported-key name="receiver_FK" table="cad_receipt" schema="" catalog="IMCD_CAD" columns="receiver"/>
+      <exported-key name="student_user" table="cad_student" schema="" catalog="IMCD_CAD" columns="id"/>
+      <exported-key name="student_id_FK" table="cad_student_test_class" schema="" catalog="IMCD_CAD" columns="student_id"/>
+      <index name="username" unique="true" columns="username"/>
+    </table>
+  </data-source>
+</component>

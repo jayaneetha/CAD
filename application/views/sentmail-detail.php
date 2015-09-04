@@ -111,7 +111,7 @@
         $.ajax({
             type: "GET",
             dataType: 'html',
-            url: "<?php echo base_url('messages/delete_message/' . $message->id); ?>",
+            url: "<?php echo base_url('/index.php/messages/delete_message/' . $message->id); ?>",
             success: function (data) {
                 if (data == 'success') {
                     toastr.success('Message Deleted');

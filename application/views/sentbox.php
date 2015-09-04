@@ -51,7 +51,7 @@
             $.ajax({
                 type: "GET",
                 dataType: 'html',
-                url: "<?php echo base_url('messages/sentmail_detail/'); ?>/" + message_id,
+                url: "<?php echo base_url('/index.php/messages/sentmail_detail/'); ?>/" + message_id,
                 success: function (data) {
                     $('div.mail-box-content').replaceWith(data);
                 }

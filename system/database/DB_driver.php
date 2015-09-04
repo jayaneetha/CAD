@@ -249,7 +249,10 @@ class CI_DB_driver {
 	 */
 	function query($sql, $binds = FALSE, $return_object = TRUE)
 	{
-		if ($sql == '')
+        //TODO activate Logger
+        //get_instance()->composer->log('DB', $sql);
+
+        if ($sql == '')
 		{
 			if ($this->db_debug)
 			{

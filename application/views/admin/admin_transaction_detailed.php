@@ -32,21 +32,36 @@
             </div>
             <div class="col-lg-4">
                 <div class="title-action">
-                    <a href="/admin_transaction_detailed_print" target="_blank" class="btn btn-primary btn-outline"><i
-                            class="fa fa-print"></i> Print Report </a>
+                    <form target="_blank" action="<?= base_url('/index.php/reports/transaction/detailed/print') ?>"
+                          method="POST">
+                        <input hidden="hidden" type="text" class="hidden" name="start" value="<?= $start ?>"/>
+                        <input hidden="hidden" type="text" class="hidden" name="end" value="<?= $end ?>"/>
+                        <input hidden="hidden" type="checkbox" class="hidden" name="show_accepted"
+                               value="show"
+                            <?php if ($show == 'show') {
+                                echo 'checked';
+                            } ?>/>
+
+                        <div class="form-group m-l-sm pull-right">
+                            <button type="submit" class="btn btn-primary btn-outline"><i
+                                    class="fa fa-print"></i>Print Report
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
         <div class="wrapper white-bg row">
             <div class="col-sm-12">
-                <form class="form-inline m-sm" action="#" method="get">
+                <form class="form-inline m-sm" action="<?= base_url('/index.php/reports/transaction/detailed') ?>"
+                      method="POST">
                     <div class="form-group" id="date_range">
                         <label>Date Range: </label>
 
                         <div class="input-daterange input-group" id="datepicker">
-                            <input type="text" class="input-sm form-control" name="start" value="05/14/2014"/>
+                            <input type="text" class="input-sm form-control" name="start" value="<?= $start ?>"/>
                             <span class="input-group-addon">to</span>
-                            <input type="text" class="input-sm form-control" name="end" value="05/22/2014"/>
+                            <input type="text" class="input-sm form-control" name="end" value="<?= $end ?>"/>
                         </div>
                     </div>
                     <div class="form-group m-l-xl">
@@ -90,6 +105,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $('#date_range .input-daterange').datepicker({
+            format: 'yyyy-mm-dd',
             keyboardNavigation: false,
             forceParse: false,
             autoclose: true

@@ -1,0 +1,13 @@
+{
+    "name": "jayaneetha/cad",
+    "description": "IMCD - Colour A Dream web Portal",
+    "require": {
+        "monolog/monolog": "1.17.1"
+    },
+    "authors": [
+        {
+            "name": "Thejan Rajapakshe",
+            "email": "coder.clix@gmail.com"
+        }
+    ]
+}

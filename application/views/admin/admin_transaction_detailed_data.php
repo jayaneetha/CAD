@@ -11,9 +11,10 @@
         </div>
         <div class="com-sm-4 text-right">
             <h3>&nbsp;</h3>
+
             <div class="m-r-lg">
                 <h4 style="font-weight: bold">Transaction Detailed Report</h4>
-                <label>From: <?= $from ?> To: <?= $to ?></label>
+                <label>From: <?= $start ?> To: <?= $end ?></label>
             </div>
         </div>
     </div>
@@ -33,15 +34,38 @@
             </tr>
             </thead>
             <tbody>
-            <?php foreach($transactions as $transaction): ?>
+            <?php foreach ($funds as $transaction):
+
+                if ($transaction->accepted == 1) {
+                    $accepted = "Accepted";
+                    $accepted_colour = "primary";
+                } else {
+                    $accepted = "Not Accepted";
+                    $accepted_colour = "danger";
+                }
+
+                if ($transaction->transferred == 1) {
+                    $transferred = 'Transferred';
+                    $transferred_colour = 'primary';
+                    $transferred_date = $transaction->transfer_timestamp;
+                } else {
+                    $transferred = 'Not Transferred';
+                    $transferred_colour = 'danger';
+                    $transferred_date = "-";
+                }
+                ?>
                 <tr>
-                    <td><?= $transaction->date ?></td>
-                    <td><?= $transaction->donor ?></td>
+                    <td><?= substr($transaction->timestamp, 0, 10) ?></td>
+                    <td><?= $transaction->first_name . ' ' . $transaction->last_name ?></td>
                     <td><?= $transaction->amount ?></td>
                     <td><?= $transaction->transaction_no ?></td>
-                    <td class="text-center"><span class="badge badge-primary"><?= $transaction->accepted ?></span></td>
-                    <td class="text-center"><span class="badge badge-primary"><?= $transaction->transfered ?></span></td>
-                    <td class="text-center"><span class="badge badge-primary"><?= $transaction->transfer_date ?></span></td>
+                    <td class="text-center"><span class="badge badge-<?= $accepted_colour ?>"><?= $accepted ?></span>
+                    </td>
+                    <td class="text-center"><span
+                            class="badge badge-<?= $transferred_colour ?>"><?= $transferred ?></span>
+                    </td>
+                    <td class="text-center"><span class="badge badge-white"><?= $transferred_date ?></span>
+                    </td>
                 </tr>
             <?php endforeach; ?>
             </tbody>
@@ -53,11 +77,11 @@
         <tbody>
         <tr>
             <td><strong>Total Accepted :</strong></td>
-            <td><?= $total_accepted ?></td>
+            <td><?= $sum_accepted ?></td>
         </tr>
         <tr>
             <td><strong>Total Transferred :</strong></td>
-            <td><?= $total_transferred ?></td>
+            <td><?= $sum_transferred ?></td>
         </tr>
         </tbody>
     </table>
@@ -66,5 +90,5 @@
         harum numquam omnis optio quis! A aliquam, architecto eos ipsam nam nisi nostrum quidem, quo
         ut veniam veritatis.
     </div>
-    <div class="pull-right">Created at: <?= $timesatamp ?></div>
+    <div class="pull-right">Created at: <?= $now ?></div>
 </div>

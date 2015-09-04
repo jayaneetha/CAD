@@ -100,7 +100,7 @@
         $.ajax({
             type: "GET",
             dataType: 'html',
-            url: "<?php echo base_url('messages/inbox_ajax'); ?>",
+            url: "<?php echo base_url('/index.php/messages/inbox_ajax'); ?>",
             success: function (data) {
                 $('div.mail-box-content').replaceWith(data);
             }
@@ -115,7 +115,7 @@
         $.ajax({
             type: "GET",
             dataType: 'html',
-            url: "<?php echo base_url('messages/mark_unread/' . $message->id); ?>",
+            url: "<?php echo base_url('/index.php/messages/mark_unread/' . $message->id); ?>",
             success: function (data) {
                 if (data == 'success') {
                     toastr.success('Marked Unread');

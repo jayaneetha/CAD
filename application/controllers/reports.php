@@ -10,29 +10,12 @@ class Reports extends CI_Controller
         $this->load->model('report');
 
         $this->USER_OBJ = $this->session->userdata('user');
-
     }
 
     public function index()
     {
-        $this->load->view('404');
-    }
-
-    public function transaction_detail()
-    {
-        $from = $this->input->post('from');
-        $to = $this->input->post('to');
-        $accepted = $this->input->post('accepted');
-
-        $transactions = $this->report->get_transaction_detail($from, $to, $accepted);
-        $this->load->view('transaction_detailed_report',
-            array(
-                'transactions' => $transactions,
-                'from' => $from,
-                'to' => $to,
-                'timestamp' => new DateTime('now')
-            )
-        );
+//        $this->load->view('404');
+        redirect('/');
     }
 
     private function fund_report_data($from, $to, $donor)
@@ -87,7 +70,6 @@ class Reports extends CI_Controller
                     break;
                 default:
                     $this->load->view('404');
-
             }
         } else {
             $this->load->view('401');
@@ -105,7 +87,6 @@ class Reports extends CI_Controller
             $student = $this->user->get_student_from_donor($this->USER_OBJ->id);
             $stc = $this->result->get_latest_stc($student->id);
             $stc_list = $this->result->get_stc_list($student->id);
-
 
             if ($type == 'past') {
                 if (isset($_POST['stc_id'])) {
@@ -128,17 +109,69 @@ class Reports extends CI_Controller
             if ($type == 'latest') {
                 if ($print == 'print') {
                     $this->load->view('donor/donor_student_results_print', $view_data);
-
                 } else {
                     $this->load->view('donor/donor_latest_student_results', $view_data);
                 }
             } elseif ($type == 'past') {
                 if ($print == 'print') {
                     $this->load->view('donor/donor_student_results_print', $view_data);
-
                 } else {
                     $this->load->view('donor/donor_past_student_results', $view_data);
                 }
+            }
+
+        } else {
+            $this->load->view('401');
+        }
+    }
+
+    public function transaction($type, $print = false)
+    {
+        if ($this->ua->check_login() == 'admin') {
+            date_default_timezone_set('Asia/Colombo');
+            $this->load->helper('date');
+            $this->load->config('cad');
+
+
+            if (isset($_POST['start'])) {
+                $start = $this->input->post('start');
+                $end = $this->input->post('end');
+                $show = $this->input->post('show_accepted');
+
+            } else {
+                $start = $this->config->item('imcd_start_date');
+                $end = now("Asia/Colombo");
+                $end = substr(unix_to_human($end), 0, 10);
+                $show = null;
+            }
+
+            $funds_all = $this->report->get_fund_detailed($start, $end, null, $show);
+            $sum_accepted = $this->report->get_fund_sum($start, $end, null, true);
+            $sum_transferred = $this->report->get_fund_sum($start, $end, null, true, true);
+
+            $view_data = array(
+                'user' => $this->USER_OBJ,
+                'position' => $this->USER_OBJ->user_type,
+                'now' => unix_to_human(time()),
+                'start' => $start,
+                'end' => $end,
+                'funds' => $funds_all,
+                'sum_accepted' => $sum_accepted,
+                'sum_transferred' => $sum_transferred,
+                'show' => $show,
+            );
+
+            switch ($type) {
+                case 'detailed':
+                    if ($print) {
+                        $this->load->view('admin/admin_transaction_detailed_print', $view_data);
+                    } else {
+                        $this->load->view('admin/admin_transaction_detailed', $view_data);
+                    }
+                    break;
+                default:
+                    $this->load->view('404');
+                    break;
             }
 
 
@@ -146,7 +179,10 @@ class Reports extends CI_Controller
             $this->load->view('401');
         }
 
+
     }
+
+
 }
 
 /* End of file reports.php */

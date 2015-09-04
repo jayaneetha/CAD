@@ -72,8 +72,7 @@
                 <a href="#"><i class="fa fa-newspaper-o"></i> <span class="nav-label">Reports </span><span
                         class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
-                    <li><a href="admin_test_reports">Tests Reports Summary</a></li>
-                    <li><a href="admin_transaction_detailed">Transaction Detailed</a></li>
+                    <li><a href="/index.php/reports/transaction/detailed">Transaction Detailed</a></li>
                     <li><a href="admin_transaction_summary">Transaction Summary</a></li>
                     <li><a href="admin_transaction_history">Transaction History</a></li>
                     <li><a href="admin_donor_birthday_list">Donors Birthday List</a></li>

@@ -22,4 +22,4 @@
     <link rel="icon" href="<?php echo base_url('assests/') ?>/img/favicon/favicon.ico" type="image/x-icon">
 
     <!-- GOOGLE FONT -->
-    <link rel="stylesheet" href="<?php echo base_url('assests/') ?>/css/google_fonts.css">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,300,400,700">
