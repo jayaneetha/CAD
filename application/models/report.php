@@ -100,6 +100,16 @@ class report extends CI_Model
 
     }
 
+    public function get_donors_birthday()
+    {
+        $this->db->select('donor.id, donor.DOB, donor.address_1, donor.address_2, donor.city, donor.country, user.first_name, user.last_name');
+        $this->db->from('donor');
+        $this->db->join('user', 'donor.id = user.id', 'inner');
+        $this->db->where('donor.accepted', 1);
+        $this->db->where('user.deleted', 0);
+        return $this->db->get()->result();
+    }
+
 }
 
 /* End of file report.php */

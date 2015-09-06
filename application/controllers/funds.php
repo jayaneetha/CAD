@@ -124,6 +124,15 @@ class Funds extends CI_Controller
                 'pending' => $this->fund->get_pending_funds($this->USER_OBJ->id),
             );
             $this->load->view('donor/donor_fund_status', $view_data);
+        } elseif ($this->ua->check_login() == 'cad') {
+            $view_data = array(
+                'user' => $this->USER_OBJ,
+                'position' => $this->USER_OBJ->user_type,
+                'success' => $success,
+                'accepted' => $this->fund->get_accepted_funds(),
+                'pending' => $this->fund->get_pending_funds(),
+            );
+            $this->load->view('cad/cad_fund_status', $view_data);
         } else {
             $this->load->view('401');
         }
@@ -149,6 +158,33 @@ class Funds extends CI_Controller
             $view_data['success'] = $success;
             $this->load->view('admin/admin_accepted_funds', $view_data);
 
+        } else {
+            $this->load->view('401');
+        }
+    }
+
+    public function transfer($success = 0)
+    {
+        if ($this->ua->check_login() == 'cad') {
+            $view_data = array(
+                'user' => $this->USER_OBJ,
+                'position' => $this->USER_OBJ->user_type,
+                'funds' => $this->fund->get_pending_transfers()
+            );
+            $view_data['success'] = $success;
+            $this->load->view('cad/cad_transfer_funds', $view_data);
+        } else {
+            $this->load->view('401');
+        }
+    }
+
+    public function transfer_fund()
+    {
+        if ($this->ua->check_login() == 'cad') {
+            $id = $this->input->post('fund_id');
+            if ($this->fund->transfer_fund($id) > 0) {
+                redirect('/funds/transfer/1');
+            }
         } else {
             $this->load->view('401');
         }

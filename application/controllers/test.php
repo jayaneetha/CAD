@@ -20,6 +20,10 @@ class Test extends CI_Controller
     {
         $this->load->view('donor/' . $view);
     }
+    public function cad($view)
+    {
+        $this->load->view('cad/' . $view);
+    }
 
 }
 

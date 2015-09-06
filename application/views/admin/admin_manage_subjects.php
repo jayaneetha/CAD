@@ -225,7 +225,7 @@
             $.ajax({
                 type: "POST",
                 dataType: 'json',
-                url: "<?php echo base_url('schools/get_single_subject/'); ?>",
+                url: "<?php echo base_url('/index.php/schools/get_single_subject/'); ?>",
                 data: {
                     subject_id: subjectID
                 }, success: function (data) {

@@ -20,16 +20,6 @@
                         <?=$fund->amount?>,
                         <?php endforeach; ?>
                     ]
-                },
-                {
-                    label: "Accepted",
-                    fillColor: "rgba(26,179,148,0.5)",
-                    strokeColor: "rgba(26,179,148,0.7)",
-                    pointColor: "rgba(26,179,148,1)",
-                    pointStrokeColor: "#fff",
-                    pointHighlightFill: "#fff",
-                    pointHighlightStroke: "rgba(26,179,148,1)",
-                    data: [28, 48, 40, 19, 86, 27, 90,]
                 }
             ]
         };
@@ -48,6 +38,7 @@
             datasetStrokeWidth: 2,
             datasetFill: false,
             responsive: true,
+            scaleBeginAtZero: true
         };
 
 

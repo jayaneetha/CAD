@@ -71,6 +71,9 @@ class users extends CI_Controller
             case 'donor';
                 $this->donor_dashboard($this->USER_OBJ);
                 break;
+            case 'cad':
+                $this->cad_dashboard($this->USER_OBJ);
+                break;
         }
 
     }
@@ -84,6 +87,12 @@ class users extends CI_Controller
         $this->load->model('message');
         $this->load->model('fund');
         $this->load->model('article');
+        $this->load->model('report');
+
+        $this->load->helper('date');
+
+        $start = mdate('%Y-%m', time()) . '-01';
+        $end = mdate('%Y-%m', time()) . '-30';
 
         $dashboard_data = array(
             'user' => $user_obj,
@@ -91,16 +100,33 @@ class users extends CI_Controller
             'inbox_count' => $this->message->get_inbox_count($user_obj->id),
             'pending_transaction_count' => $this->fund->pending_transaction_count(),
             'published_article_count' => $this->article->published_article_count(),
-            'registration_request_count' => $this->user->registration_request_count()
+            'registration_request_count' => $this->user->registration_request_count(),
+            'funds' => $this->report->get_fund_detailed($start, $end),
+            'accepted' => $this->report->get_fund_detailed($start, $end, null, true),
+            'transferred' => $this->report->get_fund_detailed($start, $end, null, true, true),
+            'sum_all' => $this->report->get_fund_sum($start, $end),
+            'sum_accepted' => $this->report->get_fund_sum($start, $end, null, true),
+            'sum_transferred' => $this->report->get_fund_sum($start, $end, null, true, true),
         );
         $this->load->view('admin/admin_dashboard', $dashboard_data);
     }
 
+    /**
+     * Loads the donor dashboard
+     * @param $user_obj
+     */
     private function donor_dashboard($user_obj)
     {
         $this->load->model('message');
         $this->load->model('fund');
         $this->load->model('article');
+        $this->load->model('report');
+
+
+        $this->load->helper('date');
+
+        $start = mdate('%Y-%m', time()) . '-01';
+        $end = mdate('%Y-%m', time()) . '-30';
 
         $dashboard_data = array(
             'user' => $user_obj,
@@ -108,10 +134,46 @@ class users extends CI_Controller
             'inbox_count' => $this->message->get_inbox_count($user_obj->id),
             'pending_transaction_count' => $this->fund->pending_transaction_count(),
             'published_article_count' => $this->article->published_article_count(),
-            'registration_request_count' => $this->user->registration_request_count()
+            'registration_request_count' => $this->user->registration_request_count(),
+            'sum_all' => $this->report->get_fund_sum($start, $end, $this->USER_OBJ->id),
+            'sum_accepted' => $this->report->get_fund_sum($start, $end, $this->USER_OBJ->id, true),
+            'sum_transferred' => $this->report->get_fund_sum($start, $end, $this->USER_OBJ->id, true, true),
         );
         $this->load->view('donor/donor_dashboard', $dashboard_data);
 
+    }
+
+    /**
+     * Loads CAD dashboard
+     * @param $user_obj
+     */
+    private function cad_dashboard($user_obj)
+    {
+        $this->load->model('message');
+        $this->load->model('fund');
+        $this->load->model('article');
+        $this->load->model('report');
+
+        $this->load->helper('date');
+
+        $start = mdate('%Y-%m', time()) . '-01';
+        $end = mdate('%Y-%m', time()) . '-30';
+
+        $dashboard_data = array(
+            'user' => $user_obj,
+            'position' => $this->USER_OBJ->user_type,
+            'inbox_count' => $this->message->get_inbox_count($user_obj->id),
+            'pending_transaction_count' => $this->fund->pending_transaction_count(),
+            'published_article_count' => $this->article->published_article_count(),
+            'registration_request_count' => $this->user->registration_request_count(),
+            'funds' => $this->report->get_fund_detailed($start, $end),
+            'accepted' => $this->report->get_fund_detailed($start, $end, null, true),
+            'transferred' => $this->report->get_fund_detailed($start, $end, null, true, true),
+            'sum_all' => $this->report->get_fund_sum($start, $end),
+            'sum_accepted' => $this->report->get_fund_sum($start, $end, null, true),
+            'sum_transferred' => $this->report->get_fund_sum($start, $end, null, true, true),
+        );
+        $this->load->view('cad/cad_dashboard', $dashboard_data);
     }
 
     public function create_CAD_user()
@@ -313,7 +375,7 @@ class users extends CI_Controller
 
     public function update_profile()
     {
-        $this->ua->check_login();
+        $user_type = $this->ua->check_login();
         $id = $this->input->post('id');
         $data = array(
             'first_name' => $this->input->post('first_name'),
@@ -333,6 +395,17 @@ class users extends CI_Controller
         if (sha1($this->input->post('password')) == $this->user->get_user($id)->password) {
 //            if ($this->user->update_user($id, $data) > 0) {
             $this->user->update_user($id, $data);
+
+            if ($user_type == 'donor') {
+                $data = array(
+                    'address_1' => $this->input->post('address_1'),
+                    'address_2' => $this->input->post('address_2'),
+                    'city' => $this->input->post('city'),
+                    'country' => $this->input->post('country'),
+                );
+                $this->user->update_user($id, $data, 'donor');
+            }
+
             if (isset($_FILES['profile_picture'])) {
                 $config['upload_path'] = './profile_pictures/';
                 $config['allowed_types'] = 'jpg|png';
@@ -381,12 +454,21 @@ class users extends CI_Controller
             case 'admin':
                 $this->admin_profile($success);
                 break;
-
+            case 'donor':
+                $this->donor_profile($success);
+                break;
+            case 'cad':
+                $this->cad_profile($success);
+                break;
             default:
                 $this->load->view('500');
         }
     }
 
+    /**
+     * profile update page of Administrator
+     * @param int $success
+     */
     private function admin_profile($success = 0)
     {
         $view_data = array(
@@ -395,6 +477,37 @@ class users extends CI_Controller
             'success' => $success
         );
         $this->load->view('admin/admin_profile', $view_data);
+
+    }
+
+    /**
+     * profile update page of CAD
+     * @param int $success
+     */
+    private function cad_profile($success = 0)
+    {
+        $view_data = array(
+            'user' => $this->USER_OBJ,
+            'position' => $this->USER_OBJ->user_type,
+            'success' => $success
+        );
+        $this->load->view('cad/cad_profile', $view_data);
+
+    }
+
+    /**
+     * profile update page of Donor
+     * @param int $success
+     */
+    private function donor_profile($success = 0)
+    {
+        $view_data = array(
+            'user' => $this->USER_OBJ,
+            'donor' => $this->user->get_donor($this->USER_OBJ->id),
+            'position' => $this->USER_OBJ->user_type,
+            'success' => $success
+        );
+        $this->load->view('donor/donor_profile', $view_data);
 
     }
 
@@ -409,8 +522,8 @@ class users extends CI_Controller
                     'user' => $this->USER_OBJ,
                     'position' => $this->USER_OBJ->user_type,
                     'student' => $student,
-                    'marks'=>$this->user->get_student_overall_marks($student->id),
-                    'subjects'=>$this->user->get_student_overall_marks_subjects($student->id),
+                    'marks' => $this->user->get_student_overall_marks($student->id),
+                    'subjects' => $this->user->get_student_overall_marks_subjects($student->id),
                 );
 
                 $this->load->view('donor/donor_student_profile', $view_data);
@@ -421,9 +534,64 @@ class users extends CI_Controller
         } else {
             $this->load->view('401');
         }
-
     }
 
+    public function students()
+    {
+        if ($this->ua->check_login() == 'cad') {
+            $view_data = array(
+                'user' => $this->USER_OBJ,
+                'position' => $this->USER_OBJ->user_type,
+                'students' => $this->user->get_student(),
+            );
+            $this->load->view('cad/cad_view_students', $view_data);
+        } else {
+            $this->load->view('401');
+        }
+    }
+
+    public function view_student($id)
+    {
+        if ($this->ua->check_login() == 'cad') {
+
+            $student = $this->user->get_student($id);
+            $this->load->model('school');
+
+            if ($student != NULL) {
+                $view_data = array(
+                    'user' => $this->USER_OBJ,
+                    'position' => $this->USER_OBJ->user_type,
+                    'student' => $student,
+                    'marks' => $this->user->get_student_overall_marks($student->id),
+                    'subjects' => $this->user->get_student_overall_marks_subjects($student->id),
+                    'classes' => $this->school->get_classes(),
+                    'schools' => $this->school->get_schools(),
+                );
+
+                $this->load->view('cad/cad_student_profile', $view_data);
+            } else {
+                //no students
+                $this->load->view('500');
+            }
+        } else {
+            $this->load->view('401');
+        }
+    }
+
+    public function update_student($type)
+    {
+        $id = $this->input->post('id');
+
+        if ($type == 'class') {
+            $data = array('class_id' => $this->input->post('class'));
+        } else {
+            $data = array('school_id' => $this->input->post('school'));
+
+        }
+        $this->user->update_user($id, $data, 'student');
+
+        redirect('/users/view_student/' . $id);
+    }
 
 }
 

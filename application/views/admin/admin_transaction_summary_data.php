@@ -14,7 +14,7 @@
 
             <div class="m-r-lg">
                 <h4 style="font-weight: bold">Transaction Summary Report</h4>
-                <label>From: 05/14/2014 To: 05/22/2014</label>
+                <label>From: <?= $start ?> To: <?= $end ?></label>
             </div>
         </div>
     </div>
@@ -26,17 +26,17 @@
                     <tbody>
                     <tr>
                         <td style="width: 70%" class="text-right"><strong>Total No. Transactions :</strong></td>
-                        <td style="width: 30%">18</td>
+                        <td style="width: 30%"><?= count($funds) ?></td>
                     </tr>
                     <tr>
                         <td style="width: 70%" class="text-right"><strong>Total No. Accepted Transactions :</strong>
                         </td>
-                        <td style="width: 30%">12</td>
+                        <td style="width: 30%"><?= count($accepted) ?></td>
                     </tr>
                     <tr>
                         <td style="width: 70%" class="text-right"><strong>Total No. Transferred Transactions :</strong>
                         </td>
-                        <td style="width: 30%">10</td>
+                        <td style="width: 30%"><?= count($transferred) ?></td>
                     </tr>
                     </tbody>
                 </table>
@@ -48,17 +48,17 @@
                     <tbody>
                     <tr>
                         <td style="width: 70%" class="text-right"><strong>Total Amount :</strong></td>
-                        <td style="width: 30%">Rs. 6000.00</td>
+                        <td style="width: 30%">Rs. <?= $sum_all ?></td>
                     </tr>
                     <tr>
                         <td style="width: 70%" class="text-right"><strong>Total Accepted Amount :</strong>
                         </td>
-                        <td style="width: 30%">Rs. 5500.00</td>
+                        <td style="width: 30%">Rs. <?= $sum_accepted ?></td>
                     </tr>
                     <tr>
                         <td style="width: 70%" class="text-right"><strong>Total Transferred Amount :</strong>
                         </td>
-                        <td style="width: 30%">Rs. 4000.00</td>
+                        <td style="width: 30%">Rs. <?= $sum_transferred ?></td>
                     </tr>
                     </tbody>
                 </table>
@@ -71,5 +71,5 @@
         harum numquam omnis optio quis! A aliquam, architecto eos ipsam nam nisi nostrum quidem, quo
         ut veniam veritatis.
     </div>
-    <div class="pull-right">Created at: 13-02-2015 02:42 PM</div>
+    <div class="pull-right">Created at: <?= $now ?></div>
 </div>

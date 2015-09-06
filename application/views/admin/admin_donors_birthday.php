@@ -18,23 +18,20 @@
         </div>
         <div class="row wrapper border-bottom white-bg page-heading">
             <div class="col-lg-8">
-                <h2><span class="fa fa-newspaper-o"></span> Transaction Summary Report</h2>
+                <h2><span class="fa fa-newspaper-o"></span> Donors Birthday List</h2>
                 <ol class="breadcrumb">
                     <li>
                         Reports
                     </li>
                     <li class="active">
-                        <strong>Transaction Summary Report</strong>
+                        <strong>Donors Birthday List</strong>
                     </li>
                 </ol>
             </div>
             <div class="col-lg-4">
                 <div class="title-action">
-                    <form target="_blank" action="<?= base_url('/index.php/reports/transaction/summary/print') ?>"
+                    <form target="_blank" action="<?= base_url('/index.php/reports/donors_birthday/print') ?>"
                           method="POST">
-                        <input hidden="hidden" type="text" class="hidden" name="start" value="<?= $start ?>"/>
-                        <input hidden="hidden" type="text" class="hidden" name="end" value="<?= $end ?>"/>
-
                         <div class="form-group m-l-sm pull-right">
                             <button type="submit" class="btn btn-primary btn-outline"><i
                                     class="fa fa-print"></i>Print Report
@@ -44,30 +41,10 @@
                 </div>
             </div>
         </div>
-        <div class="wrapper white-bg row">
-            <div class="col-sm-12">
-                <form class="form-inline m-sm" action="<?= base_url('/index.php/reports/transaction/summary') ?>"
-                      method="POST">
-                    <div class="form-group" id="date_range">
-                        <label>Date Range: </label>
-
-                        <div class="input-daterange input-group" id="datepicker">
-                            <input type="text" class="input-sm form-control" name="start" value="<?= $start ?>"/>
-                            <span class="input-group-addon">to</span>
-                            <input type="text" class="input-sm form-control" name="end" value="<?= $end ?>"/>
-                        </div>
-                    </div>
-
-                    <div class="form-group m-l-sm pull-right">
-                        <button type="submit" class="btn btn-success btn-outline pull-right ">Generate Report</button>
-                    </div>
-                </form>
-            </div>
-        </div>
         <div class="row">
             <div class="col-lg-12">
                 <div class="wrapper wrapper-content animated bounceIn">
-                    <?php $this->load->view('admin/admin_transaction_summary_data'); ?>
+                    <?php $this->load->view('admin/admin_donors_birthday_data'); ?>
                 </div>
             </div>
         </div>
@@ -91,13 +68,6 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $('#date_range .input-daterange').datepicker({
-            format: 'yyyy-mm-dd',
-            keyboardNavigation: false,
-            forceParse: false,
-            autoclose: true
-        });
-
 
     });
 

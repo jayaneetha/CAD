@@ -150,7 +150,7 @@
             $.ajax({
                 type: "POST",
                 dataType: 'json',
-                url: "<?php echo base_url('schools/get_single_school/'); ?>",
+                url: "<?php echo base_url('/index.php/schools/get_single_school/'); ?>",
                 data: {
                     school_id: school
                 }, success: function (data) {

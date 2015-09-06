@@ -19,19 +19,24 @@ class Result extends CI_Model
         return $this->db->get()->result()[0];
     }
 
-    public function get_stc_list($student_id)
+    public function get_stc_list($student_id = null)
     {
         $this->db->select('test.term, test.year, test.month, class.class_name, student_test_class.id');
         $this->db->from('student_test_class');
         $this->db->join('test', 'student_test_class.test_id = test.id', 'inner');
         $this->db->join('class', 'class.id = student_test_class.class_id', 'inner');
-        $this->db->where('student_id', $student_id);
+        $this->db->order_by('test.year','ASC');
+        $this->db->order_by('test.month','ASC');
+        if ($student_id != null) {
+
+            $this->db->where('student_id', $student_id);
+        }
         return $this->db->get()->result();
     }
 
     public function get_stc($id)
     {
-        $this->db->select('test.term, test.year, test.month, class.class_name, student_test_class.id');
+        $this->db->select('test.term, test.year, test.month, class.id AS class_id, class.class_name, student_test_class.id');
         $this->db->from('student_test_class');
         $this->db->join('test', 'student_test_class.test_id = test.id', 'inner');
         $this->db->join('class', 'class.id = student_test_class.class_id', 'inner');
@@ -41,7 +46,7 @@ class Result extends CI_Model
 
     public function get_subject_marks($stc_id)
     {
-        $this->db->select('student_marks.mark, subjects.subject_name');
+        $this->db->select('student_marks.id, student_marks.mark, subjects.subject_name');
         $this->db->from('student_marks');
         $this->db->join('subjects', 'student_marks.subject_id = subjects.id', 'inner');
         $this->db->where('stc_id', $stc_id);

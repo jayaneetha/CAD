@@ -161,7 +161,7 @@ $this->load->view('partial/modals/cad');
             $.ajax({
                 type: "POST",
                 dataType: 'json',
-                url: "<?php echo base_url('users/get_single_user/'); ?>",
+                url: "<?php echo base_url('/index.php/users/get_single_user/'); ?>",
                 data: {
                     user_id: userId,
                     user_type: userType

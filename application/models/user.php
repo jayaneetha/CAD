@@ -51,14 +51,21 @@ class user extends CI_Model
         return $this->db->get()->result()[0];
     }
 
-    public function get_student($id)
+    public function get_student($id=null)
     {
-        $this->db->select('user.id, first_name, last_name, user.contact_no, school.name, student.address_1, student.address_2, student.city, DOB');
+        $this->db->select('user.id, class.id AS class_id, class.class_name, first_name, last_name, user.contact_no, school.name, student.address_1, student.address_2, student.city, DOB');
         $this->db->from('student');
         $this->db->join('user', 'student.id=user.id', 'inner');
         $this->db->join('school', 'student.school_id=school.id', 'inner');
-        $this->db->where('user.id', $id);
-        return $this->db->get()->result()[0];
+        $this->db->join('class', 'student.class_id=class.id', 'inner');
+        if($id==null){
+            return $this->db->get()->result();
+
+        }else{
+            $this->db->where('user.id', $id);
+            return $this->db->get()->result()[0];
+        }
+
     }
 
     public function get_cad_user($id)
@@ -241,5 +248,9 @@ class user extends CI_Model
         return $this->db->get()->result();
     }
 
+    public function get_student_list($id = null)
+    {
+
+    }
 
 }

@@ -12,7 +12,6 @@
     <div id="page-wrapper" class="gray-bg">
         <div class="row border-bottom">
             <?php $this->load->view('partial/top_bar'); ?>
-
         </div>
 
         <div class="wrapper wrapper-content animated fadeInRight">
@@ -36,6 +35,11 @@
                                 <h3 class="font-bold pull-left">E-Mail Address: <?= $user->email ?></h3>
 
                                 <h3 class="font-bold pull-left">Contact Number: <?= $user->contact_no ?></h3>
+
+                                <h3 class="font-bold pull-left">
+                                    Address: <?= $donor->address_1 . ", " . $donor->address_2 . ", " . $donor->city . ", " . $donor->country ?></h3>
+
+
                             </div>
                         </div>
 
@@ -49,7 +53,7 @@
                     <h2>Update Profile</h2>
 
                     <form method="post" id="update-user" class="dropzone form-horizontal"
-                          action="<?= base_url('/index.php/users/update_profile') ?>" enctype="multipart/form-data" >
+                          action="<?= base_url('/index.php/users/update_profile') ?>" enctype="multipart/form-data">
                         <input type="text" name="id" class="hidden" hidden="hidden" value="<?= $user->id ?>"/>
 
                         <h3>Basic Details</h3>
@@ -87,6 +91,26 @@
                                        value="<?= $user->contact_no ?>">
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">Address</label>
+
+                            <div class="col-sm-8">
+                                <input name="address_1" required="" type="text" class="form-control"
+                                       placeholder="Address Line 1"
+                                       value="<?= $donor->address_1 ?>">
+                                <input name="address_2" required="" type="text" class="form-control"
+                                       placeholder="Address Line 2"
+                                       value="<?= $donor->address_2 ?>">
+                                <input name="city" required="" type="text" class="form-control"
+                                       placeholder="City"
+                                       value="<?= $donor->city ?>">
+                                <input name="country" required="" type="text" class="form-control"
+                                       placeholder="Country"
+                                       value="<?= $donor->country ?>">
+
+
+                            </div>
+                        </div>
                         <h3>Change Password</h3>
 
                         <div class="form-group">
@@ -114,6 +138,7 @@
                             </div>
                         </div>
                         <h3>Change Profile Picture</h3>
+
                         <div class="form-group">
                             <label class="col-sm-4 control-label">New Profile Picture</label>
 

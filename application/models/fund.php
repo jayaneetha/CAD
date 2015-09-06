@@ -98,6 +98,33 @@ class Fund extends CI_Model
 
     }
 
+//SELECT cad_user.first_name,
+//cad_user.last_name,
+//cad_funds.amount,
+//cad_funds.description,
+//cad_funds.transaction_no,
+//cad_funds.id
+//FROM cad_funds INNER JOIN cad_student ON cad_funds.donor = cad_student.donor
+//INNER JOIN cad_user ON cad_student.id = cad_user.id
+//WHERE cad_funds.transferred = 0
+    public function get_pending_transfers()
+    {
+        $this->db->select('user.first_name, user.last_name, funds.amount, funds.timestamp, funds.description, funds.transaction_no, funds.id');
+        $this->db->from('funds');
+        $this->db->join('student', 'funds.donor=student.donor', 'inner');
+        $this->db->join('user', 'student.id=user.id', 'inner');
+        $this->db->where('funds.accepted', 1);
+        $this->db->where('funds.transferred', 0);
+        return $this->db->get()->result();
+    }
+
+    public function transfer_fund($id)
+    {
+        $this->db->where('id', $id);
+        $this->db->update('funds', array('transferred' => 1, 'transfer_timestamp' => 'CURRENT_TIMESTAMP'));
+        return $this->db->affected_rows();
+    }
+
 }
 
 /* End of file fund.php */

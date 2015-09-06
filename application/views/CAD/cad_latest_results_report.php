@@ -1,5 +1,4 @@
 <?php $this->load->view('partial/header'); ?>
-
 </head>
 
 <body>
@@ -14,28 +13,37 @@
 
         </div>
         <div class="row wrapper border-bottom white-bg page-heading">
-            <div class="col-lg-8">
-                <h2><span class="fa fa-newspaper-o"></span> Transaction History Report</h2>
+            <div class="col-sm-4">
+                <h2><span class="fa fa-newspaper-o"></span> Latest Results</h2>
                 <ol class="breadcrumb">
                     <li>
-                        Reports
+                        Results
                     </li>
                     <li class="active">
-                        <strong>Transaction History Report</strong>
+                        <strong>Latest Results</strong>
+
                     </li>
                 </ol>
             </div>
-            <div class="col-lg-4">
+            <div class="col-sm-8">
                 <div class="title-action">
-                    <a href="/index.php/reports/transaction/history/print" target="_blank" class="btn btn-primary btn-outline"><i
-                            class="fa fa-print"></i> Print Report </a>
+
+                    <form target="_blank" class="form-inline m-sm"
+                          action="<?= base_url('/index.php/reports/student_results/latest/print') ?>"
+                          method="post">
+                        <div class="form-group m-l-sm pull-right">
+                            <button type="submit" class="btn btn-primary btn-outline"><i
+                                    class="fa fa-print"></i> Print Report
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-12">
                 <div class="wrapper wrapper-content animated bounceIn">
-                    <?php $this->load->view('admin/admin_transaction_history_data'); ?>
+                    <?php $this->load->view('donor/donor_student_result_data'); ?>
                 </div>
             </div>
         </div>
@@ -54,11 +62,8 @@
 <script src="<?php echo base_url('assets'); ?>/js/inspinia.js"></script>
 <script src="<?php echo base_url('assets'); ?>/js/plugins/pace/pace.min.js"></script>
 
-<!-- ChartJS-->
-<script src="<?php echo base_url('assets'); ?>/js/plugins/chartJs/Chart.min.js"></script>
-
-<!--Loads the JS commands to init the chart-->
-<?php $this->load->view('admin/admin_transaction_history_data_js'); ?>
+<!-- Data picker -->
+<script src="<?php echo base_url('assets'); ?>/js/plugins/datapicker/bootstrap-datepicker.js"></script>
 
 <script type="text/javascript">
     $(document).ready(function () {

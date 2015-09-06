@@ -5,7 +5,7 @@
 
 <div id="wrapper">
 
-    <?php $this->load->view('partial/navigation', array('user' => $user,'position'=>$position)); ?>
+    <?php $this->load->view('partial/navigation'); ?>
 
 
     <div id="page-wrapper" class="gray-bg">

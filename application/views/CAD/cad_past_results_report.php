@@ -1,8 +1,4 @@
 <?php $this->load->view('partial/header'); ?>
-
-<link href="<?php echo base_url('assets'); ?>/css/plugins/datapicker/datepicker3.css" rel="stylesheet"
-      xmlns="http://www.w3.org/1999/html">
-
 </head>
 
 <body>
@@ -17,27 +13,29 @@
 
         </div>
         <div class="row wrapper border-bottom white-bg page-heading">
-            <div class="col-lg-8">
-                <h2><span class="fa fa-newspaper-o"></span> Transaction Summary Report</h2>
+            <div class="col-sm-4">
+                <h2><span class="fa fa-newspaper-o"></span> Past Results</h2>
                 <ol class="breadcrumb">
                     <li>
-                        Reports
+                        Results
                     </li>
                     <li class="active">
-                        <strong>Transaction Summary Report</strong>
+                        <strong>Past Results</strong>
+
                     </li>
                 </ol>
             </div>
-            <div class="col-lg-4">
+            <div class="col-sm-8">
                 <div class="title-action">
-                    <form target="_blank" action="<?= base_url('/index.php/reports/transaction/summary/print') ?>"
-                          method="POST">
-                        <input hidden="hidden" type="text" class="hidden" name="start" value="<?= $start ?>"/>
-                        <input hidden="hidden" type="text" class="hidden" name="end" value="<?= $end ?>"/>
+                    <form target="_blank" class="form-inline m-sm"
+                          action="<?= base_url('/index.php/reports/student_results/past/print') ?>"
+                          method="post">
+                        <input hidden="hidden" type="text" class="hidden input-sm form-control" name="stc_id"
+                               value="<?= $stc->id ?>"/>
 
                         <div class="form-group m-l-sm pull-right">
                             <button type="submit" class="btn btn-primary btn-outline"><i
-                                    class="fa fa-print"></i>Print Report
+                                    class="fa fa-print"></i> Print Report
                             </button>
                         </div>
                     </form>
@@ -46,18 +44,18 @@
         </div>
         <div class="wrapper white-bg row">
             <div class="col-sm-12">
-                <form class="form-inline m-sm" action="<?= base_url('/index.php/reports/transaction/summary') ?>"
-                      method="POST">
-                    <div class="form-group" id="date_range">
-                        <label>Date Range: </label>
+                <form class="form-inline m-sm" action="<?= base_url('/index.php/reports/student_results/past') ?>"
+                      method="post">
+                    <div class="form-group">
+                        <label>Select Examination: </label>
+                        <select class="form-control" name="stc_id" id="stc-id">
+                            <?php foreach ($stc_list as $stc_element): ?>
+                                <option
+                                    value="<?= $stc_element->id ?>"><?= $stc_element->year . "-" . $stc_element->month . " (Term $stc_element->term)" ?></option>
+                            <?php endforeach; ?>
+                        </select>
 
-                        <div class="input-daterange input-group" id="datepicker">
-                            <input type="text" class="input-sm form-control" name="start" value="<?= $start ?>"/>
-                            <span class="input-group-addon">to</span>
-                            <input type="text" class="input-sm form-control" name="end" value="<?= $end ?>"/>
-                        </div>
                     </div>
-
                     <div class="form-group m-l-sm pull-right">
                         <button type="submit" class="btn btn-success btn-outline pull-right ">Generate Report</button>
                     </div>
@@ -67,7 +65,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="wrapper wrapper-content animated bounceIn">
-                    <?php $this->load->view('admin/admin_transaction_summary_data'); ?>
+                    <?php $this->load->view('donor/donor_student_result_data'); ?>
                 </div>
             </div>
         </div>
@@ -91,13 +89,6 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $('#date_range .input-daterange').datepicker({
-            format: 'yyyy-mm-dd',
-            keyboardNavigation: false,
-            forceParse: false,
-            autoclose: true
-        });
-
 
     });
 

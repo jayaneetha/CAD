@@ -151,7 +151,7 @@ class Reports extends CI_Controller
                 'now' => unix_to_human(time()),
                 'start' => $start,
                 'end' => $end,
-                'funds' =>  $this->report->get_fund_detailed($start, $end, null, $show),
+                'funds' => $this->report->get_fund_detailed($start, $end, null, $show),
                 'accepted' => $this->report->get_fund_detailed($start, $end, null, true),
                 'transferred' => $this->report->get_fund_detailed($start, $end, null, true, true),
                 'sum_all' => $this->report->get_fund_sum($start, $end),
@@ -175,6 +175,13 @@ class Reports extends CI_Controller
                         $this->load->view('admin/admin_transaction_history', $view_data);
                     }
                     break;
+                case 'summary':
+                    if ($print) {
+                        $this->load->view('admin/admin_transaction_summary_print', $view_data);
+                    } else {
+                        $this->load->view('admin/admin_transaction_summary', $view_data);
+                    }
+                    break;
                 default:
                     $this->load->view('404');
                     break;
@@ -186,6 +193,33 @@ class Reports extends CI_Controller
         }
 
 
+    }
+
+    public function donors_birthday($print = false)
+    {
+        if ($this->ua->check_login() == 'admin') {
+            date_default_timezone_set('Asia/Colombo');
+            $this->load->helper('date');
+
+            $DOB_list = $this->report->get_donors_birthday();
+
+            $view_data = array(
+                'user' => $this->USER_OBJ,
+                'position' => $this->USER_OBJ->user_type,
+                'now' => unix_to_human(time()),
+                'DOB_list'=>$DOB_list,
+            );
+
+            if($print){
+
+                $this->load->view('admin/admin_donors_birthday_print', $view_data);
+            }else{
+                $this->load->view('admin/admin_donors_birthday', $view_data);
+            }
+
+        } else {
+            $this->load->view('401');
+        }
     }
 
 

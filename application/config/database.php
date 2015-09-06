@@ -45,7 +45,7 @@
 | the active record class
 */
 
-$active_group = 'azure';
+$active_group = 'local';
 $active_record = TRUE;
 //mysql://ba3c63fdc5533f:a24da439@us-cdbr-iron-east-02.cleardb.net/heroku_859a8699216795c?reconnect=true
 

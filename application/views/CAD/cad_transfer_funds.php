@@ -19,13 +19,13 @@
         </div>
         <div class="row wrapper border-bottom white-bg page-heading">
             <div class="col-sm-4">
-                <h2><span class="fa fa-dollar"></span> Accept Incoming Funds</h2>
+                <h2><span class="fa fa-dollar"></span> Transfer Funds</h2>
                 <ol class="breadcrumb">
                     <li>
                         Funds
                     </li>
                     <li class="active">
-                        <strong>Accept Funds</strong>
+                        <strong>Transfer Funds</strong>
                     </li>
                 </ol>
             </div>
@@ -35,7 +35,7 @@
                 <div class="col-lg-12">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
-                            <h5>Pending Funds </h5>
+                            <h5>Pending Transfers</h5>
 
                             <div class="ibox-tools">
                                 <a class="collapse-link">
@@ -50,7 +50,7 @@
                             <table class="table table-striped table-bordered table-hover dataTables-example">
                                 <thead>
                                 <tr>
-                                    <th>Donor Name</th>
+                                    <th>Student Name</th>
                                     <th>Amount</th>
                                     <th>Date</th>
                                     <th>Transaction No.</th>
@@ -64,16 +64,16 @@
                                         <td>Rs. <?= $fund->amount ?></td>
                                         <td><?= substr($fund->timestamp, 0, 10) ?> </td>
                                         <td><?= $fund->transaction_no ?></td>
-                                        <td>
+                                        <td class="text-center">
                                             <div class="btn-group btn-group-sm">
-                                                <button class="btn btn-sm btn-default view"
+                                                <button class="btn btn-sm btn-default btn-outline view"
                                                         data-fund-id="<?= $fund->id ?>"
                                                         data-toggle="modal"
-                                                        data-target="#modalAcceptFund">View
+                                                        data-target="#modalFund">View
                                                 </button>
-                                                <button type="button" class="btn btn-sm btn-danger reject"
+                                                <button type="button" class="btn btn-sm btn-success btn-outline transfer"
                                                         data-fund-id="<?= $fund->id ?>"
-                                                        data-toggle="modal" data-target="#modalReject">Reject
+                                                        data-toggle="modal" data-target="#modalTransfer">Transfer
                                                 </button>
                                             </div>
                                         </td>
@@ -89,87 +89,31 @@
         <div class="footer">
             <?php $this->load->view('partial/footer'); ?>
         </div>
-
     </div>
 </div>
 
-<!-- Accept Fund Modal -->
-<div class="modal inmodal" id="modalAcceptFund" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content animated fadeIn">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span
-                        aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <i class="fa fa-dollar modal-icon"></i>
-                <h4 class="modal-title">Accept Fund</h4>
-            </div>
-            <form action="<?= base_url('/index.php/funds/accept_fund') ?>" method="post">
-                <input type="text" class="hidden" hidden="hidden" id="fund-id" name="fund_id"/>
-
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-6 col-lg-6 col-sm-12">
-                            <div class="form-group">
-                                <label for="name">Name </label>
-                                <input type="text" class="form-control disabled" disabled name="name" id="name"
-                                       value=""/>
-                            </div>
-                            <div class="form-group">
-                                <label for="amount">Amount </label>
-                                <input type="text" name="amount" class="form-control disabled" disabled id="amount"
-                                       value=""/>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-6 col-sm-12">
-                            <div class="form-group">
-                                <label for="transaction_no">Transaction No. </label>
-                                <input type="text" name="transaction_no" id="transaction-no"
-                                       class="form-control disabled" disabled
-                                       value=""/>
-                            </div>
-                            <div class="form-group">
-                                <label for="date_time">Date/Time </label>
-                                <input type="text" name="date_time" id="date-time" class="form-control disabled"
-                                       disabled
-                                       value=""/>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <textarea disabled class="form-control disabled" name="description" id="description"
-                                      cols="30" rows="4"></textarea>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Accept Fund</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
+<!-- Fund Modal -->
+<?php $this->load->view('partial/modals/fund'); ?>
 
 
-<div class="modal inmodal fade" id="modalReject" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal inmodal fade" id="modalTransfer" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span
                         aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 <i class="fa fa-dollar modal-icon"></i>
-                <h4 class="modal-title">Reject Fund</h4>
+                <h4 class="modal-title">Transfer Fund</h4>
             </div>
-            <form action="<?= base_url('/index.php/funds/reject_fund') ?>" method="post">
-                <input type="text" class="hidden" hidden="hidden" name="fund_id" id="reject-fund-id"/>
+            <form action="<?= base_url('/index.php/funds/transfer_fund') ?>" method="post">
+                <input type="text" class="hidden" hidden="hidden" name="fund_id" id="transfer-fund-id"/>
 
                 <div class="modal-body">
-                    <h4 class="text-center text-danger">Do you really want to reject the Fund? </h4>
+                    <h4 class="text-center text-success">Do you really want to transfer the Fund? </h4>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-danger">Reject Fund</button>
+                    <button type="submit" class="btn btn-success">Transfer Fund</button>
                 </div>
             </form>
         </div>
@@ -204,7 +148,7 @@
                     fund_id: fundID
                 }, success: function (data) {
                     $('#fund-id').val(data.id);
-                    $('#name').val(data.first_name + " " + data.last_name);
+                    $('#donor-name').val(data.first_name + " " + data.last_name);
                     $('#amount').val(data.amount);
                     $('#transaction-no').val(data.transaction_no);
                     $('#date-time').val(data.timestamp);
@@ -214,11 +158,11 @@
 
         });
 
-        $('.reject').click(function (e) {
+        $('.transfer').click(function (e) {
             e.preventDefault();
             var fundID = $(this).data('fund-id');
             $('input').val("");
-            $('#reject-fund-id').val(fundID);
+            $('#transfer-fund-id').val(fundID);
         });
 
         $('.dataTables-example').dataTable({
@@ -239,8 +183,8 @@
         switch (success) {
             case 0:
                 break;
-            case 2:
-                toastr.success("Successfully rejected");
+            case 1:
+                toastr.success("Successfully Transferred");
                 break;
             default:
                 toastr.error("Something wrong happened");
