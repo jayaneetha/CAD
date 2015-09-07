@@ -15,7 +15,7 @@ class Result extends CI_Model
         $this->db->join('test', 'student_test_class.test_id = test.id', 'inner');
         $this->db->join('class', 'class.id = student_test_class.class_id', 'inner');
         $this->db->where('student_id', $student_id);
-        $this->db->where('cad_student_test_class.id=(SELECT MAX(cad_student_test_class.id) FROM cad_student_test_class)');
+        $this->db->where('cad_student_test_class.id=(SELECT MAX(cad_student_test_class.id) FROM cad_student_test_class WHERE cad_student_test_class.student_id=' . $student_id . ')');
         return $this->db->get()->result()[0];
     }
 
@@ -25,8 +25,8 @@ class Result extends CI_Model
         $this->db->from('student_test_class');
         $this->db->join('test', 'student_test_class.test_id = test.id', 'inner');
         $this->db->join('class', 'class.id = student_test_class.class_id', 'inner');
-        $this->db->order_by('test.year','ASC');
-        $this->db->order_by('test.month','ASC');
+        $this->db->order_by('test.year', 'ASC');
+        $this->db->order_by('test.month', 'ASC');
         if ($student_id != null) {
 
             $this->db->where('student_id', $student_id);

@@ -14,11 +14,36 @@ class Fund extends CI_Model
         return $this->db->insert_id();
     }
 
-    public function pending_transaction_count()
+    public function transaction_count($accepted = null, $transferred = null, $donor = null)
+    {
+        $this->db->select('id');
+        $this->db->from('funds');
+        if ($accepted != null) {
+            $this->db->where('accepted', $accepted);
+        }
+        if ($transferred != null) {
+            $this->db->where('transferred', $transferred);
+        }
+        if ($donor != null) {
+            $this->db->where('donor', $donor);
+        }
+        return $this->db->count_all_results();
+    }
+
+    public function pending_transaction_count() //Depricated
     {
         $this->db->select('id');
         $this->db->from('funds');
         $this->db->where('accepted', 0);
+        return $this->db->count_all_results();
+    }
+
+    public function pending_transfer_count() //Depricated
+    {
+        $this->db->select('id');
+        $this->db->from('funds');
+        $this->db->where('accepted', 1);
+        $this->db->where('transferred', 0);
         return $this->db->count_all_results();
     }
 
@@ -93,9 +118,18 @@ class Fund extends CI_Model
         }
     }
 
-    public function get_transaction_status($donor)
+    public function get_transferred_funds($student_id)
     {
-
+        $this->db->select('donor');
+        $this->db->from('student');
+        $this->db->where('id', $student_id);
+        $donor = $this->db->get()->result()[0]->donor;
+        $this->db->select('amount, description, transfer_timestamp');
+        $this->db->from('funds');
+        $this->db->where('donor', $donor);
+        $this->db->where('accepted', 1);
+        $this->db->where('transferred', 1);
+        return $this->db->get()->result();
     }
 
 //SELECT cad_user.first_name,

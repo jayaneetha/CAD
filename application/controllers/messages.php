@@ -148,7 +148,6 @@ class messages extends CI_Controller
     public function sentmail_detail($message_id)
     {
         $message = $this->message->get_message($message_id);
-        $this->message->mark_read($message_id);
 
         $this->load->view('sentmail-detail', array('message' => $message));
     }
@@ -179,9 +178,9 @@ class messages extends CI_Controller
     public function get_inbox_count()
     {
         if (isset($this->USER_OBJ->id)) {
-            echo '<div id="inbox-count">';
+            //echo '<div id="inbox-count">';
             echo $this->message->get_inbox_count($this->USER_OBJ->id, true);
-            echo '</div>';
+            //echo '</div>';
         } else {
             echo "error";
         }

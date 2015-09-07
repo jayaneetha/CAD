@@ -37,41 +37,19 @@
                 </ul>
             </li>
             <li>
-                <a href="/index.php/users/students"><i class="fa fa-user"></i> <span
-                        class="nav-label">Student</span></a>
-            </li>
-            <li>
-                <a href="#"><i class="fa fa-dollar"></i> <span class="nav-label">Funds </span><span
-                        class="fa arrow"></span></a>
-                <ul class="nav nav-second-level">
-                    <li><a href="/index.php/funds/transfer">Transfer Funds</a></li>
-                    <li><a href="/index.php/funds/status">Fund Status</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="#"><i class="fa fa-pencil"></i> <span class="nav-label">Tests </span><span
-                        class="fa arrow"></span></a>
-                <ul class="nav nav-second-level">
-                    <li><a href="/index.php/tests/create">Manage Test</a></li>
-                    <li><a href="/index.php/tests/add_marks">Add Marks</a></li>
-                    <li><a href="/index.php/tests/edit_marks">Edit Marks</a></li>
-                </ul>
-            </li>
+                <a href="/index.php/funds/status"><i class="fa fa-dollar"></i> <span
+                        class="nav-label">Funds Status</span></a>
 
-            <li>
-                <a href="/index.php/articles/add_article"><i class="fa fa-quote-left"></i> <span
-                        class="nav-label">Add Article</span></a>
             </li>
-            <!--            <li>-->
-            <!--                <a href="#"><i class="fa fa-newspaper-o"></i> <span class="nav-label">Reports </span><span-->
-            <!--                        class="fa arrow"></span></a>-->
-            <!--                <ul class="nav nav-second-level">-->
-            <!--                    <li><a href="/index.php/reports/fund_report/summary">Summary Fund</a></li>-->
-            <!--                    <li><a href="/index.php/reports/fund_report/detailed">Detailed Fund</a></li>-->
-            <!--                    <li><a href="/index.php/reports/student_results">Latest Results</a></li>-->
-            <!--                    <li><a href="/index.php/reports/student_results/past">Past Results</a></li>-->
-            <!--                </ul>-->
-            <!--            </li>-->
+            <li>
+                <a href="#"><i class="fa fa-newspaper-o"></i> <span class="nav-label">Reports </span><span
+                        class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li><a href="/index.php/reports/fund_report/detailed">Detailed Fund</a></li>
+                    <li><a href="/index.php/reports/student_results">Latest Results</a></li>
+                    <li><a href="/index.php/reports/student_results/past">Past Results</a></li>
+                </ul>
+            </li>
         </ul>
 
     </div>

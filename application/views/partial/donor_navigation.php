@@ -31,7 +31,7 @@
                         class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li><a href="/index.php/compose">Compose</a></li>
-                    <li><a href="/index.php/inbox">Inbox <span class="label label-default pull-right">16</span></a></li>
+                    <li><a href="/index.php/inbox">Inbox <span id="nav-inbox-count" class="label label-default pull-right">0</span></a></li>
                     <li><a href="/index.php/sentbox">Sent</a></li>
                 </ul>
             </li>

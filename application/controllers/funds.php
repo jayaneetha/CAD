@@ -133,7 +133,16 @@ class Funds extends CI_Controller
                 'pending' => $this->fund->get_pending_funds(),
             );
             $this->load->view('cad/cad_fund_status', $view_data);
-        } else {
+        }elseif($this->ua->check_login()=='student'){
+            $view_data = array(
+                'user' => $this->USER_OBJ,
+                'position' => $this->USER_OBJ->user_type,
+                'success' => $success,
+                'funds' => $this->fund->get_transferred_funds($this->USER_OBJ->id),
+            );
+            $this->load->view('student/student_fund_status', $view_data);
+        }
+        else {
             $this->load->view('401');
         }
     }

@@ -85,10 +85,7 @@
         </tr>
         </tbody>
     </table>
-    <div class="well m-t">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium aperiam assumenda ex
-        harum numquam omnis optio quis! A aliquam, architecto eos ipsam nam nisi nostrum quidem, quo
-        ut veniam veritatis.
-    </div>
+    <?php $this->load->view('partial/report_footer');?>
+
     <div class="pull-right">Created at: <?= $now ?></div>
 </div>

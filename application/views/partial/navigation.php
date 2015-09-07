@@ -1,5 +1,5 @@
 <?php
-switch($position){
+switch ($position) {
     case 'admin':
         $position = 'Administrator';
         $this->load->view('partial/admin_navigation', array('user' => $user, 'position' => $position));
@@ -11,5 +11,9 @@ switch($position){
     case 'donor':
         $position = 'Donor';
         $this->load->view('partial/donor_navigation', array('user' => $user, 'position' => $position));
+        break;
+    case 'student':
+        $position = 'Student';
+        $this->load->view('partial/student_navigation', array('user' => $user, 'position' => $position));
         break;
 }

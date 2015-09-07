@@ -32,7 +32,10 @@ class Reports extends CI_Controller
 
     public function fund_report($type)
     {
-        if ($this->ua->check_login() == 'donor') {
+        $user_type = $this->ua->check_login();
+
+        if ($user_type == 'donor' OR $user_type == 'student') {
+
             date_default_timezone_set('Asia/Colombo');
             $this->load->helper('date');
             $this->load->config('cad');
@@ -52,25 +55,50 @@ class Reports extends CI_Controller
                 'position' => $this->USER_OBJ->user_type,
                 'now' => unix_to_human(time()),
             );
-
-            $view_data = array_merge($view_data, $this->fund_report_data($start, $end, $this->USER_OBJ->id));
-
-            switch ($type) {
-                case 'summary':
-                    $this->load->view('donor/donor_fund_report', $view_data);
-                    break;
-                case 'summary_print':
-                    $this->load->view('donor/donor_fund_report_print', $view_data);
-                    break;
-                case 'detailed':
-                    $this->load->view('donor/donor_fund_detailed_report', $view_data);
-                    break;
-                case 'detailed_print':
-                    $this->load->view('donor/donor_fund_detailed_report_print', $view_data);
-                    break;
-                default:
-                    $this->load->view('404');
+            if ($user_type == 'donor') {
+                $donor = $this->USER_OBJ->id;
             }
+
+            if ($user_type == 'student') {
+                $this->load->model('user');
+                $donor = $this->user->get_student($this->USER_OBJ->id)->donor;
+            }
+
+            $view_data = array_merge($view_data, $this->fund_report_data($start, $end, $donor));
+
+            if ($user_type == 'donor') {
+                switch ($type) {
+                    case 'summary':
+                        $this->load->view('donor/donor_fund_report', $view_data);
+                        break;
+                    case 'summary_print':
+                        $this->load->view('donor/donor_fund_report_print', $view_data);
+                        break;
+                    case 'detailed':
+                        $this->load->view('donor/donor_fund_detailed_report', $view_data);
+                        break;
+                    case 'detailed_print':
+                        $this->load->view('donor/donor_fund_detailed_report_print', $view_data);
+                        break;
+                    default:
+                        $this->load->view('404');
+                }
+            }
+
+            if ($user_type == 'student') {
+                switch ($type) {
+                    case 'detailed':
+                        $this->load->view('student/student_fund_detailed_report', $view_data);
+                        break;
+                    case 'detailed_print':
+                        $this->load->view('student/student_fund_detailed_report_print', $view_data);
+                        break;
+                    default:
+                        $this->load->view('404');
+                }
+            }
+
+
         } else {
             $this->load->view('401');
         }
@@ -78,13 +106,21 @@ class Reports extends CI_Controller
 
     public function student_results($type = 'latest', $print = false)
     {
-        if ($this->ua->check_login() == 'donor') {
+        $user_type = $this->ua->check_login();
+        if ($user_type == 'donor' OR $user_type == 'student') {
             date_default_timezone_set('Asia/Colombo');
             $this->load->helper('date');
             $this->load->model('result');
             $this->load->model('user');
 
-            $student = $this->user->get_student_from_donor($this->USER_OBJ->id);
+            if ($user_type == 'donor') {
+                $donor_id = $this->USER_OBJ->id;
+            }
+            if ($user_type == 'student') {
+                $donor_id = $this->user->get_student($this->USER_OBJ->id)->donor;
+            }
+
+            $student = $this->user->get_student_from_donor($donor_id);
             $stc = $this->result->get_latest_stc($student->id);
             $stc_list = $this->result->get_stc_list($student->id);
 
@@ -106,19 +142,38 @@ class Reports extends CI_Controller
                 'stc_list' => $stc_list,
             );
 
-            if ($type == 'latest') {
-                if ($print == 'print') {
-                    $this->load->view('donor/donor_student_results_print', $view_data);
-                } else {
-                    $this->load->view('donor/donor_latest_student_results', $view_data);
-                }
-            } elseif ($type == 'past') {
-                if ($print == 'print') {
-                    $this->load->view('donor/donor_student_results_print', $view_data);
-                } else {
-                    $this->load->view('donor/donor_past_student_results', $view_data);
+            if ($user_type == 'donor') {
+                if ($type == 'latest') {
+                    if ($print == 'print') {
+                        $this->load->view('donor/donor_student_results_print', $view_data);
+                    } else {
+                        $this->load->view('donor/donor_latest_student_results', $view_data);
+                    }
+                } elseif ($type == 'past') {
+                    if ($print == 'print') {
+                        $this->load->view('donor/donor_student_results_print', $view_data);
+                    } else {
+                        $this->load->view('donor/donor_past_student_results', $view_data);
+                    }
                 }
             }
+
+            if($user_type=='student'){
+                if ($type == 'latest') {
+                    if ($print == 'print') {
+                        $this->load->view('student/student_student_results_print', $view_data);
+                    } else {
+                        $this->load->view('student/student_latest_student_results', $view_data);
+                    }
+                } elseif ($type == 'past') {
+                    if ($print == 'print') {
+                        $this->load->view('student/student_student_results_print', $view_data);
+                    } else {
+                        $this->load->view('student/student_past_student_results', $view_data);
+                    }
+                }
+            }
+
 
         } else {
             $this->load->view('401');
@@ -207,13 +262,13 @@ class Reports extends CI_Controller
                 'user' => $this->USER_OBJ,
                 'position' => $this->USER_OBJ->user_type,
                 'now' => unix_to_human(time()),
-                'DOB_list'=>$DOB_list,
+                'DOB_list' => $DOB_list,
             );
 
-            if($print){
+            if ($print) {
 
                 $this->load->view('admin/admin_donors_birthday_print', $view_data);
-            }else{
+            } else {
                 $this->load->view('admin/admin_donors_birthday', $view_data);
             }
 

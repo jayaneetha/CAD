@@ -27,43 +27,29 @@
                 <th>Date</th>
                 <th>Amount</th>
                 <th>Transaction No.</th>
-                <th class="text-center">Accepted</th>
                 <th class="text-center">Transferred</th>
                 <th class="text-center">Transfer Date</th>
             </tr>
             </thead>
             <tbody>
             <?php foreach ($funds_all as $transaction):
+                if($transaction->transferred==1):
 
-                if ($transaction->accepted == 1) {
-                    $accepted = "Accepted";
-                    $accepted_colour = "primary";
-                } else {
-                    $accepted = "Not Accepted";
-                    $accepted_colour = "danger";
-                }
-
-                if ($transaction->transferred == 1) {
                     $transferred = 'Transferred';
-                    $transferred_colour = 'primary';
                     $transferred_date = $transaction->transfer_timestamp;
-                } else {
-                    $transferred = 'Not Transferred';
-                    $transferred_colour = 'danger';
-                    $transferred_date = "-";
-                }
+
                 ?>
                 <tr>
                     <td><?= $transaction->timestamp ?></td>
                     <td><?= $transaction->amount ?></td>
                     <td><?= $transaction->transaction_no ?></td>
-                    <td class="text-center"><span class="badge badge-<?= $accepted_colour ?>"><?= $accepted ?></span></td>
-                    <td class="text-center"><span class="badge badge-<?= $transferred_colour ?>"><?= $transferred ?></span>
-                    </td>
+                    <td class="text-center"><?= $transferred ?></td>
                     <td class="text-center"><span class="badge badge-white"><?= $transferred_date ?></span>
                     </td>
                 </tr>
-            <?php endforeach; ?>
+            <?php
+            endif;
+            endforeach; ?>
             </tbody>
         </table>
     </div>
@@ -72,17 +58,12 @@
     <table class="table invoice-total">
         <tbody>
         <tr>
-            <td><strong>Total Accepted :</strong></td>
-            <td><?= get_sum($funds_all) ?></td>
-        </tr>
-        <tr>
             <td><strong>Total Transferred :</strong></td>
-            <td><?= get_sum($funds_transferred) ?></td>
+            <td>Rs. <?= get_sum($funds_transferred) ?></td>
         </tr>
         </tbody>
     </table>
-    <?php $this->load->view('partial/report_footer');?>
-
+    <?php $this->load->view('partial/report_footer'); ?>
     <div class="pull-right">Created at: <?= $now ?></div>
 </div>
 

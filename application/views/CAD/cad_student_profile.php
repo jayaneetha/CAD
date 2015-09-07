@@ -49,14 +49,11 @@
 
                                 <p><i class="fa fa-users"></i> <?= $student->class_name ?></p>
 
-                                <div class="row m-t-lg">
-                                    <div class="col-md-6">
-                                        <h5 class="text-right"> Past Test Marks</h5>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <span class="line">5,3,9,6,5,9,7,3,5,2</span>
-                                    </div>
-                                </div>
+                                <p><i class="fa fa-link"></i> <?= $student->assigned_teacher ?></p>
+
+                                <p><i class="fa fa-phone"></i> <?= $student->teacher_contact ?></p>
+
+
                                 <div class="user-button">
                                     <div class="row">
                                         <div class="col-md-6">

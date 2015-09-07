@@ -55,7 +55,7 @@
                                         <i class="fa fa-dollar fa-5x"></i>
                                     </div>
                                     <div class="col-xs-8 text-right">
-                                        <span> Pending Transactions </span>
+                                        <span> Pending Transfers </span>
 
                                         <h2 class="font-bold"><?= $pending_transaction_count ?></h2>
                                     </div>
@@ -82,12 +82,12 @@
                             <div class="widget style1 blue-bg">
                                 <div class="row">
                                     <div class="col-xs-4">
-                                        <i class="fa fa-user fa-5x"></i>
+                                        <i class="fa fa-pencil fa-5x"></i>
                                     </div>
                                     <div class="col-xs-8 text-right">
-                                        <span> Registration Requests </span>
+                                        <span> Tests </span>
 
-                                        <h2 class="font-bold"><?= $registration_request_count ?></h2>
+                                        <h2 class="font-bold"><?= $test_count ?></h2>
                                     </div>
                                 </div>
                             </div>

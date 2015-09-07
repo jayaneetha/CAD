@@ -48,6 +48,20 @@ class Test extends CI_Model
         $this->db->where('student_test_class.id', $id);
         return $this->db->get()->result()[0];
     }
+
+    public function count($table = 'test')
+    {
+        return $this->db->count_all($table);
+    }
+
+    public function stc_count($student_id)
+    {
+        $this->db->select('id');
+        $this->db->from('student_test_class');
+        $this->db->where('student_id',$student_id);
+        return $this->db->count_all_results();
+    }
+
 }
 
 /* End of file test.php */

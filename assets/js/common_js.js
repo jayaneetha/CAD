@@ -15,7 +15,8 @@ var check_mail = function () {
             if (data == 'error') {
                 $('#inbox-count').replaceWith("");
             } else {
-                $('#inbox-count').replaceWith(data);
+                $('#inbox-count').replaceWith('<div id="inbox-count">' + data + '</div>');
+                $('#nav-inbox-count').replaceWith('<span id="nav-inbox-count" class="label label-default pull-right">' + data + '</span>');
             }
         }
     });
@@ -47,6 +48,7 @@ var show_user_modal = function (parent_view, data, userType) {
                 $('#student-accept').addClass('hidden');
                 $('#student-reject').addClass('hidden');
             }
+
             $('#modelStudent').modal('show');
             break;
         case 'donor':

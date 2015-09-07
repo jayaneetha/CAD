@@ -19,13 +19,20 @@ class Articles extends CI_Controller
 
     public function add_article($success = 0)
     {
-        if ($this->ua->check_login() == 'admin') {
+        $user_type = $this->ua->check_login();
+        if ($user_type == 'admin' OR $user_type == 'cad') {
             $view_data = array(
                 'user' => $this->USER_OBJ,
                 'position' => $this->USER_OBJ->user_type,
             );
             $view_data['success'] = $success;
-            $this->load->view('admin/admin_add_article', $view_data);
+            if ($user_type == 'admin') {
+                $this->load->view('admin/admin_add_article', $view_data);
+            }
+            if ($user_type == 'cad') {
+                $this->load->view('cad/cad_add_article', $view_data);
+
+            }
         } else {
             $this->load->view('401');
         }
@@ -33,14 +40,24 @@ class Articles extends CI_Controller
 
     public function create_article()
     {
-        if ($this->ua->check_login() == 'admin') {
+        $user_type = $this->ua->check_login();
+
+        if ($user_type == 'admin' OR $user_type == 'cad') {
             $data = array(
                 'title' => $this->input->post('title'),
                 'body' => $this->input->post('body'),
             );
+            if ($user_type == 'cad') {
+                $data['published'] = 0;
+            }
             $article_id = $this->article->add($data);
             if ($article_id > 0) {
-                redirect('/articles/manage_articles/1');
+                if ($user_type == 'admin') {
+                    redirect('/articles/manage_articles/1');
+                }
+                if ($user_type == 'cad') {
+                    redirect('/articles/add_article');
+                }
             } else {
                 redirect('/articles/add_article/2');
             }

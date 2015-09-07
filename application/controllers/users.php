@@ -74,6 +74,9 @@ class users extends CI_Controller
             case 'cad':
                 $this->cad_dashboard($this->USER_OBJ);
                 break;
+            case 'student':
+                $this->view_student($this->USER_OBJ->id);
+                break;
         }
 
     }
@@ -98,7 +101,7 @@ class users extends CI_Controller
             'user' => $user_obj,
             'position' => $this->USER_OBJ->user_type,
             'inbox_count' => $this->message->get_inbox_count($user_obj->id),
-            'pending_transaction_count' => $this->fund->pending_transaction_count(),
+            'pending_transaction_count' => $this->fund->transaction_count(0, null),
             'published_article_count' => $this->article->published_article_count(),
             'registration_request_count' => $this->user->registration_request_count(),
             'funds' => $this->report->get_fund_detailed($start, $end),
@@ -121,6 +124,7 @@ class users extends CI_Controller
         $this->load->model('fund');
         $this->load->model('article');
         $this->load->model('report');
+        $this->load->model('test');
 
 
         $this->load->helper('date');
@@ -128,13 +132,16 @@ class users extends CI_Controller
         $start = mdate('%Y-%m', time()) . '-01';
         $end = mdate('%Y-%m', time()) . '-30';
 
+        $student = $this->user->get_student_from_donor($user_obj->id);
+
         $dashboard_data = array(
             'user' => $user_obj,
             'position' => $this->USER_OBJ->user_type,
             'inbox_count' => $this->message->get_inbox_count($user_obj->id),
-            'pending_transaction_count' => $this->fund->pending_transaction_count(),
-            'published_article_count' => $this->article->published_article_count(),
-            'registration_request_count' => $this->user->registration_request_count(),
+            'student' => $student,
+            'accepted_transaction_count' => $this->fund->transaction_count(1, null, $user_obj->id),
+            'transferred_transaction_count' => $this->fund->transaction_count(1, 1, $user_obj->id),
+            'student_test_count' => $this->test->stc_count($student->id),
             'sum_all' => $this->report->get_fund_sum($start, $end, $this->USER_OBJ->id),
             'sum_accepted' => $this->report->get_fund_sum($start, $end, $this->USER_OBJ->id, true),
             'sum_transferred' => $this->report->get_fund_sum($start, $end, $this->USER_OBJ->id, true, true),
@@ -151,6 +158,7 @@ class users extends CI_Controller
     {
         $this->load->model('message');
         $this->load->model('fund');
+        $this->load->model('test');
         $this->load->model('article');
         $this->load->model('report');
 
@@ -163,7 +171,8 @@ class users extends CI_Controller
             'user' => $user_obj,
             'position' => $this->USER_OBJ->user_type,
             'inbox_count' => $this->message->get_inbox_count($user_obj->id),
-            'pending_transaction_count' => $this->fund->pending_transaction_count(),
+            'test_count' => $this->test->count(),
+            'pending_transaction_count' => $this->fund->transaction_count(1, 0),
             'published_article_count' => $this->article->published_article_count(),
             'registration_request_count' => $this->user->registration_request_count(),
             'funds' => $this->report->get_fund_detailed($start, $end),
@@ -405,6 +414,14 @@ class users extends CI_Controller
                 );
                 $this->user->update_user($id, $data, 'donor');
             }
+            if ($user_type == 'student') {
+                $data = array(
+                    'address_1' => $this->input->post('address_1'),
+                    'address_2' => $this->input->post('address_2'),
+                    'city' => $this->input->post('city')
+                );
+                $this->user->update_user($id, $data, 'student');
+            }
 
             if (isset($_FILES['profile_picture'])) {
                 $config['upload_path'] = './profile_pictures/';
@@ -460,6 +477,9 @@ class users extends CI_Controller
             case 'cad':
                 $this->cad_profile($success);
                 break;
+            case 'student':
+                $this->student_profile($success);
+                break;
             default:
                 $this->load->view('500');
         }
@@ -511,9 +531,26 @@ class users extends CI_Controller
 
     }
 
+    /**
+     * profile update page of Student
+     * @param int $success
+     */
+    private function student_profile($success = 0)
+    {
+        $view_data = array(
+            'user' => $this->USER_OBJ,
+            'position' => $this->USER_OBJ->user_type,
+            'student' => $this->user->get_student($this->USER_OBJ->id),
+            'success' => $success
+        );
+        $this->load->view('student/student_update_profile', $view_data);
+
+    }
+
     public function student_details()
     {
-        if ($this->ua->check_login() == 'donor') {
+        $user_type = $this->ua->check_login();
+        if ($user_type == 'donor') {
 
             $student = $this->user->get_student_from_donor($this->USER_OBJ->id);
 
@@ -526,7 +563,9 @@ class users extends CI_Controller
                     'subjects' => $this->user->get_student_overall_marks_subjects($student->id),
                 );
 
+
                 $this->load->view('donor/donor_student_profile', $view_data);
+
             } else {
                 //no students
                 $this->load->view('500');
@@ -552,7 +591,9 @@ class users extends CI_Controller
 
     public function view_student($id)
     {
-        if ($this->ua->check_login() == 'cad') {
+        $user_type = $this->ua->check_login();
+
+        if ($user_type == 'cad' OR $user_type == 'student') {
 
             $student = $this->user->get_student($id);
             $this->load->model('school');
@@ -567,8 +608,12 @@ class users extends CI_Controller
                     'classes' => $this->school->get_classes(),
                     'schools' => $this->school->get_schools(),
                 );
+                if ($user_type == 'cad') {
+                    $this->load->view('cad/cad_student_profile', $view_data);
+                } elseif ($user_type == 'student') {
+                    $this->load->view('student/student_profile', $view_data);
 
-                $this->load->view('cad/cad_student_profile', $view_data);
+                }
             } else {
                 //no students
                 $this->load->view('500');

@@ -74,21 +74,21 @@ $db['default']['stricton'] = FALSE;
 */
 
 //Heroku testing Environment
-$db['heroku']['hostname'] = 'us-cdbr-iron-east-02.cleardb.net';
-$db['heroku']['username'] = 'ba3c63fdc5533f';
-$db['heroku']['password'] = 'a24da439';
-$db['heroku']['database'] = 'heroku_859a8699216795c';
-$db['heroku']['dbdriver'] = 'mysqli';
-$db['heroku']['dbprefix'] = 'cad_';
-$db['heroku']['pconnect'] = TRUE;
-$db['heroku']['db_debug'] = TRUE;
-$db['heroku']['cache_on'] = FALSE;
-$db['heroku']['cachedir'] = '';
-$db['heroku']['char_set'] = 'utf8';
-$db['heroku']['dbcollat'] = 'utf8_general_ci';
-$db['heroku']['swap_pre'] = '';
-$db['heroku']['autoinit'] = TRUE;
-$db['heroku']['stricton'] = FALSE;
+$db['imcd']['hostname'] = 'localhost';
+$db['imcd']['username'] = 'imcdsorg_cad';
+$db['imcd']['password'] = 'Getmeinside123';
+$db['imcd']['database'] = 'imcdsorg_cad';
+$db['imcd']['dbdriver'] = 'mysql';
+$db['imcd']['dbprefix'] = 'cad_';
+$db['imcd']['pconnect'] = TRUE;
+$db['imcd']['db_debug'] = TRUE;
+$db['imcd']['cache_on'] = FALSE;
+$db['imcd']['cachedir'] = '';
+$db['imcd']['char_set'] = 'utf8';
+$db['imcd']['dbcollat'] = 'utf8_general_ci';
+$db['imcd']['swap_pre'] = '';
+$db['imcd']['autoinit'] = TRUE;
+$db['imcd']['stricton'] = FALSE;
 
 //Localhost testing Environment
 $db['local']['hostname'] = '127.0.0.1:3306';

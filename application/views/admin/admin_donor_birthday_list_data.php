@@ -73,10 +73,7 @@
     </div>
     <!-- /table-responsive -->
 
-    <div class="well m-t">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium aperiam assumenda ex
-        harum numquam omnis optio quis! A aliquam, architecto eos ipsam nam nisi nostrum quidem, quo
-        ut veniam veritatis.
-    </div>
+    <?php $this->load->view('partial/report_footer');?>
+
     <div class="pull-right">Created at: 13-02-2015 02:42 PM</div>
 </div>
