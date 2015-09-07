@@ -35,7 +35,7 @@ class API extends CI_Controller
             //Login Success
             $user_obj = $this->user->get_user($user_info['id']);
             $this->session->set_userdata('user', $user_obj);
-            $view_data = array_merge($view_data, array('success' => true, 'id' => intval($user_obj->id)));
+            $view_data = array_merge($view_data, array('success' => true, 'id' => intval($user_obj->id), 'name' => $user_obj->first_name . " " . $user_obj->last_name));
 
         } else {
             //Login Fail
@@ -55,7 +55,7 @@ class API extends CI_Controller
         $description = $this->input->post('description');
         $transaction_no = $this->input->post('transaction_no');
 
-        $data = array('amount' => $amount, 'donor' => $donor, 'description' => $description,'transaction_no'=>$transaction_no);
+        $data = array('amount' => $amount, 'donor' => $donor, 'description' => $description, 'transaction_no' => $transaction_no);
         $this->load->model('fund');
         $this->fund->add($data);
         $view_data = array('amount' => $amount);
