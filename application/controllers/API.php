@@ -31,7 +31,7 @@ class API extends CI_Controller
         if ($user_info == null) {
             //user DNE
             $view_data = array_merge($view_data, array('success' => false, 'message' => 'Username does not exists'));
-        } elseif ($password == $user_info['password']) {
+        } elseif (sha1($password) == $user_info['password']) {
             //Login Success
             $user_obj = $this->user->get_user($user_info['id']);
             $this->session->set_userdata('user', $user_obj);
