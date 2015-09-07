@@ -53,8 +53,9 @@ class API extends CI_Controller
         $amount = $this->input->post('amount');
         $donor = $this->input->post('donor');
         $description = $this->input->post('description');
+        $transaction_no = $this->input->post('transaction_no');
 
-        $data = array('amount' => $amount, 'donor' => $donor, 'description' => $description);
+        $data = array('amount' => $amount, 'donor' => $donor, 'description' => $description,'transaction_no'=>$transaction_no);
         $this->load->model('fund');
         $this->fund->add($data);
         $view_data = array('amount' => $amount);
