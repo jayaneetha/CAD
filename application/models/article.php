@@ -39,6 +39,14 @@ class article extends CI_Model {
         $this->db->where('id',$id);
         return $this->db->get()->result()[0];
     }
+
+    public function get()
+    {
+        $this->db->from('article');
+        $this->db->where('published',1);
+        $this->db->order_by('timestamp','DESC');
+        return $this->db->get()->result();
+    }
 }
 
 /* End of file article.php */
