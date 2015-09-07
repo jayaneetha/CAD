@@ -57,7 +57,6 @@ class API extends CI_Controller
 
         $data = array('amount' => $amount, 'donor' => $donor, 'description' => $description, 'transaction_no' => $transaction_no);
         $this->load->model('fund');
-        $this->fund->add($data);
         $view_data = array('amount' => $amount);
         if ($this->fund->add($data) > 0) {
             $view_data['success'] = true;
