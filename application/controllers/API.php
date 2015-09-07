@@ -35,7 +35,7 @@ class API extends CI_Controller
             //Login Success
             $user_obj = $this->user->get_user($user_info['id']);
             $this->session->set_userdata('user', $user_obj);
-            $view_data = array_merge($view_data, array('success' => true));
+            $view_data = array_merge($view_data, array('success' => true, 'id' => $user_obj->id));
 
         } else {
             //Login Fail
