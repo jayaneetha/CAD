@@ -47,6 +47,25 @@ class API extends CI_Controller
 
         $this->load->view('json', array('data' => $view_data));
     }
+
+    public function add_fund()
+    {
+        $amount = $this->input->post('amount');
+        $donor = $this->input->post('donor');
+        $description = $this->input->post('description');
+
+        $data = array('amount' => $amount, 'donor' => $donor, 'description' => $description);
+        $this->load->model('fund');
+        $this->fund->add($data);
+        $view_data = array('amount' => $amount);
+        if ($this->fund->add($data) > 0) {
+            $view_data['success'] = true;
+        } else {
+            $view_data['success'] = false;
+        }
+        $this->load->view('json', array('data' => $view_data));
+
+    }
 }
 
 /* End of file API.php */
