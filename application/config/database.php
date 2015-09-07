@@ -45,7 +45,7 @@
 | the active record class
 */
 
-$active_group = 'local';
+$active_group = 'azure';
 $active_record = TRUE;
 //mysql://ba3c63fdc5533f:a24da439@us-cdbr-iron-east-02.cleardb.net/heroku_859a8699216795c?reconnect=true
 
@@ -107,12 +107,12 @@ $db['local']['swap_pre'] = '';
 $db['local']['autoinit'] = TRUE;
 $db['local']['stricton'] = FALSE;
 
-
+//Database=IMCDDBMySQLDatabase;Data Source=ap-cdbr-azure-southeast-a.cloudapp.net;User Id=bd18de3af977d7;Password=bf62da20
 //Azure
 $db['azure']['hostname'] = 'ap-cdbr-azure-southeast-a.cloudapp.net';
-$db['azure']['username'] = 'b55ce886d2a5d9';
-$db['azure']['password'] = '936525a9';
-$db['azure']['database'] = 'imcdcadAA1Xi9Bh3';
+$db['azure']['username'] = 'bd18de3af977d7';
+$db['azure']['password'] = 'bf62da20';
+$db['azure']['database'] = 'IMCDDBMySQLDatabase';
 $db['azure']['dbdriver'] = 'mysql';
 $db['azure']['dbprefix'] = 'cad_';
 $db['azure']['pconnect'] = TRUE;
