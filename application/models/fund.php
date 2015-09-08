@@ -159,6 +159,13 @@ class Fund extends CI_Model
         return $this->db->affected_rows();
     }
 
+    public function get_funds($donor)
+    {
+        $this->db->from('funds');
+        $this->db->where('donor',$donor);
+        return $this->db->get()->result();
+    }
+
 }
 
 /* End of file fund.php */
