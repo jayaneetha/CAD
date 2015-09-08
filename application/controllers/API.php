@@ -67,12 +67,12 @@ class API extends CI_Controller
 
     }
 
-    public function get_funds()
+    public function get_funds($donor)
     {
-        $donor = $this->input->post('donor');
+        //$donor = $this->input->post('donor');
         $this->load->model('fund');
         $funds = $this->fund->get_funds($donor);
-        $this->load->view('json', array('data' => $funds));
+        $this->load->view('API_show_funds', array('data' => $funds));
     }
 }
 
