@@ -37,8 +37,13 @@
                 </ul>
             </li>
             <li>
-                <a href="/index.php/users/students"><i class="fa fa-user"></i> <span
-                        class="nav-label">Student</span></a>
+                <a href="#"><i class="fa fa-user"></i> <span
+                        class="nav-label">Student</span><span
+                        class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li><a href="/index.php/users/add_student">Add Student</a></li>
+                    <li><a href="/index.php/users/students">View Students</a></li>
+                </ul>
             </li>
             <li>
                 <a href="#"><i class="fa fa-dollar"></i> <span class="nav-label">Funds </span><span

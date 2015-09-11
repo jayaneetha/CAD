@@ -216,6 +216,8 @@ class users extends CI_Controller
             );
 
             $id = $this->user->register_CAD_user($user_data);
+            $cad = array('id' => $id, 'position' => 'Team Member');
+            $this->user->add($cad, 'cadteam');
             if ($id != 0) {
                 $email_body = $this->load->view('email_templates/add_user', array(
                     'receiver_name' => $user_data['first_name'] . " " . $user_data['last_name'],
@@ -636,6 +638,70 @@ class users extends CI_Controller
         $this->user->update_user($id, $data, 'student');
 
         redirect('/users/view_student/' . $id);
+    }
+
+    public function register($type)
+    {
+        $user = array(
+            'first_name' => $this->input->post('first_name'),
+            'last_name' => $this->input->post('last_name'),
+            'email' => $this->input->post('email'),
+            'contact_no' => $this->input->post('contact_no'),
+            'username' => $this->input->post('email'),
+            'user_type' => $type,
+        );
+        if (isset($_POST['password'])) {
+            if ($_POST['password'] == $_POST['confirm_password']) {
+                $user['password'] = sha1($this->input->post('password'));
+            }
+        } else {
+            $user['password'] = sha1('password');
+        }
+        $user_id = $this->user->add($user);
+        if ($user_id > 0) {
+            if ($type == 'donor') {
+                $donor = array(
+                    'address_1' => $this->input->post('address_1'),
+                    'address_2' => $this->input->post('address_2'),
+                    'city' => $this->input->post('city'),
+                    'country' => $this->input->post('country'),
+                    'id' => $user_id,
+                );
+                $this->user->add($donor, 'donor');
+                $this->load->view('donor_registration_success');
+            }
+            if ($type == 'student') {
+                $student = array(
+                    'id' => $user_id,
+                    'address_1' => $this->input->post('address_1'),
+                    'address_2' => $this->input->post('address_2'),
+                    'city' => $this->input->post('city'),
+                    'school_id' => $this->input->post('school_id'),
+                    'class_id' => $this->input->post('class_id'),
+                    'assigned_teacher' => $this->input->post('assigned_teacher'),
+                    'teacher_contact' => $this->input->post('teacher_contact'),
+                );
+                $this->user->add($student, 'student');
+                redirect('/users/add_student');
+            }
+        }
+    }
+
+    public function add_student()
+    {
+        $this->load->model('school');
+        $this->load->model('school');
+        if ($this->ua->check_login() == 'cad') {
+            $view_data = array(
+                'user' => $this->USER_OBJ,
+                'position' => $this->USER_OBJ->user_type,
+                'schools' => $this->school->get_schools(),
+                'classes' => $this->school->get_classes(),
+            );
+            $this->load->view('cad/cad_add_student', $view_data);
+        } else {
+            $this->load->view('401');
+        }
     }
 
 }

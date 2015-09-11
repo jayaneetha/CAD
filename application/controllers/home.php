@@ -17,9 +17,9 @@ class Home extends CI_Controller
         $this->load->view('landing', $view_data);
     }
 
-    public function register()
+    public function register($type = 'donor')
     {
-        $this->load->view('register');
+        $this->load->view('register_donor');
     }
 
 

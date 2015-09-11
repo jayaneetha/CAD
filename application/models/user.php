@@ -248,9 +248,10 @@ class user extends CI_Model
         return $this->db->get()->result();
     }
 
-    public function get_student_list($id = null)
+    public function add($data, $table = 'user')
     {
-
+        $this->db->insert($table, $data);
+        return $this->db->insert_id();
     }
 
 }

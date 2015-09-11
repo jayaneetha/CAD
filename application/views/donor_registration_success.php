@@ -49,12 +49,16 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li class="active"><a class="page-scroll" href="<?=base_url('/index.php/home') ?>#page-top">Home</a></li>
-                    <li class=""><a class="page-scroll" href="<?=base_url('/index.php/home') ?>#features">How</a></li>
-                    <li class=""><a class="page-scroll" href="<?=base_url('/index.php/home') ?>#team">Team</a></li>
-                    <li class=""><a class="page-scroll" href="<?=base_url('/index.php/home') ?>#timeline">Timeline</a></li>
-                    <li class=""><a class="page-scroll" href="<?=base_url('/index.php/home') ?>#from_us">What our hearts say</a></li>
-                    <li class=""><a class="page-scroll" href="<?=base_url('/index.php/home') ?>#contact">Contact</a></li>
+                    <li class="active"><a class="page-scroll"
+                                          href="<?= base_url('/index.php/home') ?>#page-top">Home</a></li>
+                    <li class=""><a class="page-scroll" href="<?= base_url('/index.php/home') ?>#features">How</a></li>
+                    <li class=""><a class="page-scroll" href="<?= base_url('/index.php/home') ?>#team">Team</a></li>
+                    <li class=""><a class="page-scroll" href="<?= base_url('/index.php/home') ?>#timeline">Timeline</a>
+                    </li>
+                    <li class=""><a class="page-scroll" href="<?= base_url('/index.php/home') ?>#from_us">What our
+                            hearts say</a></li>
+                    <li class=""><a class="page-scroll" href="<?= base_url('/index.php/home') ?>#contact">Contact</a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -106,80 +110,11 @@
             <h1>Become a part of the worthy course</h1>
 
             <div class="col-md-8">
-                <form action="<?= base_url('/index.php/user/register') ?>" method="post">
-                    <h3>Basic Details</h3>
 
-                    <div class="form-group">
-                        <label class="col-sm-3 m-xs control-label">First Name</label>
+                <h2>Thank You</h2>
 
-                        <div class="col-sm-8 m-xs">
-                            <input name="first_name" required="" type="text" class="form-control"
-                                   placeholder="First Name" value="">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 m-xs control-label">Last Name</label>
-
-                        <div class="col-sm-8 m-xs">
-                            <input name="last_name" required="" type="text" class="form-control"
-                                   placeholder="Last Name" value="">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 m-xs control-label">E-Mail Address</label>
-
-                        <div class="col-sm-8 m-xs">
-                            <input name="email" required="" type="text" class="form-control"
-                                   placeholder="E-Mail Address" value="">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 m-xs control-label">Contact No.</label>
-
-                        <div class="col-sm-8 m-xs">
-                            <input name="contact_no" required="" type="text" class="form-control"
-                                   placeholder="Contact No."
-                                   value="">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 m-xs control-label">Address</label>
-
-                        <div class="col-sm-8 m-xs">
-                            <input name="address_1" required="" type="text" class="form-control"
-                                   placeholder="Address Line 1"
-                                   value="">
-                            <input name="address_2" required="" type="text" class="form-control"
-                                   placeholder="Address Line 2"
-                                   value="">
-                            <input name="city" required="" type="text" class="form-control"
-                                   placeholder="City"
-                                   value="">
-                            <input name="country" required="" type="text" class="form-control"
-                                   placeholder="Country"
-                                   value="">
-
-
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 m-xs control-label">Password</label>
-
-                        <div class="col-sm-8 m-xs">
-                            <input name="password" type="password" class="form-control"
-                                   placeholder="Password">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 m-xs control-label">Confirm Password</label>
-
-                        <div class="col-sm-8 m-xs">
-                            <input name="confirm_password" type="password" class="form-control"
-                                   placeholder="Confirm Password">
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary pull-right btn-sm m-sm">Register</button>
-                </form>
+                <h3>Your information reached us. We will be finding you a benificiary student soon and get back to you
+                    within short time.</h3>
             </div>
         </div>
     </div>
@@ -199,6 +134,8 @@
 <script src="/assets/js/slimScroll.js"></script>
 
 <script src="/assets/js/landing.js"></script>
+
+<script src="/assets/js/plugins/validate/jquery.validate.min.js"></script>
 
 
 <script>
