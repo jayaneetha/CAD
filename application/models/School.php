@@ -45,6 +45,7 @@ class School extends CI_Model
     {
         $this->db->from('class');
         $this->db->where('deleted', 0);
+        $this->db->order_by('class_name','ASC');
         return $this->db->get()->result();
     }
 
@@ -71,6 +72,7 @@ class School extends CI_Model
     {
         $this->db->from('subjects');
         $this->db->where('deleted', 0);
+        $this->db->order_by('subject_name','ASC');
         return $this->db->get()->result();
     }
 

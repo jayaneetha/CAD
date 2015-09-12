@@ -73,7 +73,7 @@
         <tbody>
         <tr>
             <td><strong>Total Accepted :</strong></td>
-            <td><?= get_sum($funds_all) ?></td>
+            <td><?= get_sum($funds_accepted) ?></td>
         </tr>
         <tr>
             <td><strong>Total Transferred :</strong></td>

@@ -284,13 +284,23 @@ class users extends CI_Controller
     public function accept_reject_request($id, $type)
     {
         $this->ua->check_login();
+        $user = $this->user->get_user($id);
         switch ($type) {
             case 'accept':
-                $this->user->accept_reject_request($id, $this->user->get_user($id)->user_type);
+                $this->user->accept_reject_request($id, $user->user_type);
+                $body = $this->load->view('email_templates/accept_user', array(
+                    'receiver_name' => $user->first_name . " " . $user->last_name,
+                    'email' => $user->email),
+                    true);
+                $this->send_email($user->email, 'IMCD CAD Portal', $body);
                 redirect('/users/registration_request/1');
                 break;
             case 'reject':
-                $this->user->accept_reject_request($id, $this->user->get_user($id)->user_type, false);
+                $this->user->accept_reject_request($id, $user->user_type, false);
+                $body = $this->load->view('email_templates/reject_user', array(
+                    'receiver_name' => $user->first_name . " " . $user->last_name),
+                    true);
+                $this->send_email($user->email, 'IMCD CAD Portal', $body);
                 redirect('/users/registration_request/1');
                 break;
             default:
